@@ -1,0 +1,46 @@
+prototype(Carbon.Image:Lightbox) < prototype(Neos.Fusion:Tag) {
+	@if {
+		isLive = ${node.context.live}
+		hasAsset = ${this.asset ? true : false}
+	}
+
+	config = ${Configuration.setting('Carbon.Image.lightbox')}
+	asset = false
+
+	tagName = 'a'
+	content = ${value}
+
+	width = ${this.config.width}
+	height = ${this.config.height}
+	lightboxWidth = ${this.width && this.config.allowCropping ? this.width : this.asset.width}
+	lightboxHeight = ${this.height && this.config.allowCropping ? this.height : this.asset.height}
+
+	@context {
+		config = ${this.config}
+		width = ${this.width}
+		height = ${this.height}
+		size = ${this.lightboxWidth + 'x' + this.lightboxHeight}
+		asset = ${this.asset}
+	}
+
+	prototype(ImageUri) {
+		asset = ${asset}
+		width = ${height}
+		height = ${height}
+		maximumWidth = ${this.width ? false : config.maximumWidth}
+		maximumHeight = ${this.height ? false : config.maximumHeight}
+		allowCropping = ${config.allowCropping}
+		allowUpScaling = ${config.allowUpScaling}
+		preset = ${config.preset ? config.preset : null}
+	}
+
+	attributes {
+		target = ${config.target}
+		class = Neos.Fusion:RawArray {
+			lightbox = ${config.class}
+		}
+		data-size = ${size}
+		data-title = ${caption}
+		href = ImageUri
+	}
+}

@@ -1,0 +1,51 @@
+prototype(Carbon.Image:ImageUri) < prototype(ImageUri) {
+	@if.hasAsset = ${asset ? true : false}
+
+	multiplicator = ${multiplicator ? multiplicator : 1}
+	addResolution = ${addResolution ? true : false}
+	asset = ${asset}
+
+	@context.multiplicator = ${this.multiplicator}
+
+	// If a prest is given, we need to read it, because otherwise we will not able to calculate if there are enough pixel to render a "retina" image
+	// It also make shure, that if someone forget to create the second preset (with suffix ".2x"), that it still render the second picture
+	values = Neos.Fusion:Case {
+		hasPreset {
+			condition = ${preset ? true : false}
+			renderer = Neos.Fusion:RawArray {
+				@context.presets = ${Configuration.setting('Neos.Media.thumbnailPresets')[preset]}
+				maximumWidth = ${presets.maximumWidth ? presets.maximumWidth * multiplicator : null}
+				maximumHeight = ${presets.maximumHeight ? presets.maximumHeight * multiplicator : null}
+				width = ${presets.width ? presets.width * multiplicator : null}
+				height = ${presets.height ? presets.height * multiplicator : null}
+				allowCropping = ${presets.allowCropping}
+				allowUpScaling = ${presets.allowUpScaling}
+			}
+		}
+		default {
+			condition = true
+			renderer = Neos.Fusion:RawArray {
+				maximumWidth = ${width ? null : maximumWidth * multiplicator}
+				maximumHeight = ${height ? null : maximumHeight * multiplicator}
+				width = ${width ? width * multiplicator : null}
+				height = ${height ? height * multiplicator : null}
+				allowCropping = ${allowCropping}
+				allowUpScaling = ${allowUpScaling}
+			}
+		}
+	}
+
+	maximumWidth = ${this.values.maximumWidth}
+	maximumHeight = ${this.values.maximumHeight}
+	width = ${this.values.width}
+	height = ${this.values.height}
+	allowCropping = ${this.values.allowCropping}
+	allowUpScaling = ${this.values.allowUpScaling}
+
+	@process.addResolution = ${this.addResolution ? (this.multiplicator > 1 ? ',' : '') + value + ' ' + this.multiplicator + 'x' : value}
+
+	@if {
+		hasPresetIfNeeded = ${preset ? Configuration.setting('Neos.Media.thumbnailPresets')[preset] ? true : false : true}
+		hasEnoughPixel = ${asset.width > ((this.values.width ? this.values.width : this.values.maximumWidth) * (this.multiplicator - 1))}
+	}
+}

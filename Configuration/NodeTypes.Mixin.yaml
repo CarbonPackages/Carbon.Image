@@ -1,0 +1,105 @@
+'Carbon.Image:Meta':
+  abstract: true
+  ui:
+    inspector:
+      groups:
+        imagemeta:
+          label: i18n
+          icon: icon-ticket
+          position: 100
+
+'Carbon.Image:Title':
+  abstract: true
+  superTypes:
+    'Carbon.Image:Meta': true
+  properties:
+    title:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: false
+        inspector:
+          group: imagemeta
+          position: 100
+      validation:
+        'Neos.Neos/Validation/LabelValidator': true
+
+'Carbon.Image:AlternativeText':
+  abstract: true
+  superTypes:
+    'Carbon.Image:Meta': true
+  properties:
+    alternativeText:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: false
+        inspector:
+          group: imagemeta
+          position: 200
+      validation:
+        'Neos.Neos/Validation/LabelValidator': true
+
+'Carbon.Image:Lightbox':
+  abstract: true
+  superTypes:
+    'Carbon.Image:Meta': true
+  properties:
+    lightbox:
+      type: boolean
+      defaultValue: false
+      ui:
+        label: i18n
+        inspector:
+          group: imagemeta
+          position: 300
+
+'Carbon.Image:Caption':
+  abstract: true
+  superTypes:
+    'Carbon.Image:Meta': true
+  properties:
+    caption:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: false
+        inspector:
+          group: imagemeta
+          position: 400
+
+'Carbon.Image:Link':
+  abstract: true
+  superTypes:
+    'Carbon.Link:Link': true
+    'Carbon.Image:Meta': true
+  properties:
+    link:
+      ui:
+        inspector:
+          position: 500
+          group: imagemeta
+
+'Carbon.Image:BackendLabel':
+  abstract: true
+  label: '${String.cropAtWord(String.trim(q(node).property(''title'') || q(node).property(''text'') || q(node).property(''alternativeText'') || q(node).property(''caption'') || I18n.translate(node.nodeType.label) || node.nodeType.name), 100, ''…'')}'
+
+'Carbon.Image:Image':
+  ui:
+    label: i18n
+    icon: icon-picture
+    inspector:
+      groups:
+        image:
+          label: i18n
+          icon: icon-picture
+          position: 200
+  properties:
+    image:
+      type: Neos\Media\Domain\Model\ImageInterface
+      ui:
+        label: i18n
+        reloadIfChanged: true
+        inspector:
+          group: image
+          position: 100

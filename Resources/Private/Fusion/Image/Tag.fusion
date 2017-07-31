@@ -1,0 +1,74 @@
+prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Tag) {
+	asset = false
+
+	@if.hasImageOrBackend = ${node.context.inBackend || this.asset ? true : false}
+
+	lightboxAsset = ${this.asset}
+	alternativeText = false
+	title = false
+	link = false
+	lightbox = false
+	caption = false
+
+	preset = false
+	maximumWidth = ${Configuration.setting('Carbon.Image.maximumWidth')}
+	maximumHeight = ${Configuration.setting('Carbon.Image.maximumHeight')}
+	width = ${Configuration.setting('Carbon.Image.width')}
+	height = ${Configuration.setting('Carbon.Image.height')}
+	allowCropping = ${Configuration.setting('Carbon.Image.allowCropping')}
+	allowUpScaling = ${Configuration.setting('Carbon.Image.allowUpScaling')}
+
+	srcset = ${Configuration.setting('Carbon.Image.srcset')}
+	dummyImageBackground = ${Configuration.setting('Carbon.Image.dummyImageBackground')}
+
+	@context {
+		asset = ${this.asset}
+		lightboxAsset = ${this.lightboxAsset}
+		alternativeText = ${this.alternativeText}
+		title = ${this.title}
+		preset = ${this.preset}
+		link = ${this.link}
+		lightbox = ${this.lightbox}
+		caption = ${this.caption}
+		maximumWidth = ${this.maximumWidth}
+		maximumHeight = ${this.maximumHeight}
+		width = ${this.width}
+		height = ${this.height}
+		allowCropping = ${this.allowCropping}
+		allowUpScaling = ${this.allowUpScaling}
+		srcset = ${this.srcset}
+		dummyImageBackground = ${this.dummyImageBackground}
+	}
+
+	@process {
+		addLink = Carbon.Image:Link
+		addLightbox = Carbon.Image:Lightbox {
+			asset = ${lightboxAsset}
+			@if {
+				hasNoLink = ${link ? false : true}
+				hasLightbox = ${lightbox ? true : false}
+			}
+		}
+	}
+
+	tagName = 'img'
+	attributes {
+		src = Neos.Fusion:Case {
+			hasImage {
+				condition = ${asset ? true : false}
+				renderer = Carbon.Image:ImageUri
+			}
+			inBackend {
+				condition = true
+				renderer = Neos.Fusion:ResourceUri {
+					path = 'resource://Carbon.Image/Public/dummy-image.svg'
+				}
+			}
+		}
+		srcset = Carbon.Image:Srcset
+		class = ${asset ? false : 'neos-handle'}
+		style = ${asset ? false : 'max-height:200px;width:auto;display:inline-block;height:100%;' + (dummyImageBackground ? 'background-color:' + dummyImageBackground : '')}
+		alt = ${alternativeText ? alternativeText : false}
+		title = ${asset ? (title ? title : false) : Translation.translate('chooseImage', null, [], 'NodeTypes/Image', 'Carbon.Image')}
+	}
+}

@@ -1,0 +1,34 @@
+Carbon:
+  Image:
+    inlineSVG: false
+    allowCropping: false
+    allowUpScaling: false
+    width: false
+    height: false
+    maximumWidth: 2550
+    maximumHeight: 2560
+    dummyImageBackground: '#f0ad4e'
+    srcset:
+      - 1
+      - 2
+    lightbox:
+      class: lightbox
+      target: _blank
+      allowCropping: false
+      allowUpScaling: false
+      width: false
+      height: false
+      maximumWidth: 2560
+      maximumHeight: 2560
+      preset: false
+
+Neos:
+  Neos:
+    userInterface:
+      translation:
+        autoInclude:
+          Carbon.Image:
+            - 'NodeTypes/*'
+    fusion:
+      autoInclude:
+        Carbon.Image: true

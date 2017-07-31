@@ -1,0 +1,37 @@
+{
+    "name": "carbon/image",
+    "type": "neos-plugin",
+    "license": "MIT",
+    "description": "Image helper for Neos CMS",
+    "keywords": [
+        "flow",
+        "neos",
+        "fusion",
+        "helper",
+        "image"
+    ],
+    "authors": [
+        {
+            "name": "Jon Uhlmann",
+            "email": "me@jonnitto.ch",
+            "homepage": "https://twitter.com/jonnitto",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "neos/neos": "~3.0 || dev-master",
+        "carbon/link": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Carbon\\Image\\": "Classes"
+        }
+    },
+    "extra": {
+        "marketplace-account": "me@jonnitto.ch",
+        "installer-name": "Carbon.Image",
+        "neos": {
+            "package-key": "Carbon.Image"
+        }
+    }
+}
