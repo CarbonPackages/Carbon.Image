@@ -43,10 +43,9 @@ prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Tag) {
     dummyImageBackground = ${this.dummyImageBackground}
   }
 
-
   hasValidLink = Carbon.Link:Valid
 
-  tagName = ${this.hasValidLink || this.lightbox ? 'a' : this.defaultTagName}
+  tagName = ${node.context.live && (this.hasValidLink || this.lightbox) ? 'a' : this.defaultTagName}
 
   attributes = Carbon.Image:Background.Attributes
 }
