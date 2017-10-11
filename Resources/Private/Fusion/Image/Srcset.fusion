@@ -1,16 +1,16 @@
 prototype(Carbon.Image:Srcset) < prototype(Neos.Fusion:Collection) {
-	@if {
-		isLive = ${node.context.live}
-		hasSrcset = ${srcset && Type.isArray(srcset) ? true : false}
-		hasAsset = ${asset ? true : false}
-	}
-	prototype(Carbon.Image:ImageUri) {
-		addResolution = true
-	}
-	collection = ${srcset}
-	itemName = 'multiplicator'
-	itemRenderer = Carbon.Image:ImageUri {
-		@if.isNumeric = ${Type.isNumeric(multiplicator)}
-		multiplicator = ${multiplicator}
-	}
+  @if {
+    isLive = ${node.context.live}
+    hasSrcset = ${srcset && Type.isArray(srcset) ? true : false}
+    hasAsset = ${asset ? true : false}
+  }
+  prototype(Carbon.Image:ImageUri) {
+    addResolution = true
+  }
+  collection = ${srcset}
+  itemName = 'multiplicator'
+  itemRenderer = Carbon.Image:ImageUri {
+    @if.isNumeric = ${Type.isNumeric(multiplicator)}
+    multiplicator = ${multiplicator}
+  }
 }

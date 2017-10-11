@@ -1,12 +1,14 @@
 prototype(Carbon.Image:Link) < prototype(Neos.Fusion:Tag) {
-	@if {
-		isLive = ${node.context.live}
-		hasLink = ${link ? true : false}
-	}
-	tagName = 'a'
-	content = ${value}
+  @if {
+    isLive = ${node.context.live}
+    hasLink = ${link ? true : false}
+    isValid = Carbon.Link:Valid
+  }
+  tagName = 'a'
+  content = ${value}
 
-	attributes = Carbon.Link:Attributes {
-		link = ${link}
-	}
+  attributes = Carbon.Link:Attributes {
+    link = ${link}
+    additionalClass = ${additionalClass}
+  }
 }

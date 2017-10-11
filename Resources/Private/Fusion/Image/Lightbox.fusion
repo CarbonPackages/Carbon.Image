@@ -1,46 +1,90 @@
 prototype(Carbon.Image:Lightbox) < prototype(Neos.Fusion:Tag) {
-	@if {
-		isLive = ${node.context.live}
-		hasAsset = ${this.asset ? true : false}
-	}
+  @if {
+    isLive = ${node.context.live}
+    hasAsset = ${this.asset ? true : false}
+  }
 
-	config = ${Configuration.setting('Carbon.Image.lightbox')}
-	asset = false
+  config = ${Configuration.setting('Carbon.Image.lightbox')}
+  asset = false
 
-	tagName = 'a'
-	content = ${value}
+  tagName = 'a'
+  content = ${value}
 
-	width = ${this.config.width}
-	height = ${this.config.height}
-	lightboxWidth = ${this.width && this.config.allowCropping ? this.width : this.asset.width}
-	lightboxHeight = ${this.height && this.config.allowCropping ? this.height : this.asset.height}
+  width = ${this.config.width}
+  height = ${this.config.height}
+  lightboxWidth = ${this.width && this.config.allowCropping ? this.width : this.asset.width}
+  lightboxHeight = ${this.height && this.config.allowCropping ? this.height : this.asset.height}
+  preset = null
+  additionalClass = ${additionalClass}
+  caption = ${caption}
 
-	@context {
-		config = ${this.config}
-		width = ${this.width}
-		height = ${this.height}
-		size = ${this.lightboxWidth + 'x' + this.lightboxHeight}
-		asset = ${this.asset}
-	}
+  @context {
+    config = ${this.config}
+    asset = ${this.asset}
+    width = ${this.width}
+    height = ${this.height}
+    lightboxWidth = ${this.lightboxWidth}
+    lightboxHeight = ${this.lightboxHeight}
+    caption = ${this.caption}
+    preset = ${this.preset}
+    additionalClass = ${this.additionalClass}
+  }
 
-	prototype(ImageUri) {
-		asset = ${asset}
-		width = ${height}
-		height = ${height}
-		maximumWidth = ${this.width ? false : config.maximumWidth}
-		maximumHeight = ${this.height ? false : config.maximumHeight}
-		allowCropping = ${config.allowCropping}
-		allowUpScaling = ${config.allowUpScaling}
-		preset = ${config.preset ? config.preset : null}
-	}
+  attributes = Carbon.Image:Lightbox.Attributes {
+    config = ${config}
+    asset = ${asset}
+    width = ${width}
+    height = ${height}
+    lightboxWidth = ${lightboxWidth}
+    lightboxHeight = ${lightboxHeight}
+    caption = ${caption}
+    preset = ${preset}
+    additionalClass = ${additionalClass}
+  }
+}
 
-	attributes {
-		target = ${config.target}
-		class = Neos.Fusion:RawArray {
-			lightbox = ${config.class}
-		}
-		data-size = ${size}
-		data-title = ${caption}
-		href = ImageUri
-	}
+prototype(Carbon.Image:Lightbox.Attributes) < prototype(Neos.Fusion:Attributes) {
+  @if {
+    isLive = ${node.context.live}
+    hasAsset = ${this.asset ? true : false}
+  }
+
+  config = ${Configuration.setting('Carbon.Image.lightbox')}
+  asset = ${asset}
+  width = ${this.config.width}
+  height = ${this.config.height}
+  lightboxWidth = ${this.width && this.config.allowCropping ? this.width : this.asset.width}
+  lightboxHeight = ${this.height && this.config.allowCropping ? this.height : this.asset.height}
+  preset = ${this.config.preset ? this.config.preset : null}
+  caption = ${caption}
+  additionalClass = ${additionalClass}
+
+  @ignoreProperties = ${['config', 'asset', 'width', 'height', 'lightboxWidth', 'lightboxHeight', 'preset', 'caption', 'additionalClass']}
+
+  @context {
+    config = ${this.config}
+    width = ${this.width}
+    height = ${this.height}
+    asset = ${this.asset}
+    preset = ${this.preset}
+    additionalClass = ${this.additionalClass}
+  }
+
+  target = ${this.config.target}
+  class = Neos.Fusion:RawArray {
+    lightbox = ${config.class}
+    additionalClass = ${additionalClass}
+  }
+  data-size = ${this.lightboxWidth + 'x' + this.lightboxHeight}
+  data-title = ${this.caption}
+  href = ImageUri {
+    asset = ${asset}
+    width = ${height}
+    height = ${height}
+    maximumWidth = ${this.width ? false : config.maximumWidth}
+    maximumHeight = ${this.height ? false : config.maximumHeight}
+    allowCropping = ${config.allowCropping}
+    allowUpScaling = ${config.allowUpScaling}
+    preset = ${preset}
+  }
 }
