@@ -72,7 +72,8 @@ prototype(Carbon.Image:Background.Attributes) < prototype(Neos.Fusion:Case) {
       }
       @process.addCSS = ${'background-image:-webkit-image-set(' + value + ');'}
     }
-    noAsset = ${asset && !dummyImageBackground ? 'background-color:' + dummyImageBackground + ';' : false}
+    backgroundColor = ${!asset && dummyImageBackground ? 'background-color:' + dummyImageBackground + ';' : false}
+    backgroundSize = ${!asset ? 'background-size:contain;' : false}
 
     @process {
       convertToString = ${Type.isArray(value) ? Array.join(value, ' ') : String.toString(value)}
