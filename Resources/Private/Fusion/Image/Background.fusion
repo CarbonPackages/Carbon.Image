@@ -7,6 +7,7 @@ prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Tag) {
   link = false
   lightbox = false
   caption = false
+  ratio = null
   defaultTagName = 'div'
   additionalClass = null
   additionalClass.@process {
@@ -32,6 +33,7 @@ prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Tag) {
     link = ${this.link}
     lightbox = ${this.lightbox}
     caption = ${this.caption}
+    ratio = ${this.ratio}
     maximumWidth = ${this.maximumWidth}
     maximumHeight = ${this.maximumHeight}
     width = ${this.width}
@@ -48,6 +50,10 @@ prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Tag) {
   tagName = ${node.context.live && (this.hasValidLink || this.lightbox) ? 'a' : this.defaultTagName}
 
   attributes = Carbon.Image:Background.Attributes
+
+  content = Carbon.Image:Spacer {
+      ratio = ${ratio}
+  }
 }
 
 prototype(Carbon.Image:Background.Attributes) < prototype(Neos.Fusion:Case) {
