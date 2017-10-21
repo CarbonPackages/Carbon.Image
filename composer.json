@@ -3,13 +3,7 @@
     "type": "neos-plugin",
     "license": "MIT",
     "description": "Image helper for Neos CMS",
-    "keywords": [
-        "flow",
-        "neos",
-        "fusion",
-        "helper",
-        "image"
-    ],
+    "keywords": ["flow", "neos", "fusion", "helper", "image"],
     "authors": [
         {
             "name": "Jon Uhlmann",
@@ -26,6 +20,9 @@
         "psr-4": {
             "Carbon\\Image\\": "Classes"
         }
+    },
+    "archive": {
+        "exclude": [".editorconfig", ".github", ".gitattributes", "CODE_OF_CONDUCT.md"]
     },
     "extra": {
         "marketplace-account": "me@jonnitto.ch",
