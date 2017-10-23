@@ -20,8 +20,9 @@ prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Tag) {
   maximumHeight = ${Configuration.setting('Carbon.Image.maximumHeight')}
   width = ${Configuration.setting('Carbon.Image.width')}
   height = ${Configuration.setting('Carbon.Image.height')}
-  allowCropping = ${Configuration.setting('Carbon.Image.allowCropping')}
-  allowUpScaling = ${Configuration.setting('Carbon.Image.allowUpScaling')}
+  fixedSize = false
+  allowCropping = ${this.fixedSize ? true : Configuration.setting('Carbon.Image.allowCropping')}
+  allowUpScaling = ${this.fixedSize ? true : Configuration.setting('Carbon.Image.allowUpScaling')}
 
   srcset = ${Configuration.setting('Carbon.Image.srcset')}
   dummyImageBackground = ${Configuration.setting('Carbon.Image.dummyImageBackground')}
