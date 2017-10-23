@@ -1,6 +1,4 @@
 prototype(Carbon.Image:ImageUri) < prototype(ImageUri) {
-  @if.hasAsset = ${asset ? true : false}
-
   multiplicator = ${multiplicator ? multiplicator : 1}
   addResolution = ${addResolution ? true : false}
   asset = ${asset}
@@ -45,7 +43,8 @@ prototype(Carbon.Image:ImageUri) < prototype(ImageUri) {
   @process.addResolution = ${this.addResolution ? (this.multiplicator > 1 ? ',' : '') + value + ' ' + this.multiplicator + 'x' : value}
 
   @if {
+    hasAsset = ${asset ? true : false}
     hasPresetIfNeeded = ${preset ? Configuration.setting('Neos.Media.thumbnailPresets')[preset] ? true : false : true}
-    hasEnoughPixel = ${asset.width > ((this.values.width ? this.values.width : this.values.maximumWidth) * (this.multiplicator - 1))}
+    hasEnoughPixel = ${asset.width ? asset.width > ((this.values.width ? this.values.width : this.values.maximumWidth) * (this.multiplicator - 1)) : true}
   }
 }
