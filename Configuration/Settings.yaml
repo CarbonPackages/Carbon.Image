@@ -7,12 +7,13 @@ Carbon:
     height: false
     maximumWidth: 2550
     maximumHeight: 2560
+    dummyDefaultRatio: 1.3333333333 # 4:3
     dummyImageStyle:
-      max-height: 200px
       width: 100%
-      display: inline-block
-      height: 100%
-      background: '#f0ad4e'
+      height: 0
+      background: 'currentColor no-repeat 50%'
+      background-size: contain
+      color: '#f0ad4e'
     srcset:
       - 1
       - 2

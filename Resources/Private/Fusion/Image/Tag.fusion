@@ -1,7 +1,8 @@
 prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Tag) {
   asset = false
 
-  @if.hasImageOrBackend = ${node.context.inBackend || this.asset ? true : false}
+  renderInBackend = ${node.context.inBackend}
+  @if.hasImageOrBackend = ${this.renderInBackend || this.asset ? true : false}
 
   lightboxAsset = ${this.asset}
   alternativeText = false
@@ -26,7 +27,13 @@ prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Tag) {
 
   srcset = ${Configuration.setting('Carbon.Image.srcset')}
 
-  dummyImageBackground = null
+  presetForDummy = ${this.preset ? Configuration.setting('Neos.Media.thumbnailPresets')[this.preset] : null}
+  dummyWidth = ${this.presetForDummy ? this.presetForDummy.width || null : this.width}
+  dummyHeight = ${this.presetForDummy ? this.presetForDummy.width || null : this.height}
+  dummyRatio = ${this.dummyWidth && this.dummyHeight ? this.dummyWidth / this.dummyHeight : null}
+  dummyPadding = ${(100 / (this.dummyRatio || Configuration.setting('Carbon.Image.dummyDefaultRatio'))) + '%'}
+
+  dummyImageColor = null
   dummyImageStyle = null
 
   dummyImageDefaultStyle = ${Configuration.setting('Carbon.Image.dummyImageStyle')}
@@ -49,9 +56,10 @@ prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Tag) {
     allowCropping = ${this.allowCropping}
     allowUpScaling = ${this.allowUpScaling}
     srcset = ${this.srcset}
-    dummyImageArray = ${this.dummyImageArray}
-    dummyImageBackground = ${this.dummyImageBackground}
     additionalClass = ${this.additionalClass}
+    dummyImageArray = ${this.dummyImageArray}
+    dummyImageColor = ${this.dummyImageColor}
+    dummyPadding = ${this.dummyPadding}
   }
 
   @process {
@@ -67,31 +75,26 @@ prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Tag) {
 
   tagName = 'img'
   attributes {
-    src = Neos.Fusion:Case {
-      hasImage {
-        condition = ${asset ? true : false}
-        renderer = Carbon.Image:ImageUri
-      }
-      inBackend {
-        condition = true
-        renderer = Neos.Fusion:ResourceUri {
-          path = 'resource://Carbon.Image/Public/dummy-image.svg'
-        }
-      }
-    }
+    src = Carbon.Image:ImageUri
     srcset = Carbon.Image:Srcset
     class = null
     class.@process.addHandle = ${String.trim(value + (asset ? null : ' neos-handle'))}
     style = null
-    style.@process.dummyImageArray = Neos.Fusion:Array {
-        @if.hasNoAsset = ${!asset && Type.isArray(dummyImageArray)}
+    style.@process.dummyImage = Neos.Fusion:Array {
+        @if.hasNoAsset = ${!asset}
         collection = Neos.Fusion:Collection {
             collection = ${dummyImageArray}
-            itemRenderer = ${itemKey + ':' + (itemKey == 'background' && dummyImageBackground ? dummyImageBackground : item) + ';'}
+            itemRenderer = ${itemKey + ':' + (itemKey == 'color' && dummyImageColor ? dummyImageColor : item) + ';'}
+        }
+        colorFallback = ${Type.isArray(dummyImageArray) && dummyImageArray['color'] && !dummyImageColor ? null : 'color:' + dummyImageColor + ';' }
+        padding = ${'padding-top:' + dummyPadding + ';'}
+        image = Neos.Fusion:ResourceUri {
+            path = 'resource://Carbon.Image/Public/dummy-image.svg'
+            @process.addCSS = ${'background-image:url(' + value + ');'}
         }
         value = ${value}
     }
-    alt = ${alternativeText ? alternativeText : false}
-    title = ${asset ? (title ? title : false) : Translation.translate('chooseImage', null, [], 'NodeTypes/Image', 'Carbon.Image')}
+    alt = ${alternativeText ? alternativeText : null}
+    title = ${asset ? (title ? title : null) : null}
   }
 }

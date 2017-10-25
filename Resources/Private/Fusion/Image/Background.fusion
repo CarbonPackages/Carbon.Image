@@ -1,7 +1,8 @@
 prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Tag) {
   asset = false
 
-  @if.hasImageOrBackend = ${node.context.inBackend || this.asset ? true : false}
+  renderInBackend = ${node.context.inBackend}
+  @if.hasImageOrBackend = ${this.renderInBackend || this.asset ? true : false}
 
   lightboxAsset = ${this.asset}
   link = false
@@ -25,7 +26,7 @@ prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Tag) {
   allowUpScaling = ${this.fixedSize ? true : Configuration.setting('Carbon.Image.allowUpScaling')}
 
   srcset = ${Configuration.setting('Carbon.Image.srcset')}
-  dummyImageBackground = ${Configuration.setting('Carbon.Image.dummyImageStyle.background')}
+  dummyImageColor = ${Configuration.setting('Carbon.Image.dummyImageStyle.color')}
 
   @context {
     asset = ${this.asset}
@@ -43,7 +44,7 @@ prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Tag) {
     allowUpScaling = ${this.allowUpScaling}
     srcset = ${this.srcset}
     additionalClass = ${this.additionalClass}
-    dummyImageBackground = ${this.dummyImageBackground}
+    dummyImageColor = ${this.dummyImageColor}
   }
 
   hasValidLink = Carbon.Link:Valid
@@ -61,9 +62,9 @@ prototype(Carbon.Image:Background.Attributes) < prototype(Neos.Fusion:Case) {
   @context.style = Neos.Fusion:RawArray {
     noAsset = Neos.Fusion:Array {
         @if.noAsset = ${!asset}
-        general = 'background:no-repeat 50%;'
+        general = 'background:currentColor no-repeat 50%;'
         size = 'background-size:contain;'
-        color = ${dummyImageBackground ? 'background-color:' + dummyImageBackground + ';' : false}
+        color = ${dummyImageColor ? 'color:' + dummyImageColor + ';' : false}
     }
 
     src = Neos.Fusion:Case {
