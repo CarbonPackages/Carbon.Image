@@ -25,7 +25,13 @@ prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Tag) {
   allowUpScaling = ${this.fixedSize ? true : Configuration.setting('Carbon.Image.allowUpScaling')}
 
   srcset = ${Configuration.setting('Carbon.Image.srcset')}
-  dummyImageBackground = ${Configuration.setting('Carbon.Image.dummyImageBackground')}
+
+  dummyImageBackground = null
+  dummyImageStyle = null
+
+  dummyImageDefaultStyle = ${Configuration.setting('Carbon.Image.dummyImageStyle')}
+  dummyImageArray = ${Array.concat(this.dummyImageDefaultStyle, this.dummyImageStyle)}
+
 
   @context {
     asset = ${this.asset}
@@ -43,6 +49,7 @@ prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Tag) {
     allowCropping = ${this.allowCropping}
     allowUpScaling = ${this.allowUpScaling}
     srcset = ${this.srcset}
+    dummyImageArray = ${this.dummyImageArray}
     dummyImageBackground = ${this.dummyImageBackground}
     additionalClass = ${this.additionalClass}
   }
@@ -73,9 +80,17 @@ prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Tag) {
       }
     }
     srcset = Carbon.Image:Srcset
-    class = ''
-    class.@process.addHandle = ${String.trim(value + (asset ? '' : ' neos-handle'))}
-    style = ${asset ? false : 'max-height:200px;width:auto;display:inline-block;height:100%;' + (dummyImageBackground ? 'background-color:' + dummyImageBackground : '')}
+    class = null
+    class.@process.addHandle = ${String.trim(value + (asset ? null : ' neos-handle'))}
+    style = null
+    style.@process.dummyImageArray = Neos.Fusion:Array {
+        @if.hasNoAsset = ${!asset && Type.isArray(dummyImageArray)}
+        collection = Neos.Fusion:Collection {
+            collection = ${dummyImageArray}
+            itemRenderer = ${itemKey + ':' + (itemKey == 'background' && dummyImageBackground ? dummyImageBackground : item) + ';'}
+        }
+        value = ${value}
+    }
     alt = ${alternativeText ? alternativeText : false}
     title = ${asset ? (title ? title : false) : Translation.translate('chooseImage', null, [], 'NodeTypes/Image', 'Carbon.Image')}
   }

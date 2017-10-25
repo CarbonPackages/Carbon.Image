@@ -25,7 +25,7 @@ prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Tag) {
   allowUpScaling = ${this.fixedSize ? true : Configuration.setting('Carbon.Image.allowUpScaling')}
 
   srcset = ${Configuration.setting('Carbon.Image.srcset')}
-  dummyImageBackground = ${Configuration.setting('Carbon.Image.dummyImageBackground')}
+  dummyImageBackground = ${Configuration.setting('Carbon.Image.dummyImageStyle.background')}
 
   @context {
     asset = ${this.asset}
@@ -59,6 +59,13 @@ prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Tag) {
 
 prototype(Carbon.Image:Background.Attributes) < prototype(Neos.Fusion:Case) {
   @context.style = Neos.Fusion:RawArray {
+    noAsset = Neos.Fusion:Array {
+        @if.noAsset = ${!asset}
+        general = 'background:no-repeat 50%;'
+        size = 'background-size:contain;'
+        color = ${dummyImageBackground ? 'background-color:' + dummyImageBackground + ';' : false}
+    }
+
     src = Neos.Fusion:Case {
       hasImage {
         condition = ${asset ? true : false}
@@ -78,11 +85,8 @@ prototype(Carbon.Image:Background.Attributes) < prototype(Neos.Fusion:Case) {
       }
       @process.addCSS = ${'background-image:-webkit-image-set(' + value + ');'}
     }
-    backgroundColor = ${!asset && dummyImageBackground ? 'background-color:' + dummyImageBackground + ';' : false}
-    backgroundSize = ${!asset ? 'background-size:contain;' : false}
-
     @process {
-      convertToString = ${Type.isArray(value) ? Array.join(value, ' ') : String.toString(value)}
+      convertToString = ${Type.isArray(value) ? Array.join(value, '') : String.toString(value)}
       trimString = ${String.trim(value)}
     }
   }
