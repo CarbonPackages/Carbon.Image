@@ -34,7 +34,7 @@ prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Tag) {
   dummyPadding = ${(100 / (this.dummyRatio || Configuration.setting('Carbon.Image.dummyDefaultRatio'))) + '%'}
 
   dummyImageColor = null
-  dummyImageStyle = null
+  dummyImageStyle = Neos.Fusion:RawArray
 
   dummyImageDefaultStyle = ${Configuration.setting('Carbon.Image.dummyImageStyle')}
   dummyImageArray = ${Array.concat(this.dummyImageDefaultStyle, this.dummyImageStyle)}
