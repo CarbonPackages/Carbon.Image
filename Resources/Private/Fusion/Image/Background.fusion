@@ -11,11 +11,6 @@ prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Tag) {
   ratio = null
   defaultTagName = 'div'
   additionalClass = null
-  additionalClass.@process {
-    convertToString = ${Type.isArray(value) ? Array.join(value, ' ') : String.toString(value)}
-    hasAsset = ${value + (this.asset ? '' : ' neos-handle')}
-    trimString = ${String.trim(value)}
-  }
   preset = false
   maximumWidth = ${Configuration.setting('Carbon.Image.maximumWidth')}
   maximumHeight = ${Configuration.setting('Carbon.Image.maximumHeight')}
@@ -44,6 +39,11 @@ prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Tag) {
     allowUpScaling = ${this.allowUpScaling}
     srcset = ${this.srcset}
     additionalClass = ${this.additionalClass}
+    additionalClass.@process {
+      convertToString = ${Type.isArray(value) ? Array.join(value, ' ') : String.toString(value)}
+      hasAsset = ${value + (this.asset ? '' : ' neos-handle')}
+      trimString = ${String.trim(value)}
+    }
     dummyImageColor = ${this.dummyImageColor}
   }
 

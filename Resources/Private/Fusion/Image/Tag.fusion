@@ -11,10 +11,8 @@ prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Tag) {
   lightbox = false
   caption = false
   additionalClass = null
-  additionalClass.@process {
-    convertToString = ${Type.isArray(value) ? Array.join(value, ' ') : String.toString(value)}
-    trimString = ${String.trim(value)}
-  }
+  additionalClassLink = ${this.additionalClass}
+  additionalClassLightbox = ${this.additionalClass}
 
   preset = false
   maximumWidth = ${Configuration.setting('Carbon.Image.maximumWidth')}
@@ -57,14 +55,31 @@ prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Tag) {
     allowUpScaling = ${this.allowUpScaling}
     srcset = ${this.srcset}
     additionalClass = ${this.additionalClass}
+    additionalClass.@process {
+      convertToString = ${Type.isArray(value) ? Array.join(value, ' ') : String.toString(value)}
+      trimString = ${String.trim(value)}
+    }
+    additionalClassLink = ${this.additionalClassLink}
+    additionalClassLink.@process {
+      convertToString = ${Type.isArray(value) ? Array.join(value, ' ') : String.toString(value)}
+      trimString = ${String.trim(value)}
+    }
+    additionalClassLightbox = ${this.additionalClassLightbox}
+    additionalClassLightbox.@process {
+      convertToString = ${Type.isArray(value) ? Array.join(value, ' ') : String.toString(value)}
+      trimString = ${String.trim(value)}
+    }
     dummyImageArray = ${this.dummyImageArray}
     dummyImageColor = ${this.dummyImageColor}
     dummyPadding = ${this.dummyPadding}
   }
 
   @process {
-    addLink = Carbon.Image:Link
+    addLink = Carbon.Image:Link {
+      additionalClass = ${additionalClassLink}
+    }
     addLightbox = Carbon.Image:Lightbox {
+      additionalClass = ${additionalClassLightbox}
       asset = ${lightboxAsset}
       @if {
         hasNoLink = ${link ? false : true}
