@@ -6,6 +6,9 @@ prototype(Carbon.Image:Link) < prototype(Neos.Fusion:Tag) {
   }
   tagName = 'a'
   content = ${value}
+  additionalClass = null
+
+  @context.additionalClass = ${this.additionalClass}
 
   attributes = Carbon.Link:Attributes {
     link = ${link}

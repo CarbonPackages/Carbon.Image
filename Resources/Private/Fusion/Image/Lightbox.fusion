@@ -15,7 +15,7 @@ prototype(Carbon.Image:Lightbox) < prototype(Neos.Fusion:Tag) {
   lightboxWidth = ${this.width && this.config.allowCropping ? this.width : this.asset.width}
   lightboxHeight = ${this.height && this.config.allowCropping ? this.height : this.asset.height}
   preset = null
-  additionalClass = ${additionalClass}
+  additionalClass = null
   caption = ${caption}
 
   @context {

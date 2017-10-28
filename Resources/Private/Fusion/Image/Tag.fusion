@@ -29,7 +29,7 @@ prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Tag) {
 
   presetForDummy = ${this.preset ? Configuration.setting('Neos.Media.thumbnailPresets')[this.preset] : null}
   dummyWidth = ${this.presetForDummy ? this.presetForDummy.width || null : this.width}
-  dummyHeight = ${this.presetForDummy ? this.presetForDummy.width || null : this.height}
+  dummyHeight = ${this.presetForDummy ? this.presetForDummy.height || null : this.height}
   dummyRatio = ${this.dummyWidth && this.dummyHeight ? this.dummyWidth / this.dummyHeight : null}
   dummyPadding = ${(100 / (this.dummyRatio || Configuration.setting('Carbon.Image.dummyDefaultRatio'))) + '%'}
 
@@ -78,7 +78,10 @@ prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Tag) {
     src = Carbon.Image:ImageUri
     srcset = Carbon.Image:Srcset
     class = null
-    class.@process.addHandle = ${String.trim(value + (asset ? null : ' neos-handle'))}
+    class.@process {
+        additionalClass = ${String.trim(value + ' ' + additionalClass)}
+        addHandle = ${String.trim(value + (asset ? null : ' neos-handle'))}
+    }
     style = null
     style.@process.dummyImage = Neos.Fusion:Array {
         @if.hasNoAsset = ${!asset}
