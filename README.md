@@ -5,7 +5,7 @@ Carbon.Image Package for Neos CMS
 [![Total Downloads](https://poser.pugx.org/carbon/image/downloads)](https://packagist.org/packages/carbon/image)
 [![License](https://poser.pugx.org/carbon/image/license)](https://packagist.org/packages/carbon/image)
 
-This package provides some fusion helper for images.
+This package provides some fusion helper for images; you have to create the node type for yourself. Here you see an example of an implementation: [Jonnitto.Image](https://github.com/jonnitto/Jonnitto.Image) or [Jonnitto.ImagesInARow](https://github.com/jonnitto/Jonnitto.ImagesInARow)
 
 
 Installation
