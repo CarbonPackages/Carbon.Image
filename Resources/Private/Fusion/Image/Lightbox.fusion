@@ -70,6 +70,7 @@ prototype(Carbon.Image:Lightbox.Attributes) < prototype(Neos.Fusion:Attributes) 
         additionalClass = ${this.additionalClass}
     }
 
+    rel = 'noopener'
     target = ${this.config.target}
     class = Neos.Fusion:RawArray {
         lightbox = ${config.class}
