@@ -3,7 +3,7 @@
     <file original="" product-name="Carbon.Image" source-language="de" datatype="plaintext">
         <body>
             <trans-unit id="groups.imagemeta" xml:space="preserve">
-                <source>Metadaten</source>
+                <source>Bildeigenschaften</source>
             </trans-unit>
         </body>
     </file>
