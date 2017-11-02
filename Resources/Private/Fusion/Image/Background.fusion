@@ -1,114 +1,116 @@
 prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Tag) {
-  asset = false
+    asset = false
 
-  renderInBackend = ${node.context.inBackend}
-  @if.hasImageOrBackend = ${this.renderInBackend || this.asset ? true : false}
+    renderInBackend = ${node.context.inBackend}
+    @if.hasImageOrBackend = ${this.renderInBackend || this.asset ? true : false}
 
-  lightboxAsset = ${this.asset}
-  link = false
-  lightbox = false
-  caption = false
-  ratio = null
-  defaultTagName = 'div'
-  additionalClass = null
-  preset = false
-  maximumWidth = ${Configuration.setting('Carbon.Image.maximumWidth')}
-  maximumHeight = ${Configuration.setting('Carbon.Image.maximumHeight')}
-  width = ${Configuration.setting('Carbon.Image.width')}
-  height = ${Configuration.setting('Carbon.Image.height')}
-  fixedSize = false
-  allowCropping = ${this.fixedSize ? true : Configuration.setting('Carbon.Image.allowCropping')}
-  allowUpScaling = ${this.fixedSize ? true : Configuration.setting('Carbon.Image.allowUpScaling')}
+    lightboxAsset = ${this.asset}
+    link = false
+    lightbox = false
+    caption = false
+    ratio = null
+    defaultTagName = 'div'
+    additionalClass = null
+    preset = false
+    maximumWidth = ${Configuration.setting('Carbon.Image.maximumWidth')}
+    maximumHeight = ${Configuration.setting('Carbon.Image.maximumHeight')}
+    width = ${Configuration.setting('Carbon.Image.width')}
+    height = ${Configuration.setting('Carbon.Image.height')}
+    fixedSize = false
+    allowCropping = ${this.fixedSize ? true : Configuration.setting('Carbon.Image.allowCropping')}
+    allowUpScaling = ${this.fixedSize ? true : Configuration.setting('Carbon.Image.allowUpScaling')}
 
-  srcset = ${Configuration.setting('Carbon.Image.srcset')}
-  dummyImageColor = ${Configuration.setting('Carbon.Image.dummyImageStyle.color')}
+    srcset = ${Configuration.setting('Carbon.Image.srcset')}
+    dummyImageColor = ${Configuration.setting('Carbon.Image.dummyImageStyle.color')}
 
-  @context {
-    asset = ${this.asset}
-    lightboxAsset = ${this.lightboxAsset}
-    preset = ${this.preset}
-    link = ${this.link}
-    lightbox = ${this.lightbox}
-    caption = ${this.caption}
-    ratio = ${this.ratio}
-    maximumWidth = ${this.maximumWidth}
-    maximumHeight = ${this.maximumHeight}
-    width = ${this.width}
-    height = ${this.height}
-    allowCropping = ${this.allowCropping}
-    allowUpScaling = ${this.allowUpScaling}
-    srcset = ${this.srcset}
-    additionalClass = ${this.additionalClass}
-    additionalClass.@process {
-      convertToString = ${Type.isArray(value) ? Array.join(value, ' ') : String.toString(value)}
-      hasAsset = ${value + (this.asset ? '' : ' neos-handle')}
-      trimString = ${String.trim(value)}
+    @context {
+        asset = ${this.asset}
+        lightboxAsset = ${this.lightboxAsset}
+        preset = ${this.preset}
+        link = ${this.link}
+        lightbox = ${this.lightbox}
+        caption = ${this.caption}
+        ratio = ${this.ratio}
+        maximumWidth = ${this.maximumWidth}
+        maximumHeight = ${this.maximumHeight}
+        width = ${this.width}
+        height = ${this.height}
+        allowCropping = ${this.allowCropping}
+        allowUpScaling = ${this.allowUpScaling}
+        srcset = ${this.srcset}
+        additionalClass = ${this.additionalClass}
+        additionalClass.@process {
+            convertToString = ${Type.isArray(value) ? Array.join(value, ' ') : String.toString(value)}
+            hasAsset = ${value + (this.asset ? '' : ' neos-handle')}
+            trimString = ${String.trim(value)}
+            clearIfEmpty = ${value ? value : null}
+        }
+        dummyImageColor = ${this.dummyImageColor}
     }
-    dummyImageColor = ${this.dummyImageColor}
-  }
 
-  hasValidLink = Carbon.Link:Valid
+    hasValidLink = Carbon.Link:Valid
 
-  tagName = ${node.context.live && (this.hasValidLink || this.lightbox) ? 'a' : this.defaultTagName}
+    tagName = ${node.context.live && (this.hasValidLink || this.lightbox) ? 'a' : this.defaultTagName}
 
-  attributes = Carbon.Image:Background.Attributes
+    attributes = Carbon.Image:Background.Attributes
 
-  content = Carbon.Image:Spacer {
-      ratio = ${ratio}
-  }
+    content = Carbon.Image:Spacer {
+        ratio = ${ratio}
+    }
 }
 
 prototype(Carbon.Image:Background.Attributes) < prototype(Neos.Fusion:Case) {
-  @context.style = Neos.Fusion:RawArray {
-    noAsset = Neos.Fusion:Array {
-        @if.noAsset = ${!asset}
-        general = 'background:currentColor no-repeat 50%;'
-        size = 'background-size:contain;'
-        color = ${dummyImageColor ? 'color:' + dummyImageColor + ';' : false}
-    }
-
-    src = Neos.Fusion:Case {
-      hasImage {
-        condition = ${asset ? true : false}
-        renderer = Carbon.Image:ImageUri
-      }
-      inBackend {
-        condition = true
-        renderer = Neos.Fusion:ResourceUri {
-          path = 'resource://Carbon.Image/Public/dummy-image.svg'
+    @context.style = Neos.Fusion:RawArray {
+        noAsset = Neos.Fusion:Array {
+            @if.noAsset = ${!asset}
+            general = 'background:currentColor no-repeat 50%;'
+            size = 'background-size:contain;'
+            color = ${dummyImageColor ? 'color:' + dummyImageColor + ';' : false}
         }
-      }
-      @process.addCSS = ${'background-image:url(' + value + ');'}
-    }
-    srcset = Carbon.Image:Srcset {
-      prototype(Carbon.Image:ImageUri) {
-        @process.addResolution = ${this.addResolution ? (this.multiplicator > 1 ? ',' : '') + 'url(' + value + ') ' + this.multiplicator + 'x' : value}
-      }
-      @process.addCSS = ${'background-image:-webkit-image-set(' + value + ');'}
-    }
-    @process {
-      convertToString = ${Type.isArray(value) ? Array.join(value, '') : String.toString(value)}
-      trimString = ${String.trim(value)}
-    }
-  }
 
-  hasLink {
-    condition = Carbon.Link:Valid
-    renderer = Carbon.Link:Attributes {
-      style = ${style}
+        src = Neos.Fusion:Case {
+            hasImage {
+                condition = ${asset ? true : false}
+                renderer = Carbon.Image:ImageUri
+            }
+            inBackend {
+                condition = true
+                renderer = Neos.Fusion:ResourceUri {
+                    path = 'resource://Carbon.Image/Public/dummy-image.svg'
+                }
+            }
+            @process.addCSS = ${'background-image:url(' + value + ');'}
+        }
+        srcset = Carbon.Image:Srcset {
+            prototype(Carbon.Image:ImageUri) {
+                @process.addResolution = ${this.addResolution ? (this.multiplicator > 1 ? ',' : '') + 'url(' + value + ') ' + this.multiplicator + 'x' : value}
+            }
+            @process.addCSS = ${'background-image:-webkit-image-set(' + value + ');'}
+        }
+        @process {
+            convertToString = ${Type.isArray(value) ? Array.join(value, '') : String.toString(value)}
+            trimString = ${String.trim(value)}
+            clearIfEmpty = ${value ? value : null}
+        }
     }
-  }
-  hasLightbox {
-    condition = ${lightbox && node.context.live}
-    renderer = Carbon.Image:Lightbox.Attributes {
-      style = ${style}
+
+    hasLink {
+        condition = Carbon.Link:Valid
+        renderer = Carbon.Link:Attributes {
+            style = ${style}
+        }
     }
-  }
-  default {
-    condition = true
-    renderer = Neos.Fusion:Attributes {
-      class = ${additionalClass}
-      style = ${style}
+    hasLightbox {
+        condition = ${lightbox && node.context.live}
+        renderer = Carbon.Image:Lightbox.Attributes {
+            style = ${style}
+        }
     }
-  }
+    default {
+        condition = true
+        renderer = Neos.Fusion:Attributes {
+            class = ${additionalClass}
+            style = ${style}
+        }
+    }
 }

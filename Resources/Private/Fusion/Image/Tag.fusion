@@ -1,92 +1,95 @@
 prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Tag) {
-  asset = false
+    asset = false
 
-  renderInBackend = ${node.context.inBackend}
-  @if.hasImageOrBackend = ${this.renderInBackend || this.asset ? true : false}
+    renderInBackend = ${node.context.inBackend}
+    @if.hasImageOrBackend = ${this.renderInBackend || this.asset ? true : false}
 
-  lightboxAsset = ${this.asset}
-  alternativeText = false
-  title = false
-  link = false
-  lightbox = false
-  caption = false
-  additionalClass = null
-  additionalClassLink = ${this.additionalClass}
-  additionalClassLightbox = ${this.additionalClass}
+    lightboxAsset = ${this.asset}
+    alternativeText = false
+    title = false
+    link = false
+    lightbox = false
+    caption = false
+    additionalClass = null
+    additionalClassLink = ${this.additionalClass}
+    additionalClassLightbox = ${this.additionalClass}
 
-  preset = false
-  maximumWidth = ${Configuration.setting('Carbon.Image.maximumWidth')}
-  maximumHeight = ${Configuration.setting('Carbon.Image.maximumHeight')}
-  width = ${Configuration.setting('Carbon.Image.width')}
-  height = ${Configuration.setting('Carbon.Image.height')}
-  fixedSize = false
-  allowCropping = ${this.fixedSize ? true : Configuration.setting('Carbon.Image.allowCropping')}
-  allowUpScaling = ${this.fixedSize ? true : Configuration.setting('Carbon.Image.allowUpScaling')}
+    preset = false
+    maximumWidth = ${Configuration.setting('Carbon.Image.maximumWidth')}
+    maximumHeight = ${Configuration.setting('Carbon.Image.maximumHeight')}
+    width = ${Configuration.setting('Carbon.Image.width')}
+    height = ${Configuration.setting('Carbon.Image.height')}
+    fixedSize = false
+    allowCropping = ${this.fixedSize ? true : Configuration.setting('Carbon.Image.allowCropping')}
+    allowUpScaling = ${this.fixedSize ? true : Configuration.setting('Carbon.Image.allowUpScaling')}
 
-  srcset = ${Configuration.setting('Carbon.Image.srcset')}
+    srcset = ${Configuration.setting('Carbon.Image.srcset')}
 
-  presetForDummy = ${this.preset ? Configuration.setting('Neos.Media.thumbnailPresets')[this.preset] : null}
-  dummyWidth = ${this.presetForDummy ? this.presetForDummy.width || null : this.width}
-  dummyHeight = ${this.presetForDummy ? this.presetForDummy.height || null : this.height}
-  dummyRatio = ${this.dummyWidth && this.dummyHeight ? this.dummyWidth / this.dummyHeight : null}
-  dummyPadding = ${(100 / (this.dummyRatio || Configuration.setting('Carbon.Image.dummyDefaultRatio'))) + '%'}
+    presetForDummy = ${this.preset ? Configuration.setting('Neos.Media.thumbnailPresets')[this.preset] : null}
+    dummyWidth = ${this.presetForDummy ? this.presetForDummy.width || null : this.width}
+    dummyHeight = ${this.presetForDummy ? this.presetForDummy.height || null : this.height}
+    dummyRatio = ${this.dummyWidth && this.dummyHeight ? this.dummyWidth / this.dummyHeight : null}
+    dummyPadding = ${(100 / (this.dummyRatio || Configuration.setting('Carbon.Image.dummyDefaultRatio'))) + '%'}
 
-  dummyImageColor = null
-  dummyImageStyle = Neos.Fusion:RawArray
+    dummyImageColor = null
+    dummyImageStyle = Neos.Fusion:RawArray
 
-  dummyImageDefaultStyle = ${Configuration.setting('Carbon.Image.dummyImageStyle')}
-  dummyImageArray = ${Array.concat(this.dummyImageDefaultStyle, this.dummyImageStyle)}
+    dummyImageDefaultStyle = ${Configuration.setting('Carbon.Image.dummyImageStyle')}
+    dummyImageArray = ${Array.concat(this.dummyImageDefaultStyle, this.dummyImageStyle)}
 
 
-  @context {
-    asset = ${this.asset}
-    lightboxAsset = ${this.lightboxAsset}
-    alternativeText = ${this.alternativeText}
-    title = ${this.title}
-    preset = ${this.preset}
-    link = ${this.link}
-    lightbox = ${this.lightbox}
-    caption = ${this.caption}
-    maximumWidth = ${this.maximumWidth}
-    maximumHeight = ${this.maximumHeight}
-    width = ${this.width}
-    height = ${this.height}
-    allowCropping = ${this.allowCropping}
-    allowUpScaling = ${this.allowUpScaling}
-    srcset = ${this.srcset}
-    additionalClass = ${this.additionalClass}
-    additionalClass.@process {
-      convertToString = ${Type.isArray(value) ? Array.join(value, ' ') : String.toString(value)}
-      trimString = ${String.trim(value)}
+    @context {
+        asset = ${this.asset}
+        lightboxAsset = ${this.lightboxAsset}
+        alternativeText = ${this.alternativeText}
+        title = ${this.title}
+        preset = ${this.preset}
+        link = ${this.link}
+        lightbox = ${this.lightbox}
+        caption = ${this.caption}
+        maximumWidth = ${this.maximumWidth}
+        maximumHeight = ${this.maximumHeight}
+        width = ${this.width}
+        height = ${this.height}
+        allowCropping = ${this.allowCropping}
+        allowUpScaling = ${this.allowUpScaling}
+        srcset = ${this.srcset}
+        additionalClass = ${this.additionalClass}
+        additionalClass.@process {
+            convertToString = ${Type.isArray(value) ? Array.join(value, ' ') : String.toString(value)}
+            trimString = ${String.trim(value)}
+            clearIfEmpty = ${value ? value : null}
+        }
+        additionalClassLink = ${this.additionalClassLink}
+        additionalClassLink.@process {
+            convertToString = ${Type.isArray(value) ? Array.join(value, ' ') : String.toString(value)}
+            trimString = ${String.trim(value)}
+            clearIfEmpty = ${value ? value : null}
+        }
+        additionalClassLightbox = ${this.additionalClassLightbox}
+        additionalClassLightbox.@process {
+            convertToString = ${Type.isArray(value) ? Array.join(value, ' ') : String.toString(value)}
+            trimString = ${String.trim(value)}
+            clearIfEmpty = ${value ? value : null}
+        }
+        dummyImageArray = ${this.dummyImageArray}
+        dummyImageColor = ${this.dummyImageColor}
+        dummyPadding = ${this.dummyPadding}
     }
-    additionalClassLink = ${this.additionalClassLink}
-    additionalClassLink.@process {
-      convertToString = ${Type.isArray(value) ? Array.join(value, ' ') : String.toString(value)}
-      trimString = ${String.trim(value)}
-    }
-    additionalClassLightbox = ${this.additionalClassLightbox}
-    additionalClassLightbox.@process {
-      convertToString = ${Type.isArray(value) ? Array.join(value, ' ') : String.toString(value)}
-      trimString = ${String.trim(value)}
-    }
-    dummyImageArray = ${this.dummyImageArray}
-    dummyImageColor = ${this.dummyImageColor}
-    dummyPadding = ${this.dummyPadding}
-  }
 
-  @process {
-    addLink = Carbon.Image:Link {
-      additionalClass = ${additionalClassLink}
+    @process {
+        addLink = Carbon.Image:Link {
+            additionalClass = ${additionalClassLink}
+        }
+        addLightbox = Carbon.Image:Lightbox {
+            additionalClass = ${additionalClassLightbox}
+            asset = ${lightboxAsset}
+            @if {
+                hasNoLink = ${link ? false : true}
+                hasLightbox = ${lightbox ? true : false}
+            }
+        }
     }
-    addLightbox = Carbon.Image:Lightbox {
-      additionalClass = ${additionalClassLightbox}
-      asset = ${lightboxAsset}
-      @if {
-        hasNoLink = ${link ? false : true}
-        hasLightbox = ${lightbox ? true : false}
-      }
-    }
-  }
 
   tagName = 'img'
   attributes {
