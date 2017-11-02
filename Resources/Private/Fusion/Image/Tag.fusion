@@ -96,21 +96,25 @@ prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Tag) {
     class.@process {
         additionalClass = ${String.trim(value + ' ' + additionalClass)}
         addHandle = ${String.trim(value + (asset ? null : ' neos-handle'))}
+        clearIfEmpty = ${value ? value : null}
     }
     style = null
-    style.@process.dummyImage = Neos.Fusion:Array {
-        @if.hasNoAsset = ${!asset}
-        collection = Neos.Fusion:Collection {
-            collection = ${dummyImageArray}
-            itemRenderer = ${itemKey + ':' + (itemKey == 'color' && dummyImageColor ? dummyImageColor : item) + ';'}
+    style.@process {
+        dummyImage = Neos.Fusion:Array {
+            @if.hasNoAsset = ${!asset}
+            collection = Neos.Fusion:Collection {
+                collection = ${dummyImageArray}
+                itemRenderer = ${itemKey + ':' + (itemKey == 'color' && dummyImageColor ? dummyImageColor : item) + ';'}
+            }
+            colorFallback = ${Type.isArray(dummyImageArray) && dummyImageArray['color'] && !dummyImageColor ? null : 'color:' + dummyImageColor + ';' }
+            padding = ${'padding-top:' + dummyPadding + ';'}
+            image = Neos.Fusion:ResourceUri {
+                path = 'resource://Carbon.Image/Public/dummy-image.svg'
+                @process.addCSS = ${'background-image:url(' + value + ');'}
+            }
+            value = ${value}
         }
-        colorFallback = ${Type.isArray(dummyImageArray) && dummyImageArray['color'] && !dummyImageColor ? null : 'color:' + dummyImageColor + ';' }
-        padding = ${'padding-top:' + dummyPadding + ';'}
-        image = Neos.Fusion:ResourceUri {
-            path = 'resource://Carbon.Image/Public/dummy-image.svg'
-            @process.addCSS = ${'background-image:url(' + value + ');'}
-        }
-        value = ${value}
+        clearIfEmpty = ${value ? value : null}
     }
     alt = ${alternativeText ? alternativeText : null}
     title = ${asset ? (title ? title : null) : null}
