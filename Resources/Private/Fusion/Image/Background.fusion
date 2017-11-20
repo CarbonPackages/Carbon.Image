@@ -8,6 +8,7 @@ prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Tag) {
     link = false
     lightbox = false
     caption = false
+    title = false
     ratio = null
     defaultTagName = 'div'
     additionalClass = null
@@ -30,6 +31,7 @@ prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Tag) {
         link = ${this.link}
         lightbox = ${this.lightbox}
         caption = ${this.caption}
+        title = ${this.title}
         ratio = ${this.ratio}
         maximumWidth = ${this.maximumWidth}
         maximumHeight = ${this.maximumHeight}
@@ -98,12 +100,14 @@ prototype(Carbon.Image:Background.Attributes) < prototype(Neos.Fusion:Case) {
         condition = Carbon.Link:Valid
         renderer = Carbon.Link:Attributes {
             style = ${style}
+            title = ${title}
         }
     }
     hasLightbox {
         condition = ${lightbox && node.context.live}
         renderer = Carbon.Image:Lightbox.Attributes {
             style = ${style}
+            title = ${title}
         }
     }
     default {
@@ -111,6 +115,7 @@ prototype(Carbon.Image:Background.Attributes) < prototype(Neos.Fusion:Case) {
         renderer = Neos.Fusion:Attributes {
             class = ${additionalClass}
             style = ${style}
+            title = ${title}
         }
     }
 }
