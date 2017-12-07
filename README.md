@@ -1,9 +1,14 @@
-Carbon.Image Package for Neos CMS
-=================================
-
 [![Latest Stable Version](https://poser.pugx.org/carbon/image/v/stable)](https://packagist.org/packages/carbon/image)
 [![Total Downloads](https://poser.pugx.org/carbon/image/downloads)](https://packagist.org/packages/carbon/image)
 [![License](https://poser.pugx.org/carbon/image/license)](https://packagist.org/packages/carbon/image)
+[![GitHub forks](https://img.shields.io/github/forks/jonnitto/Carbon.Image.svg?style=social&label=Fork)](https://github.com/jonnitto/Carbon.Image/fork)
+[![GitHub stars](https://img.shields.io/github/stars/jonnitto/Carbon.Image.svg?style=social&label=Stars)](https://github.com/jonnitto/Carbon.Image/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/jonnitto/Carbon.Image.svg?style=social&label=Watch)](https://github.com/jonnitto/Carbon.Image/subscription)
+[![GitHub followers](https://img.shields.io/github/followers/jonnitto.svg?style=social&label=Follow)](https://github.com/jonnitto/followers)
+[![Follow Jon on Twitter](https://img.shields.io/twitter/follow/jonnitto.svg?style=social&label=Follow)](https://twitter.com/jonnitto)
+
+Carbon.Image Package for Neos CMS
+=================================
 
 This package provides some fusion helper for images; you have to create the node type for yourself. Here you see an example of an implementation: [Jonnitto.Image](https://github.com/jonnitto/Jonnitto.Image) or [Jonnitto.ImagesInARow](https://github.com/jonnitto/Jonnitto.ImagesInARow)
 
