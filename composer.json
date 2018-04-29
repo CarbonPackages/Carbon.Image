@@ -13,8 +13,8 @@
         }
     ],
     "require": {
-        "neos/neos": "~3.0 || dev-master",
-        "carbon/link": "*"
+        "neos/neos": "~3.0 || ~4.0",
+        "carbon/link": "^1.0"
     },
     "autoload": {
         "psr-4": {

@@ -78,7 +78,7 @@ prototype(Carbon.Image:Lightbox.Attributes) < prototype(Neos.Fusion:Attributes) 
     }
     data-size = ${this.lightboxWidth + 'x' + this.lightboxHeight}
     data-title = ${this.caption}
-    href = ImageUri {
+    href = Neos.Neos:ImageUri {
         asset = ${asset}
         width = ${height}
         height = ${height}

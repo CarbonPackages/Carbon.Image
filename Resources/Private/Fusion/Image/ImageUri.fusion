@@ -1,4 +1,4 @@
-prototype(Carbon.Image:ImageUri) < prototype(ImageUri) {
+prototype(Carbon.Image:ImageUri) < prototype(Neos.Neos:ImageUri) {
     multiplicator = ${multiplicator ? multiplicator : 1}
     addResolution = ${addResolution ? true : false}
     asset = ${asset}
