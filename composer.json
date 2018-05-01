@@ -1,28 +1,34 @@
 {
     "name": "carbon/image",
-    "type": "neos-plugin",
-    "license": "MIT",
+    "type": "neos-carbon",
     "description": "Image helper for Neos CMS",
-    "keywords": ["flow", "neos", "fusion", "helper", "image"],
+    "license": "MIT",
+    "keywords": ["flow", "neos", "fusion", "helper", "image", "carbon"],
+    "require": {
+        "neos/neos": "~3.0 || ~4.0",
+        "carbon/link": "^1.0"
+    },
     "authors": [
         {
             "name": "Jon Uhlmann",
             "email": "me@jonnitto.ch",
-            "homepage": "https://twitter.com/jonnitto",
+            "homepage": "https://jonnitto.ch",
             "role": "Developer"
         }
     ],
-    "require": {
-        "neos/neos": "~3.0 || ~4.0",
-        "carbon/link": "^1.0"
+    "archive": {
+        "exclude": [
+            ".editorconfig",
+            ".gitattributes",
+            ".github",
+            ".gitignore",
+            "CODE_OF_CONDUCT.md"
+        ]
     },
     "autoload": {
         "psr-4": {
             "Carbon\\Image\\": "Classes"
         }
-    },
-    "archive": {
-        "exclude": [".editorconfig", ".github", ".gitattributes", "CODE_OF_CONDUCT.md"]
     },
     "extra": {
         "marketplace-account": "me@jonnitto.ch",
