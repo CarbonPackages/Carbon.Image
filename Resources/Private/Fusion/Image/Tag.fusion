@@ -93,7 +93,18 @@ prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Tag) {
 
     tagName = 'img'
     attributes {
-        src = Carbon.Image:ImageUri
+        src = Neos.Fusion:Case {
+            hasAsset {
+                condition = ${asset}
+                renderer = Carbon.Image:ImageUri
+            }
+            blank {
+                condition = true
+                renderer = Neos.Fusion:ResourceUri {
+                    path = 'resource://Carbon.Image/Public/blank.svg'
+                }
+            }
+        }
         srcset = Carbon.Image:Srcset
         class = null
         class.@process {
