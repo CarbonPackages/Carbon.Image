@@ -1,0 +1,31 @@
+prototype(Carbon.Image:Internal.GetDimensions) < prototype(Neos.Fusion:Component) {
+    asset = null
+
+    async = null
+    maximumWidth = null
+    maximumHeight = null
+    width = null
+    height = null
+    allowCropping = null
+    allowUpScaling = null
+    preset = null
+
+    renderer = Neos.Fusion:Component {
+        values = afx` 
+            <Carbon.Image:Internal.GetValues {...props} />
+        `
+        // We need the raw thumbnail for the feed to access the file size of the processed image and other details
+        assetObject = ${props.asset ? Carbon.Image.Asset.createThumbnail(props.asset, this.values.width, this.values.maximumWidth, this.values.height, this.values.maximumHeight, this.values.allowCropping, this.values.allowUpScaling, false) : null}
+        asset = ${props.asset}
+
+        renderer = Neos.Fusion:DataStructure {
+            asset = ${props.asset}
+            width = ${props.assetObject.width}
+            height = ${props.assetObject.height}
+            filesize = ${String.toInteger(props.assetObject.resource.fileSize)}
+            combined = ${this.width + 'x' + this.height}
+            @process.return = ${props.assetObject && props.assetObject.width && props.assetObject.height ? value : false}
+        }
+    }
+
+}
