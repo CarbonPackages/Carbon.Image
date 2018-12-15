@@ -17,12 +17,12 @@ prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Component) {
     preset = null
     outputDimensions = ${Configuration.setting('Carbon.Image.outputDimensions')}
 
-    alternativeText = false
-    title = false
-    id = false
-    caption = false
-    lightbox = false
-    link = false
+    alternativeText = null
+    title = null
+    id = null
+    caption = null
+    lightbox = null
+    link = null
 
     style = null
     class = null
