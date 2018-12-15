@@ -16,6 +16,8 @@ prototype(Carbon.Image:Link) < prototype(Neos.Fusion:Component) {
         tagName = 'a'
         content = ${value}
         attributes = Carbon.Link:Attributes {
+            id = ${props.id}
+            style = ${props.style}
             link = ${props.link}
             additionalClass = ${props.class}
         }
