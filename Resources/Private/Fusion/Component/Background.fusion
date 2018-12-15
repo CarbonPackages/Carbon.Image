@@ -18,9 +18,8 @@ prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Component) {
     allowCropping = ${this.fixedSize || Configuration.setting('Carbon.Image.allowCropping')}
     allowUpScaling = ${this.fixedSize || Configuration.setting('Carbon.Image.allowUpScaling')}
     preset = null
-    outputDimensions = ${Configuration.setting('Carbon.Image.outputDimensions')}
 
-    alternativeText = false
+
     title = false
     id = false
     caption = false
@@ -71,6 +70,7 @@ prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Component) {
                         additionalClass = ${props.classLink}
                         style = ${props.style}
                         title = ${props.title}
+                        id = ${props.id}
                     }
                 }
                 hasLightbox {
@@ -82,6 +82,7 @@ prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Component) {
                         config = ${props.configLightbox}
                         style = ${props.style}
                         title = ${props.title}
+                        id = ${props.id}
                     }
                 }
                 default {
@@ -90,6 +91,7 @@ prototype(Carbon.Image:Background) < prototype(Neos.Fusion:Component) {
                         class = ${props.class}
                         style = ${props.style}
                         title = ${props.title}
+                        id = ${props.id}
                     }
                 }
             }
