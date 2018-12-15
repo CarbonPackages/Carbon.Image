@@ -6,7 +6,9 @@ prototype(Carbon.Image:Lightbox) < prototype(Neos.Fusion:Component) {
 
     asset = false
     config = ${Configuration.setting('Carbon.Image.lightbox')}
+    id = null
     class = null
+    style = null
     caption = null
 
     renderer = Neos.Fusion:Tag {

@@ -1,6 +1,7 @@
 prototype(Carbon.Image:Attributes.Lightbox) < prototype(Neos.Fusion:Component) {
     asset = false
     config = ${Configuration.setting('Carbon.Image.lightbox')}
+    id = null
     class = null
     caption = null
     title = null
@@ -21,6 +22,7 @@ prototype(Carbon.Image:Attributes.Lightbox) < prototype(Neos.Fusion:Component) {
                     removeEmpty = ${value ? value : false}
                 }
             }
+            id = ${props.id}
             target = ${props.config.target}
             rel = ${props.config.rel}
             data-title = ${props.caption}
