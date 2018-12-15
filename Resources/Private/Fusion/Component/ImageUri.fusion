@@ -14,8 +14,8 @@ prototype(Carbon.Image:ImageUri) < prototype(Neos.Fusion:Component) {
     allowUpScaling = ${this.fixedSize || Configuration.setting('Carbon.Image.allowUpScaling')}
     preset = null
 
-    // % get replaced with the multiplicator
-    // # get replaced with the image
+    // # gets replaced with the image
+    // % gets replaced with the multiplicator
     resolutionPattern = '# %x'
 
     renderer = Neos.Fusion:Map {
