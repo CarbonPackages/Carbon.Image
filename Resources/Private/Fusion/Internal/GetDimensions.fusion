@@ -16,7 +16,7 @@ prototype(Carbon.Image:Internal.GetDimensions) < prototype(Neos.Fusion:Component
             <Carbon.Image:Internal.GetValues {...props} />
         `
         // We need the raw thumbnail for the feed to access the file size of the processed image and other details
-        assetObject = ${props.asset && !props.async ? Carbon.Image.Asset.createThumbnail(props.asset, this.values.width, this.values.maximumWidth, this.values.height, this.values.maximumHeight, this.values.allowCropping, this.values.allowUpScaling, false) : null}
+        assetObject = ${props.asset && !this.values.async ? Carbon.Image.Asset.createThumbnail(props.asset, this.values.width, this.values.maximumWidth, this.values.height, this.values.maximumHeight, this.values.allowCropping, this.values.allowUpScaling, false) : null}
 
         renderer = Neos.Fusion:Case {
             hasAssetObject {
@@ -26,6 +26,10 @@ prototype(Carbon.Image:Internal.GetDimensions) < prototype(Neos.Fusion:Component
                     width = ${props.assetObject.width}
                     height = ${props.assetObject.height}
                     filesize = ${String.toInteger(props.assetObject.resource.fileSize)}
+                    ratio = ${this.width / this.height}
+                    allowCropping = ${props.values.allowCropping}
+                    allowUpScaling = ${props.values.allowUpScaling}
+                    async = false
                     combined = ${this.width + 'x' + this.height}
                 }
             }
@@ -35,11 +39,12 @@ prototype(Carbon.Image:Internal.GetDimensions) < prototype(Neos.Fusion:Component
                     // We try to get the values anyway
 
                     asset = ${props.asset}
+                    values = ${props.values}
 
-                    ratio = ${props.height && props.width && props.allowCropping ? props.width / props.height : props.asset.width / props.asset.height}
+                    ratio = ${props.values.height && props.values.width && props.values.allowCropping ? props.values.width / props.values.height : props.asset.width / props.asset.height}
 
-                    maxW = ${props.maximumWidth && props.width ? (props.maximumWidth < props.width ? props.maximumWidth : props.width) : props.maximumWidth || props.width}
-                    maxH = ${props.maximumHeight && props.height ? (props.maximumHeight < props.height ? props.maximumHeight : props.height) : props.maximumHeight || props.height}
+                    maxW = ${props.values.maximumWidth && props.values.width ? (props.values.maximumWidth < props.values.width ? props.values.maximumWidth : props.values.width) : props.values.maximumWidth || props.values.width}
+                    maxH = ${props.values.maximumHeight && props.values.height ? (props.values.maximumHeight < props.values.height ? props.values.maximumHeight : props.values.height) : props.values.maximumHeight || props.values.height}
 
                     assetW = ${this.maxW && props.asset.width > this.maxW ? this.maxW : props.asset.width}
                     assetH = ${this.maxH && props.asset.height > this.maxH ? this.maxH : props.asset.height}
@@ -53,6 +58,10 @@ prototype(Carbon.Image:Internal.GetDimensions) < prototype(Neos.Fusion:Component
                         asset = ${props.asset}
                         width = ${Math.round(props.width)}
                         height = ${Math.round(props.height)}
+                        ratio = ${props.ratio}
+                        allowCropping = ${props.values.allowCropping}
+                        allowUpScaling = ${props.values.allowUpScaling}
+                        async = ${props.values.async}
                         combined = ${this.width + 'x' + this.height}
                     }
                 }
