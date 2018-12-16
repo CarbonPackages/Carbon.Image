@@ -6,8 +6,6 @@ Carbon:
     inlineSVG: false
     allowCropping: false
     allowUpScaling: false
-    width: false
-    height: false
     maximumWidth: 2560
     maximumHeight: 2560
     dummy:

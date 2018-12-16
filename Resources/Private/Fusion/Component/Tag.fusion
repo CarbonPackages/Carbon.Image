@@ -9,8 +9,8 @@ prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Component) {
     async = ${Configuration.setting('Carbon.Image.async')}
     maximumWidth = ${Configuration.setting('Carbon.Image.maximumWidth')}
     maximumHeight = ${Configuration.setting('Carbon.Image.maximumHeight')}
-    width = ${Configuration.setting('Carbon.Image.width')}
-    height = ${Configuration.setting('Carbon.Image.height')}
+    width = null
+    height = null
     fixedSize = false
     allowCropping = ${this.fixedSize || Configuration.setting('Carbon.Image.allowCropping')}
     allowUpScaling = ${this.fixedSize || Configuration.setting('Carbon.Image.allowUpScaling')}
