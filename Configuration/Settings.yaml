@@ -1,6 +1,5 @@
 Carbon:
   Image:
-    loader: '<i class="loader" aria-hidden="true"></i>'
     outputDimensions: true
     async: false
     inlineSVG: false
@@ -34,6 +33,23 @@ Carbon:
       maximumWidth: 2560
       maximumHeight: 2560
       preset: false
+    responsive:
+      loader: '<i class="loader" aria-hidden="true"></i>'
+      placeholderWidth: 96
+      maximumScreenDensity: 2
+      sizesPresets:
+        - 96
+        - 160
+        - 320
+        - 480
+        - 640
+        - 960
+        - 1024
+        - 1440
+        - 1920
+        - 2560
+        - 3840
+        - 5120
 
 Neos:
   Neos:
