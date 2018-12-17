@@ -3,7 +3,14 @@
     "type": "neos-carbon",
     "description": "Image helper for Neos CMS",
     "license": "MIT",
-    "keywords": ["flow", "neos", "fusion", "helper", "image", "carbon"],
+    "keywords": [
+        "flow",
+        "neos",
+        "fusion",
+        "helper",
+        "image",
+        "carbon"
+    ],
     "require": {
         "neos/neos": "~3.0 || ~4.0",
         "carbon/link": "^1.0"
@@ -22,6 +29,7 @@
             ".gitattributes",
             ".github",
             ".gitignore",
+            ".prettierrc",
             "CODE_OF_CONDUCT.md"
         ]
     },
