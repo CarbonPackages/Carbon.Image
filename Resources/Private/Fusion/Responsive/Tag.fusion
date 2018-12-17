@@ -2,10 +2,11 @@ prototype(Carbon.Image:Responsive.Tag) < prototype(Carbon.Image:Tag) {
     // Use with https://www.npmjs.com/package/lazysizes
 
     responsive = ${node.context.live}
-    loader = ${Configuration.setting('Carbon.Image.responsive.loader')}
+    loader = ${Configuration.setting('Carbon.Image.responsive.tag.loader')}
     sizes = ${Configuration.setting('Carbon.Image.responsive.sizesPresets')}
     placeholderWidth = ${Configuration.setting('Carbon.Image.responsive.placeholderWidth')}
     maximumScreenDensity = ${Configuration.setting('Carbon.Image.responsive.maximumScreenDensity')}
+    ratio = null
 
     outputDimensions = false
     srcset.@process.responsive = ${this.responsive ? false : value}
@@ -20,6 +21,7 @@ prototype(Carbon.Image:Responsive.Tag) < prototype(Carbon.Image:Tag) {
             attributes {
                 width = null
                 height = null
+                class.@process.addLazyClass = Carbon.Image:Internal.AddLazyLoadClass
                 src.@process.replaceWithPlaceholder = Carbon.Image:ImageUri {
                     @if.render = ${props.responsive && props.asset && props.placeholderWidth}
                     asset = ${props.asset}
@@ -33,7 +35,7 @@ prototype(Carbon.Image:Responsive.Tag) < prototype(Carbon.Image:Tag) {
                 data-srcset = Carbon.Image:Responsive.Srcset {
                     asset = ${props.asset}
                     sizes = ${Carbon.Array.unique(Array.push(props.sizes, this.maximumWidth))}
-                    ratio = ${props.dimensions.ratio}
+                    ratio = ${props.ratio || props.dimensions.ratio}
                     async = ${props.dimensions.async}
                     maximumWidth = ${props.dimensions.width * props.maximumScreenDensity}
                     maximumHeight = ${props.dimensions.height * props.maximumScreenDensity}

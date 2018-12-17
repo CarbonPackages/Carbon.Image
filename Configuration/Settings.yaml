@@ -34,9 +34,13 @@ Carbon:
       maximumHeight: 2560
       preset: false
     responsive:
-      loader: '<i class="loader" aria-hidden="true"></i>'
       placeholderWidth: 96
       maximumScreenDensity: 2
+      class: lazyload
+      background:
+        loader: false
+      tag:
+        loader: '<i class="loader" aria-hidden="true"></i>'
       sizesPresets:
         - 96
         - 160

@@ -2,10 +2,11 @@ prototype(Carbon.Image:Responsive.Background) < prototype(Carbon.Image:Backgroun
     // Use with https://www.npmjs.com/package/lazysizes
 
     responsive = ${node.context.live}
-    loader = ${Configuration.setting('Carbon.Image.responsive.loader')}
+    loader = ${Configuration.setting('Carbon.Image.responsive.background.loader')}
     sizes = ${Configuration.setting('Carbon.Image.responsive.sizesPresets')}
     placeholderWidth = ${Configuration.setting('Carbon.Image.responsive.placeholderWidth')}
     maximumScreenDensity = ${Configuration.setting('Carbon.Image.responsive.maximumScreenDensity')}
+    ratio = null
 
     renderer {
         style.@if.render = ${!props.responsive || !props.asset}
@@ -17,7 +18,7 @@ prototype(Carbon.Image:Responsive.Background) < prototype(Carbon.Image:Backgroun
             `
             asset = ${props.asset}
             sizes = ${Carbon.Array.unique(Array.push(props.sizes, this.maximumWidth))}
-            ratio = ${this.dimensions.ratio}
+            ratio = ${props.ratio || this.dimensions.ratio}
             async = ${this.dimensions.async}
             maximumWidth = ${this.dimensions.width * props.maximumScreenDensity}
             maximumHeight = ${this.dimensions.height * props.maximumScreenDensity}
@@ -31,14 +32,17 @@ prototype(Carbon.Image:Responsive.Background) < prototype(Carbon.Image:Backgroun
                 hasLink.renderer {
                     data-sizes = ${props.responsive && props.asset ? 'auto' : false}
                     data-bgset = ${props.bgset}
+                    class.@process.addLazyClass = Carbon.Image:Internal.AddLazyLoadClass
                 }
                 hasLightbox.renderer {
                     data-sizes = ${props.responsive && props.asset ? 'auto' : false}
                     data-bgset = ${props.bgset}
+                    class.@process.addLazyClass = Carbon.Image:Internal.AddLazyLoadClass
                 }
                 default.renderer {
                     data-sizes = ${props.responsive && props.asset ? 'auto' : false}
                     data-bgset = ${props.bgset}
+                    class.@process.addLazyClass = Carbon.Image:Internal.AddLazyLoadClass
                 }
             }
         }

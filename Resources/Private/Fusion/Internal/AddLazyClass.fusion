@@ -1,0 +1,4 @@
+prototype(Carbon.Image:Internal.AddLazyLoadClass) < prototype(Neos.Fusion:Value) {
+    class = ${Configuration.setting('Carbon.Image.responsive.class')}
+    value = ${Type.isArray(value) ? Array.push(value, this.class) : String.trim(value + ' ' + this.class)}
+}
