@@ -1,14 +1,7 @@
 'Carbon.Image:Image':
   abstract: true
-  ui:
-    label: i18n
-    icon: icon-picture
-    inspector:
-      groups:
-        image:
-          label: i18n
-          icon: icon-picture
-          position: 200
+  superTypes:
+    'Carbon.Image:Group': true
   properties:
     image:
       type: Neos\Media\Domain\Model\ImageInterface
@@ -17,12 +10,12 @@
         reloadIfChanged: true
         inspector:
           group: image
-          position: 100
+          position: 10
 
 'Carbon.Image:Title':
   abstract: true
   superTypes:
-    'Carbon.Image:Meta': true
+    'Carbon.Image:Group': true
   properties:
     title:
       type: string
@@ -30,7 +23,8 @@
         label: i18n
         reloadIfChanged: false
         inspector:
-          group: imagemeta
+          group: image
+          hidden: 'ClientEval:node.properties.image ? false : true'
           position: 100
       validation:
         'Neos.Neos/Validation/LabelValidator': true
@@ -38,7 +32,7 @@
 'Carbon.Image:AlternativeText':
   abstract: true
   superTypes:
-    'Carbon.Image:Meta': true
+    'Carbon.Image:Group': true
   properties:
     alternativeText:
       type: string
@@ -46,7 +40,8 @@
         label: i18n
         reloadIfChanged: false
         inspector:
-          group: imagemeta
+          group: image
+          hidden: 'ClientEval:node.properties.image ? false : true'
           position: 200
       validation:
         'Neos.Neos/Validation/LabelValidator': true
@@ -54,7 +49,7 @@
 'Carbon.Image:Lightbox':
   abstract: true
   superTypes:
-    'Carbon.Image:Meta': true
+    'Carbon.Image:Group': true
   properties:
     lightbox:
       type: boolean
@@ -62,13 +57,14 @@
       ui:
         label: i18n
         inspector:
-          group: imagemeta
+          group: image
+          hidden: 'ClientEval:node.properties.image && !node.properties.link ? false : true'
           position: 300
 
 'Carbon.Image:Caption':
   abstract: true
   superTypes:
-    'Carbon.Image:Meta': true
+    'Carbon.Image:Group': true
   properties:
     caption:
       type: string
@@ -76,31 +72,35 @@
         label: i18n
         reloadIfChanged: false
         inspector:
-          group: imagemeta
+          group: image
+          hidden: 'ClientEval:node.properties.image && node.properties.lightbox && !node.properties.link ? false : true'
           position: 400
 
 'Carbon.Image:Link':
   abstract: true
   superTypes:
     'Carbon.Link:Link': true
-    'Carbon.Image:Meta': true
+    'Carbon.Image:Group': true
   properties:
     link:
       ui:
         inspector:
           position: 500
-          group: imagemeta
+          hidden: 'ClientEval:node.properties.image ? false : true'
+          group: image
 
 'Carbon.Image:BackendLabel':
   abstract: true
   label: '${String.cropAtWord(String.trim(String.stripTags(String.pregReplace(q(node).property(''title'') || q(node).property(''alternativeText'') || q(node).property(''caption'') || q(node).property(''text'') || ((I18n.translate(node.nodeType.label) || node.nodeType.name) + (node.autoCreated ? '' ('' + node.name + '')'' : '''')), ''/<br\W*?\/?>|\x{00a0}|[[^:print:]]|\s+/u'', '' ''))), 100, ''...'')}'
 
-'Carbon.Image:Meta':
+'Carbon.Image:Group':
   abstract: true
   ui:
+    label: i18n
+    icon: icon-picture
     inspector:
       groups:
-        imagemeta:
+        image:
           label: i18n
-          icon: icon-ticket
+          icon: icon-picture
           position: 100
