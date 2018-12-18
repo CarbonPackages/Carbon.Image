@@ -2,6 +2,9 @@
   abstract: true
   superTypes:
     'Carbon.Image:Group': true
+  ui:
+    label: i18n
+    icon: icon-picture
   properties:
     image:
       type: Neos\Media\Domain\Model\ImageInterface
@@ -96,8 +99,6 @@
 'Carbon.Image:Group':
   abstract: true
   ui:
-    label: i18n
-    icon: icon-picture
     inspector:
       groups:
         image:
