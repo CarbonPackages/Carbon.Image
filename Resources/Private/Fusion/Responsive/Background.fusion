@@ -12,7 +12,7 @@ prototype(Carbon.Image:Responsive.Background) < prototype(Carbon.Image:Backgroun
         style.@if.render = ${!props.responsive || !props.asset}
 
         bgset = Carbon.Image:Responsive.Srcset {
-            @if.render = ${props.responsive}
+            @if.render = ${props.responsive && props.asset}
             dimensions = afx`
                 <Carbon.Image:Internal.GetDimensions {...props} />
             `
