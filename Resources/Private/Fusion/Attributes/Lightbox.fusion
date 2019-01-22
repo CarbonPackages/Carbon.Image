@@ -15,8 +15,12 @@ prototype(Carbon.Image:Attributes.Lightbox) < prototype(Neos.Fusion:Component) {
 
         renderer = Neos.Fusion:Attributes {
             class = Neos.Fusion:DataStructure {
-                class = ${props.class}
-                config = ${props.config.class}
+                class = Carbon.Image:Internal.GeneralizeClass {
+                    class = ${props.class}
+                }
+                config = Carbon.Image:Internal.GeneralizeClass {
+                    class = ${props.config.class}
+                }
                 @process {
                     filter = ${Carbon.Array.filter(value)}
                     removeEmpty = ${value ? value : false}
@@ -35,5 +39,3 @@ prototype(Carbon.Image:Attributes.Lightbox) < prototype(Neos.Fusion:Component) {
         }
     }
 }
-
-
