@@ -30,7 +30,20 @@ prototype(Carbon.Image:ImageUri) < prototype(Neos.Fusion:Component) {
         items = ${Type.isArray(props.multiplicator) ? props.multiplicator : [props.multiplicator]}
         itemName = 'multiplicator'
         itemRenderer = Neos.Fusion:Component {
-            @if.hasEnoughPixel = ${props.asset.width ? props.asset.width > ((this.values.width ? this.values.width : this.values.maximumWidth) * (multiplicator - 1)) : true}
+            @if.hasEnoughPixel = Neos.Fusion:Case {
+                hasWidth {
+                    condition = ${(this.values.width || this.values.maximumWidth) && props.asset.width}
+                    renerer = ${props.asset.width > ((this.values.width || this.values.maximumWidth) * (multiplicator - 1))}
+                }
+                hasHeight {
+                    condition = ${(this.values.height || this.values.maximumHeight) && props.asset.height}
+                    renerer = ${props.asset.height > ((this.values.height || this.values.maximumHeight) * (multiplicator - 1))}
+                }
+                default {
+                    condition = true
+                    renderer = true
+                }
+            }
             values = afx`
                 <Carbon.Image:Internal.GetValues {...props} multiplicator={multiplicator} />
             `
