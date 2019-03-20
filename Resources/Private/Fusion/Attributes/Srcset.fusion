@@ -1,5 +1,6 @@
 prototype(Carbon.Image:Attributes.Srcset) < prototype(Neos.Fusion:Component) {
-    @if.render = ${Type.isArray(this.srcset) && Array.length(this.srcset)}
+    @if.render = ${Type.isArray(this.srcset) && Array.length(this.srcset) && this.asset.fileExtension != 'svg'}
+
     srcset = null
 
     // % get replaced with the multiplicator

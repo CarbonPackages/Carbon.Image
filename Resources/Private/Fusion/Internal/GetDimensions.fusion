@@ -34,7 +34,7 @@ prototype(Carbon.Image:Internal.GetDimensions) < prototype(Neos.Fusion:Component
                 }
             }
             hasAsset {
-                condition = ${props.asset}
+                condition = ${props.asset && props.asset.width && props.asset.height}
                 renderer = Neos.Fusion:Component {
                     // We try to get the values anyway
 
