@@ -30,7 +30,7 @@
           hidden: 'ClientEval:node.properties.image ? false : true'
           position: 100
       validation:
-        'Neos.Neos/Validation/LabelValidator': true
+        'Neos.Neos/Validation/LabelValidator': []
 
 'Carbon.Image:AlternativeText':
   abstract: true
@@ -47,7 +47,7 @@
           hidden: 'ClientEval:node.properties.image ? false : true'
           position: 200
       validation:
-        'Neos.Neos/Validation/LabelValidator': true
+        'Neos.Neos/Validation/LabelValidator': []
 
 'Carbon.Image:Lightbox':
   abstract: true
