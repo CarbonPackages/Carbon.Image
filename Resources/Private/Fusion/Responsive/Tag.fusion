@@ -7,6 +7,7 @@ prototype(Carbon.Image:Responsive.Tag) < prototype(Carbon.Image:Tag) {
     placeholderWidth = ${Configuration.setting('Carbon.Image.responsive.placeholderWidth')}
     maximumScreenDensity = ${Configuration.setting('Carbon.Image.responsive.maximumScreenDensity')}
     ratio = null
+    async = true
 
     outputDimensions = false
     srcset.@process.responsive = ${this.responsive ? false : value}

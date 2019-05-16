@@ -91,6 +91,11 @@ class SrcsetImplementation extends AbstractFusionObject
         return $this->fusionValue('quality');
     }
 
+    public function getAsync()
+    {
+        return $this->fusionValue('async');
+    }
+
     /**
      * Returns a processed image path
      *
@@ -106,8 +111,9 @@ class SrcsetImplementation extends AbstractFusionObject
         $allowCropping = $this->getAllowCropping();
         $quality = $this->getQuality();
         $sizes = $this->getSizes();
+        $async = $this->getAsync();
         $request = $this->getRuntime()->getControllerContext()->getRequest();
 
-        return $this->srcsetService->getSrcsetAttribute($asset, $ratio, $maximumWidth, $maximumHeight, $allowCropping, $quality, $sizes, $request);
+        return $this->srcsetService->getSrcsetAttribute($asset, $ratio, $maximumWidth, $maximumHeight, $allowCropping, $async, $quality, $sizes, $request);
     }
 }

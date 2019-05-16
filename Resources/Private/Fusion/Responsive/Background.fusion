@@ -6,6 +6,7 @@ prototype(Carbon.Image:Responsive.Background) < prototype(Carbon.Image:Backgroun
     sizes = ${Configuration.setting('Carbon.Image.responsive.sizesPresets')}
     placeholderWidth = ${Configuration.setting('Carbon.Image.responsive.placeholderWidth')}
     maximumScreenDensity = ${Configuration.setting('Carbon.Image.responsive.maximumScreenDensity')}
+    async = true
 
     renderer {
         style.@if.render = ${!props.responsive || !props.asset}

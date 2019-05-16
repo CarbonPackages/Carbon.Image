@@ -4,12 +4,11 @@ prototype(Carbon.Image:Responsive.Srcset) {
 
     // Use with https://www.npmjs.com/package/lazysizes
 
-    // TODO: inlcude async
-
     asset = null
     sizes = ${Configuration.setting('Carbon.Image.responsive.sizesPresets')}
     ratio = null
     maximumWidth = null
     maximumHeight = null
     allowCropping = false
+    async = true
 }

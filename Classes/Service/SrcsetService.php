@@ -49,7 +49,7 @@ class SrcsetService
      * @return string
      * @throws \Exception
      */
-    public function getSrcsetAttribute($asset, $ratio, $maximumWidth, $maximumHeight, $allowCropping, $quality, array $sizes, $request = null)
+    public function getSrcsetAttribute($asset, $ratio, $maximumWidth, $maximumHeight, $allowCropping, $async, $quality, array $sizes, $request = null)
     {
         if (!is_array($sizes) || !count($sizes) > 0) {
             throw new \Exception('No sizes defined.', 1519837126);
@@ -95,7 +95,7 @@ class SrcsetService
                 }
             }
 
-            $thumbnailConfiguration = new ThumbnailConfiguration($currentWidth, $currentMaximumWidth, $currentHeight, $currentMaximumHeight, $currentAllowCropping, false, false, $quality);
+            $thumbnailConfiguration = new ThumbnailConfiguration($currentWidth, $currentMaximumWidth, $currentHeight, $currentMaximumHeight, $currentAllowCropping, false, $async, $quality);
             $thumbnailData = $this->assetService->getThumbnailUriAndSizeForAsset($asset, $thumbnailConfiguration, $request);
 
             if ($thumbnailData === null) {
