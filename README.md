@@ -59,6 +59,9 @@ TBD
 
 TBD
 
+## Credits
+The `SrcSetService` is taken from [Visol.Neos.ResponsiveImages](https://github.com/visol/Visol.Neos.ResponsiveImages)
+
 ## License
 
 Licensed under MIT, see [LICENSE](LICENSE)
