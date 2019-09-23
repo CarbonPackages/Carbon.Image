@@ -12,7 +12,7 @@
         "carbon"
     ],
     "require": {
-        "neos/neos": "^4.2",
+        "neos/neos": "^4.2 || ^5.0",
         "carbon/link": "^1.0"
     },
     "authors": [
