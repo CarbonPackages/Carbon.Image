@@ -13,7 +13,7 @@
     ],
     "require": {
         "neos/neos": "^4.2 || ^5.0",
-        "carbon/link": "^1.0"
+        "carbon/link": "^1.0 || dev-master"
     },
     "authors": [
         {
