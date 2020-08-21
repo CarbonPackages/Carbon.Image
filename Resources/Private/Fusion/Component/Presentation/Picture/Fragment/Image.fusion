@@ -1,0 +1,35 @@
+prototype(Carbon.Image:Component.Picture.Fragment.Image) < prototype(Neos.Fusion:Component) {
+    lazy = null
+    lazyWidth = null
+    objectFit = null
+
+    imageSource = null
+    srcset = null
+    sizes = null
+    alt = null
+    title = null
+    id = null
+    class = null
+    style = null
+
+    @if.hasImageSource = ${this.imageSource}
+
+    renderer = afx`
+        <img
+            id={props.id}
+            class={props.class}
+            style={props.style}
+            alt={props.alt}
+            title={props.title}
+            sizes={props.sizes}
+            sizes.@process.join={Type.isArray(value) ? Array.join(value, ', ') : value}
+            src={props.lazy ? (props.lazyWidth ? props.imageSource.setWidth(props.lazyWidth, true) : null) : props.imageSource}
+            srcset={!props.lazy && props.srcset ? props.imageSource.srcset(props.srcset) : null}
+            data-src={props.lazy ? props.imageSource : null}
+            data-srcset={props.lazy && props.srcset ? props.imageSource.srcset(props.srcset) : null}
+            data-sizes={props.lazy && !props.sizes ? 'auto' : null}
+            data-aspectratio={props.lazy ? '' : null}
+            data-parent-fit={props.lazy && props.objectFit}
+        />
+    `
+}

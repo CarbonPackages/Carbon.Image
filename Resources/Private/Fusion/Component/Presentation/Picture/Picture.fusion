@@ -1,0 +1,158 @@
+prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        lazy = ${PropTypes.boolean}
+        lazyClass = ${PropTypes.string}
+        lazyWidth = ${PropTypes.integer}
+        objectFit = ${PropTypes.oneOf(['cover', 'contain'])}
+        thumbnailPreset = ${PropTypes.string}
+        variantPreset = ${PropTypes.arrayOf(PropTypes.string)}
+        width = ${PropTypes.integer}
+        height = ${PropTypes.integer}
+    }
+    @styleguide {
+        props {
+            imageSource = Carbon.Image:Helper.ImageSource {
+                outputDummy = true
+            }
+            width = 500
+            height = 200
+            variantPreset = ''
+            thumbnailPreset = ''
+            lazy = false
+            style = ''
+            class = ''
+        }
+    }
+
+
+    lazy = ${Configuration.Setting('Carbon.Image.lazy.enabled')}
+    lazy.@process.disableInBackend = ${node.context.inBackend ? false : value}
+    lazyClass = ${Configuration.Setting('Carbon.Image.lazy.class')}
+    lazyWidth = ${Configuration.Setting('Carbon.Image.lazy.lazyWidth')}
+
+    imageSource = null
+    thumbnailPreset = null
+    variantPreset = null
+    variantPreset.@process.split = ${value && Type.isString(value) ? String.split(value, '::') : (value || null)}
+    width = null
+    height = null
+
+    srcset = null
+    sizes = null
+    sources = null
+    alternativeText = null
+    title = null
+    objectFit = null
+    id = null
+    class = null
+    style = null
+
+    figureTagName = 'figure'
+    figureAttributes = null
+    // If set and figureTagName is 'figure', a figcaption is rendered
+    content = null
+
+    // Internal
+    width.@process {
+        thumbnailPreset = ${this.thumbnailPreset ? Configuration.setting('Neos.Media.thumbnailPresets.' + this.thumbnailPreset + '.width') : (value || null)}
+    }
+    height.@process {
+        thumbnailPreset = ${this.thumbnailPreset ? Configuration.setting('Neos.Media.thumbnailPresets.' + this.thumbnailPreset + '.height') : (value || null)}
+    }
+    isAssetImageSource = ${Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\EelHelpers\AssetImageSourceHelper')}
+    isScalableImageSource = ${this.isAssetImageSource || Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\EelHelpers\DummyImageSourceHelper')}
+    widthOrHeightSet = ${this.width || this.height}
+
+    sizedImageSource = ${!this.isScalableImageSource || !this.widthOrHeightSet ?
+        this.imageSource :
+        this.width ?
+            (this.height ?
+                this.imageSource.setDimensions(this.width, this.height) :
+                this.imageSource.setWidth(this.width)) :
+            this.imageSource.setHeight(this.height)
+    }
+    sizedImageSource.@process.variantPreset = ${this.variantPreset ? value.useVariantPreset(this.variantPreset[0], this.variantPreset[1]) : value}
+
+    imageClass = ${BEM.modifier('carbon-image', [this.objectFit, 'picture'])}
+    calculatedSrcSet = ${this.srcset ? null : (this.width || this.height)}
+    calculatedSrcSet.@process.calc = Carbon.Image:Helper.MinMaxImageSize
+    class.@process.convertToString = ${Type.isArray(value) ? Array.join(Carbon.Array.filter(value), ' ') : value}
+
+    @if.hasImageSource = ${this.imageSource}
+
+    renderer = Carbon.Eel:Tag {
+        tagName = ${props.figureTagName}
+        attributes = ${props.figureAttributes}
+        content = afx`
+            <Carbon.Eel:Tag @key='wrapper' tagName={props.linkAttributes ? 'a' : null} attributes={props.linkAttributes}>
+                <picture>
+                    <Neos.Fusion:Join @key='noSources' @if.set={!props.sources}>
+                        <Carbon.Image:Component.Picture.Fragment.Source
+                            @key='webp'
+                            @if.set={props.isAssetImageSource}
+                            lazy={props.lazy}
+                            imageSource={props.sizedImageSource.setFormat('webp')}
+                            type='image/webp'
+                            media={props.media}
+                            srcset={props.srcset || props.calculatedSrcSet}
+                            sizes={props.sizes}
+                            width={props.width}
+                            height={props.height}
+                        />
+                        <Carbon.Image:Component.Picture.Fragment.Source
+                            @key='default'
+                            lazy={props.lazy}
+                            imageSource={props.sizedImageSource}
+                            media={props.media}
+                            srcset={props.srcset || props.calculatedSrcSet}
+                            sizes={props.sizes}
+                            width={props.width}
+                            height={props.height}
+                        />
+                    </Neos.Fusion:Join>
+                    <Neos.Fusion:Loop @key='webpSources' items={props.sources} itemName='source' @if.set={props.sources && props.isAssetImageSource}>
+                        <Carbon.Image:Component.Picture.Fragment.Source
+                            lazy={props.lazy}
+                            imageSource={source.imageSource ? source.imageSource.setFormat('webp') : props.sizedImageSource.setFormat('webp')}
+                            type='image/webp'
+                            media={source.media}
+                            srcset={source.srcset || props.srcset || props.calculatedSrcSet}
+                            sizes={source.sizes || props.sizes}
+                            width={source.width || props.width}
+                            height={source.height || props.height}
+                        />
+                    </Neos.Fusion:Loop>
+                    <Neos.Fusion:Loop @key='defaultSources' items={props.sources} itemName='source' @if.set={props.sources}>
+                        <Carbon.Image:Component.Picture.Fragment.Source
+                            lazy={props.lazy}
+                            imageSource={source.imageSource || props.sizedImageSource}
+                            type={source.type}
+                            media={source.media}
+                            srcset={source.srcset || props.srcset || props.calculatedSrcSet}
+                            sizes={source.sizes || props.sizes}
+                            width={source.width || props.width}
+                            height={source.height || props.height}
+                        />
+                    </Neos.Fusion:Loop>
+                    <Carbon.Image:Component.Picture.Fragment.Image
+                        @key='image'
+                        lazy={props.lazy}
+                        lazyWidth={props.lazyWidth}
+                        objectFit={props.objectFit}
+                        title={props.title}
+                        id={props.id}
+                        class={[props.class, props.imageClass, props.lazy ? props.lazyClass : null]}
+                        style={props.style}
+                        imageSource={props.sizedImageSource}
+                        sizes={props.sizes}
+                        srcset={props.isScalableImageSource ? (props.srcset || props.calculatedSrcSet) : null}
+                        alt={props.alternativeText}
+                    />
+                </picture>
+            </Carbon.Eel:Tag>
+            <figcaption @key='figcaption' @if.set={props.content && props.figureTagName == 'figure'}>
+                {props.content}
+            </figcaption>
+        `
+    }
+}
