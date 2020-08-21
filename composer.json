@@ -2,7 +2,7 @@
     "name": "carbon/image",
     "type": "neos-carbon",
     "description": "Image helper for Neos CMS",
-    "license": "MIT",
+    "license": "GPL-3.0-or-later",
     "keywords": [
         "flow",
         "neos",
@@ -12,8 +12,9 @@
         "carbon"
     ],
     "require": {
-        "neos/neos": "^4.2 || ^5.0",
-        "carbon/link": "^1.0 || dev-master"
+        "neos/neos": "^4.3 || ^5.0",
+        "carbon/eel": "^1.7 || dev-master",
+        "sitegeist/kaleidoscope": "^5.1.1"
     },
     "authors": [
         {
@@ -23,16 +24,6 @@
             "role": "Developer"
         }
     ],
-    "archive": {
-        "exclude": [
-            ".editorconfig",
-            ".gitattributes",
-            ".github",
-            ".gitignore",
-            ".prettierrc",
-            "CODE_OF_CONDUCT.md"
-        ]
-    },
     "autoload": {
         "psr-4": {
             "Carbon\\Image\\": "Classes"
