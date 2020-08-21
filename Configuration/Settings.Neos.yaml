@@ -1,0 +1,10 @@
+Neos:
+  Neos:
+    userInterface:
+      translation:
+        autoInclude:
+          Carbon.Image:
+            - 'NodeTypes/*'
+    fusion:
+      autoInclude:
+        Carbon.Image: true
