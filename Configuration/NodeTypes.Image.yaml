@@ -1,0 +1,16 @@
+'Carbon.Image:Image':
+  abstract: true
+  superTypes:
+    'Carbon.Image:Group': true
+  ui:
+    label: i18n
+    icon: 'fas fa-image'
+  properties:
+    image:
+      type: Neos\Media\Domain\Model\ImageInterface
+      ui:
+        label: i18n
+        reloadIfChanged: true
+        inspector:
+          group: image
+          position: 10

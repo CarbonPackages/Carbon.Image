@@ -1,0 +1,15 @@
+'Carbon.Image:Link':
+  abstract: true
+  superTypes:
+    'Carbon.Image:Group': true
+  properties:
+    link:
+      type: string
+      ui:
+        label: Link
+        reloadIfChanged: false
+        inspector:
+          position: 500
+          group: image
+          hidden: 'ClientEval:node.properties.image ? false : true'
+          editor: Neos.Neos/Inspector/Editors/LinkEditor

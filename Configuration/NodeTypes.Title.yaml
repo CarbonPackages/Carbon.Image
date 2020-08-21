@@ -1,0 +1,16 @@
+'Carbon.Image:Title':
+  abstract: true
+  superTypes:
+    'Carbon.Image:Group': true
+  properties:
+    title:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: false
+        inspector:
+          group: image
+          hidden: 'ClientEval:node.properties.image ? false : true'
+          position: 100
+      validation:
+        'Neos.Neos/Validation/LabelValidator': []

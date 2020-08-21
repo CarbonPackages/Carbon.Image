@@ -1,0 +1,14 @@
+'Carbon.Image:Lightbox':
+  abstract: true
+  superTypes:
+    'Carbon.Image:Group': true
+  properties:
+    lightbox:
+      type: boolean
+      defaultValue: false
+      ui:
+        label: i18n
+        inspector:
+          group: image
+          hidden: 'ClientEval:node.properties.image && !node.properties.link ? false : true'
+          position: 300
