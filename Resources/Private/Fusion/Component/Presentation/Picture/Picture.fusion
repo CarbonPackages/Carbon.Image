@@ -50,7 +50,7 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
     style = null
 
     figureTagName = 'figure'
-    figureAttributes = null
+    figureAttributes = Neos.Fusion:Attributes
     // If set and figureTagName is 'figure', a figcaption is rendered
     content = null
 
