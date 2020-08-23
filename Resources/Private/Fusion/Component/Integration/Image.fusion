@@ -1,15 +1,13 @@
 prototype(Carbon.Image:Component.Image) < prototype(Neos.Fusion:Component) {
     @propTypes {
-        asset = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\Media\Domain\Model\ImageInterface'), PropTypes.string)}
-        renderInBackend = ${PropTypes.boolean}
         outputDummy = ${PropTypes.boolean}
-        caption = ${PropTypes.string}
         image = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\Media\Domain\Model\ImageInterface'), PropTypes.string)}
         imageSourceSettings = ${PropTypes.arrayOf(PropTypes.any)}
         link = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\ContentRepository\Domain\Model\Node'), PropTypes.string)}
         linkOptions = ${PropTypes.arrayOf(PropTypes.any)}
         linkAdditonalAttributes = ${PropTypes.arrayOf(PropTypes.any)}
         lightbox = ${PropTypes.boolean}
+        lightboxImage = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\Media\Domain\Model\ImageInterface'), PropTypes.string)}
         lightboxConfiguration = ${PropTypes.arrayOf(PropTypes.any)}
         lightboxCaption = ${PropTypes.string}
         linkAttributes = ${PropTypes.any}
@@ -17,21 +15,11 @@ prototype(Carbon.Image:Component.Image) < prototype(Neos.Fusion:Component) {
 
     // IMPORTANT!
     // You can pass any value from Carbon.Image:Component.Presentation.Image
-    // To keep it a bit shorter these are not listed
+    // To keep it a bit shorter those are not listed
 
-    // asset, assetLightbox, caption and renderInBackend are for easier migration from older versions
-    // asset => image
-    // assetLightbox => lightboxImage
-    // caption => lightboxCaption
-    // renderInBackend => outputDummy
-    asset = null
-    assetLightbox = null
-    caption = null
-    renderInBackend = ${node.context.inBackend}
+    outputDummy = ${node.context.inBackend}
 
-    outputDummy = ${this.renderInBackend}
-
-    image = ${this.asset}
+    image = null
     // You can pass all properties from Carbon.Image:Helper.ImageSource
     imageSourceSettings = Neos.Fusion:DataStructure
 
@@ -51,8 +39,8 @@ prototype(Carbon.Image:Component.Image) < prototype(Neos.Fusion:Component) {
     lightbox = null
     lightboxConfiguration = ${Configuration.setting('Carbon.Image.lightbox')}
     // Override the lightbox image
-    lightboxImage = ${this.assetLightbox || this.image}
-    lightboxCaption = ${this.caption}
+    lightboxImage = ${this.image}
+    lightboxCaption = null
 
     // If you set linkAttributes, this will override lightbox and link
     // linkAttributes = null
