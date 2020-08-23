@@ -4,7 +4,7 @@ prototype(Carbon.Image:Helper.MinMaxImageSize) < prototype(Neos.Fusion:Component
         max = ${PropTypes.integer}
         size = ${PropTypes.integer}
         step = ${PropTypes.integer}
-        multiplicator = ${PropTypes.arrayOf(PropTypes.integer)}
+        multiplicator = ${PropTypes.arrayOf(PropTypes.float)}
     }
 
     size = ${value}
@@ -16,9 +16,8 @@ prototype(Carbon.Image:Helper.MinMaxImageSize) < prototype(Neos.Fusion:Component
     step = 150
     multiplicator = ${[2, 1.5, 1, 0.75, 0.5, 0.25]}
 
-
-    min.@process.setMin = ${this.size ? Math.min(value, this.size) : value}
-    max.@process.setMax = ${this.size ? Math.max(value, this.size) : value}
+    minimalSize = ${this.size ? Math.min(this.min, this.size) : this.min}
+    maximalSize = ${this.size ? Math.max(this.max, this.size) : this.max}
     @if.set = ${this.step || (this.size && this.multiplicator)}
     
     renderer = Neos.Fusion:Value {
@@ -28,13 +27,13 @@ prototype(Carbon.Image:Helper.MinMaxImageSize) < prototype(Neos.Fusion:Component
         }
         steps = Neos.Fusion:Reduce {
             @if.set = ${props.step}
-            initialValue = ${[props.min, props.max]}
-            items = ${Array.range(1, Math.round(props.max / props.step))}
+            initialValue = ${[props.minimalSize, props.maximalSize]}
+            items = ${Array.range(1, Math.round(props.maximalSize / props.step))}
             itemReducer = ${Array.push(carry, item * props.step)}
         }
 
         concat = ${Carbon.Array.unique(Array.sort(Array.concat(this.multiplicators, this.steps)))}
-        minmax = ${Array.filter(this.concat, item => (item >= props.min && item <= props.max))}
+        minmax = ${Array.filter(this.concat, item => (item >= props.minimalSize && item <= props.maximalSize))}
         value = ${Array.join(this.minmax, 'w,') + 'w'}
     }
 }

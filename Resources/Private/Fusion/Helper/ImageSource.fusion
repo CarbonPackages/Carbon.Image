@@ -26,7 +26,7 @@ prototype(Carbon.Image:Helper.ImageSource) < prototype(Neos.Fusion:Component) {
     @if.hasImageOrOutputDummy = ${this.image || this.outputDummy}
 
     renderer = Neos.Fusion:Case {
-        asset {
+        isAsset {
             condition = ${props.image && Type.instance(props.image, 'Neos\Media\Domain\Model\ImageInterface')}
             renderer = Sitegeist.Kaleidoscope:AssetImageSource {
                 asset = ${props.image}
@@ -37,20 +37,20 @@ prototype(Carbon.Image:Helper.ImageSource) < prototype(Neos.Fusion:Component) {
                 height = ${props.height}
             }
         }
-        resource {
+        isResource {
             condition = ${Type.isString(props.image) && (String.startsWith(props.image, 'resource') || props.package)}
             renderer = Sitegeist.Kaleidoscope:ResourceImageSource {
                 package = ${props.package}
                 path = ${props.image}
             }
         }
-        link {
+        isLink {
             condition = ${Type.isString(props.image) && String.startsWith(props.image, 'http')}
             renderer = Sitegeist.Kaleidoscope:UriImageSource {
                 uri = ${props.image}
             }
         }
-        dummyImage {
+        needDummyImage {
             condition = ${props.outputDummy}
             renderer = Sitegeist.Kaleidoscope:DummyImageSource {
                 text = ${props.dummyText}

@@ -22,13 +22,15 @@ prototype(Carbon.Image:Component.Picture.Fragment.Image) < prototype(Neos.Fusion
             alt={props.alt}
             title={props.title}
             sizes={props.sizes}
+            width={props.imageSource.currentWidth}
+            height={props.imageSource.currentHeight}
             sizes.@process.join={Type.isArray(value) ? Array.join(value, ', ') : value}
             src={props.lazy ? (props.lazyWidth ? props.imageSource.setWidth(props.lazyWidth, true) : null) : props.imageSource}
             srcset={!props.lazy && props.srcset ? props.imageSource.srcset(props.srcset) : null}
             data-src={props.lazy ? props.imageSource : null}
             data-srcset={props.lazy && props.srcset ? props.imageSource.srcset(props.srcset) : null}
             data-sizes={props.lazy && !props.sizes ? 'auto' : null}
-            data-aspectratio={props.lazy ? '' : null}
+            data-aspectratio={props.lazy ? props.imageSource.currentWidth / props.imageSource.currentHeight : null}
             data-parent-fit={props.lazy && props.objectFit}
         />
     `

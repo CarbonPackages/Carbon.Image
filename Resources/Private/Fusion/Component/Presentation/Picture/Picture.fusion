@@ -8,6 +8,7 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
         variantPreset = ${PropTypes.arrayOf(PropTypes.string)}
         width = ${PropTypes.integer}
         height = ${PropTypes.integer}
+        additionalFormats = ${PropTypes.arrayOf(PropTypes.string)}
     }
     @styleguide {
         props {
@@ -24,7 +25,6 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
         }
     }
 
-
     lazy = ${Configuration.Setting('Carbon.Image.lazy.enabled')}
     lazy.@process.disableInBackend = ${node.context.inBackend ? false : value}
     lazyClass = ${Configuration.Setting('Carbon.Image.lazy.class')}
@@ -36,6 +36,8 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
     variantPreset.@process.split = ${value && Type.isString(value) ? String.split(value, '::') : (value || null)}
     width = null
     height = null
+
+    additionalFormats = ${['webp']}
 
     srcset = null
     sizes = null
@@ -54,24 +56,20 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
 
     // Internal
     width.@process {
-        thumbnailPreset = ${this.thumbnailPreset ? Configuration.setting('Neos.Media.thumbnailPresets.' + this.thumbnailPreset + '.width') : (value || null)}
+        thumbnailPreset = ${this.thumbnailPreset ? Configuration.setting('Neos.Media.thumbnailPresets.' + this.thumbnailPreset + '.width') : (String.toInteger(value) || null)}
     }
     height.@process {
-        thumbnailPreset = ${this.thumbnailPreset ? Configuration.setting('Neos.Media.thumbnailPresets.' + this.thumbnailPreset + '.height') : (value || null)}
+        thumbnailPreset = ${this.thumbnailPreset ? Configuration.setting('Neos.Media.thumbnailPresets.' + this.thumbnailPreset + '.height') : (String.toInteger(value) || null)}
     }
     isAssetImageSource = ${Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\EelHelpers\AssetImageSourceHelper')}
     isScalableImageSource = ${this.isAssetImageSource || Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\EelHelpers\DummyImageSourceHelper')}
-    widthOrHeightSet = ${this.width || this.height}
 
-    sizedImageSource = ${!this.isScalableImageSource || !this.widthOrHeightSet ?
-        this.imageSource :
-        this.width ?
-            (this.height ?
-                this.imageSource.setDimensions(this.width, this.height) :
-                this.imageSource.setWidth(this.width)) :
-            this.imageSource.setHeight(this.height)
+    sizedImageSource = ${this.imageSource}
+    sizedImageSource.@process {
+        setWidth = ${this.isScalableImageSource && this.width ? value.setWidth(this.width) : value}
+        setHeight = ${this.isScalableImageSource && this.height ? value.setHeight(this.height) : value}
+        variantPreset = ${this.isScalableImageSource && this.variantPreset ? value.useVariantPreset(this.variantPreset[0], this.variantPreset[1]) : value}
     }
-    sizedImageSource.@process.variantPreset = ${this.variantPreset ? value.useVariantPreset(this.variantPreset[0], this.variantPreset[1]) : value}
 
     imageClass = ${BEM.modifier('carbon-image', [this.objectFit, 'picture'])}
     calculatedSrcSet = ${this.srcset ? null : (this.width || this.height)}
@@ -86,43 +84,32 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
         content = afx`
             <Carbon.Eel:Tag @key='wrapper' tagName={props.linkAttributes ? 'a' : null} attributes={props.linkAttributes}>
                 <picture>
-                    <Neos.Fusion:Join @key='noSources' @if.set={!props.sources}>
+                    <Neos.Fusion:Loop @key='additionalFormats' items={props.additionalFormats} @if.set={props.additionalFormats && props.isAssetImageSource} itemName='format'>
                         <Carbon.Image:Component.Picture.Fragment.Source
-                            @key='webp'
-                            @if.set={props.isAssetImageSource}
+                            @key='noSources'
+                            @if.set={!props.sources}
                             lazy={props.lazy}
-                            imageSource={props.sizedImageSource.setFormat('webp')}
-                            type='image/webp'
-                            media={props.media}
+                            imageSource={props.sizedImageSource.setFormat(format)}
+                            type={'image/' + format}
                             srcset={props.srcset || props.calculatedSrcSet}
                             sizes={props.sizes}
                             width={props.width}
                             height={props.height}
                         />
-                        <Carbon.Image:Component.Picture.Fragment.Source
-                            @key='default'
-                            lazy={props.lazy}
-                            imageSource={props.sizedImageSource}
-                            media={props.media}
-                            srcset={props.srcset || props.calculatedSrcSet}
-                            sizes={props.sizes}
-                            width={props.width}
-                            height={props.height}
-                        />
-                    </Neos.Fusion:Join>
-                    <Neos.Fusion:Loop @key='webpSources' items={props.sources} itemName='source' @if.set={props.sources && props.isAssetImageSource}>
-                        <Carbon.Image:Component.Picture.Fragment.Source
-                            lazy={props.lazy}
-                            imageSource={source.imageSource ? source.imageSource.setFormat('webp') : props.sizedImageSource.setFormat('webp')}
-                            type='image/webp'
-                            media={source.media}
-                            srcset={source.srcset || props.srcset || props.calculatedSrcSet}
-                            sizes={source.sizes || props.sizes}
-                            width={source.width || props.width}
-                            height={source.height || props.height}
-                        />
+                        <Neos.Fusion:Loop @key='sources' items={props.sources} itemName='source' @if.set={props.sources}>
+                            <Carbon.Image:Component.Picture.Fragment.Source
+                                lazy={props.lazy}
+                                imageSource={source.imageSource ? source.imageSource.setFormat(format) : props.sizedImageSource.setFormat(format)}
+                                type={'image/' + format}
+                                media={source.media || props.media}
+                                srcset={source.srcset || props.srcset || props.calculatedSrcSet}
+                                sizes={source.sizes || props.sizes}
+                                width={source.width || props.width}
+                                height={source.height || props.height}
+                            />
+                        </Neos.Fusion:Loop>
                     </Neos.Fusion:Loop>
-                    <Neos.Fusion:Loop @key='defaultSources' items={props.sources} itemName='source' @if.set={props.sources}>
+                    <Neos.Fusion:Loop @key='sources' items={props.sources} itemName='source' @if.set={props.sources}>
                         <Carbon.Image:Component.Picture.Fragment.Source
                             lazy={props.lazy}
                             imageSource={source.imageSource || props.sizedImageSource}
