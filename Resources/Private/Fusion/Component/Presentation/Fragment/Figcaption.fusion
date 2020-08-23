@@ -1,0 +1,8 @@
+prototype(Carbon.Image:Component.Fragment.Figcaption) < prototype(Neos.Fusion:Component) {
+    figureTagName = 'figure'
+    content = null
+
+    @if.hasContentAndFigureAsParent = ${this.content && this.figureTagName == 'figure'}
+
+    renderer = afx`<figcaption>{props.content}</figcaption>`
+}

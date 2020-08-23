@@ -84,32 +84,24 @@ prototype(Carbon.Image:Component.Presentation.Image) < prototype(Neos.Fusion:Com
 
     @if.hasImageSource = ${this.imageSource}
 
-    renderer = Carbon.Eel:Tag {
-        tagName = ${props.figureTagName}
-        attributes = ${props.figureAttributes}
-        content = afx`
+    renderer = afx`
+        <Carbon.Eel:Tag tagName={props.figureTagName} attributes={props.figureAttributes}>
             <Carbon.Eel:Tag @key='wrapper' tagName={props.linkAttributes ? 'a' : null} attributes={props.linkAttributes}>
-                <img
+                <Carbon.Image:Component.Fragment.Image
+                    lazy={props.lazy}
+                    lazyWidth={props.lazyWidth}
                     id={props.id}
                     class={[props.class, props.imageClass, props.lazy ? props.lazyClass : null]}
                     style={props.style}
-                    alt={props.alt}
                     title={props.title}
+                    alt={props.alternativeText}
+                    imageSource={props.sizedImageSource}
                     sizes={props.sizes}
-                    sizes.@process.join={Type.isArray(value) ? Array.join(value, ', ') : value}
-                    width={props.sizedImageSource.currentWidth}
-                    height={props.sizedImageSource.currentHeight}
-                    src={props.lazy ? (props.lazyWidth ? props.sizedImageSource.setWidth(props.lazyWidth, true) : null) : props.sizedImageSource}
-                    srcset={!props.lazy && props.finalSrcSet ? props.sizedImageSource.srcset(props.finalSrcSet) : null}
-                    data-src={props.lazy ? props.sizedImageSource : null}
-                    data-srcset={props.lazy && props.finalSrcSet ? props.sizedImageSource.srcset(props.finalSrcSet) : null}
-                    data-sizes={props.lazy && !props.sizes ? 'auto' : null}
-                    data-parent-fit={props.lazy && props.objectFit}
+                    srcset={props.isScalableImageSource ? props.finalSrcSet : null}
+                    objectFit={props.objectFit}
                 />
             </Carbon.Eel:Tag>
-            <figcaption @key='figcaption' @if.set={props.content && props.figureTagName == 'figure'}>
-                {props.content}
-            </figcaption>
-        `
-    }
+            <Carbon.Image:Component.Fragment.Figcaption @key='figcaption' {...props} />
+        </Carbon.Eel:Tag>
+    `
 }

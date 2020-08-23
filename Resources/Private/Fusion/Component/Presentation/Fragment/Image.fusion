@@ -1,29 +1,30 @@
-prototype(Carbon.Image:Component.Picture.Fragment.Image) < prototype(Neos.Fusion:Component) {
+prototype(Carbon.Image:Component.Fragment.Image) < prototype(Neos.Fusion:Component) {
     lazy = null
     lazyWidth = null
-    objectFit = null
 
-    imageSource = null
-    srcset = null
-    sizes = null
-    alt = null
-    title = null
     id = null
     class = null
     style = null
+    title = null
+    alt = null
+
+    imageSource = null
+    sizes = null
+    srcset = null
+    objectFit = null
 
     @if.hasImageSource = ${this.imageSource}
 
     renderer = afx`
         <img
-            id={props.id}
-            class={props.class}
-            style={props.style}
-            alt={props.alt}
-            title={props.title}
-            sizes={props.sizes}
+            id={props.id || null}
+            class={props.class || null}
+            style={props.style || null}
+            title={props.title || null}
+            alt={props.alt || null}
             width={props.imageSource.currentWidth}
             height={props.imageSource.currentHeight}
+            sizes={props.sizes || null}
             sizes.@process.join={Type.isArray(value) ? Array.join(value, ', ') : value}
             src={props.lazy ? (props.lazyWidth ? props.imageSource.setWidth(props.lazyWidth, true) : null) : props.imageSource}
             srcset={!props.lazy && props.srcset ? props.imageSource.srcset(props.srcset) : null}

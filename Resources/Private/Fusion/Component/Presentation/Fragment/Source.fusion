@@ -1,4 +1,4 @@
-prototype(Carbon.Image:Component.Picture.Fragment.Source) < prototype(Neos.Fusion:Component) {
+prototype(Carbon.Image:Component.Fragment.Source) < prototype(Neos.Fusion:Component) {
     lazy = null
 
     imageSource = null

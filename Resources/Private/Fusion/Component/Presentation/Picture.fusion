@@ -83,35 +83,34 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
     imageClass = ${BEM.modifier('carbon-image', [this.objectFit, 'picture'])}
     calculatedSrcSet = ${this.srcset ? null : (this.width || this.height)}
     calculatedSrcSet.@process.calc = Carbon.Image:Helper.MinMaxImageSize
+    finalSrcSet = ${this.srcset || this.calculatedSrcSet}
     class.@process.convertToString = ${Type.isArray(value) ? Array.join(Carbon.Array.filter(value), ' ') : value}
 
     @if.hasImageSource = ${this.imageSource}
 
-    renderer = Carbon.Eel:Tag {
-        tagName = ${props.figureTagName}
-        attributes = ${props.figureAttributes}
-        content = afx`
+    renderer = afx`
+        <Carbon.Eel:Tag tagName={props.figureTagName} attributes={props.figureAttributes}>
             <Carbon.Eel:Tag @key='wrapper' tagName={props.linkAttributes ? 'a' : null} attributes={props.linkAttributes}>
                 <picture>
                     <Neos.Fusion:Loop @key='additionalFormats' items={props.additionalFormats} @if.set={props.additionalFormats && props.isAssetImageSource} itemName='format'>
-                        <Carbon.Image:Component.Picture.Fragment.Source
+                        <Carbon.Image:Component.Fragment.Source
                             @key='noSources'
                             @if.set={!props.sources}
                             lazy={props.lazy}
                             imageSource={props.sizedImageSource.setFormat(format)}
                             type={'image/' + format}
-                            srcset={props.srcset || props.calculatedSrcSet}
+                            srcset={props.finalSrcSet}
                             sizes={props.sizes}
                             width={props.width}
                             height={props.height}
                         />
                         <Neos.Fusion:Loop @key='sources' items={props.sources} itemName='source' @if.set={props.sources}>
-                            <Carbon.Image:Component.Picture.Fragment.Source
+                            <Carbon.Image:Component.Fragment.Source
                                 lazy={props.lazy}
                                 imageSource={source.imageSource ? source.imageSource.setFormat(format) : props.sizedImageSource.setFormat(format)}
                                 type={'image/' + format}
                                 media={source.media || props.media}
-                                srcset={source.srcset || props.srcset || props.calculatedSrcSet}
+                                srcset={source.srcset || props.finalSrcSet}
                                 sizes={source.sizes || props.sizes}
                                 width={source.width || props.width}
                                 height={source.height || props.height}
@@ -119,36 +118,34 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
                         </Neos.Fusion:Loop>
                     </Neos.Fusion:Loop>
                     <Neos.Fusion:Loop @key='sources' items={props.sources} itemName='source' @if.set={props.sources}>
-                        <Carbon.Image:Component.Picture.Fragment.Source
+                        <Carbon.Image:Component.Fragment.Source
                             lazy={props.lazy}
                             imageSource={source.imageSource || props.sizedImageSource}
                             type={source.type}
                             media={source.media}
-                            srcset={source.srcset || props.srcset || props.calculatedSrcSet}
+                            srcset={source.srcset || props.finalSrcSet}
                             sizes={source.sizes || props.sizes}
                             width={source.width || props.width}
                             height={source.height || props.height}
                         />
                     </Neos.Fusion:Loop>
-                    <Carbon.Image:Component.Picture.Fragment.Image
+                    <Carbon.Image:Component.Fragment.Image
                         @key='image'
                         lazy={props.lazy}
                         lazyWidth={props.lazyWidth}
-                        objectFit={props.objectFit}
-                        title={props.title}
                         id={props.id}
                         class={[props.class, props.imageClass, props.lazy ? props.lazyClass : null]}
                         style={props.style}
+                        title={props.title}
+                        alt={props.alternativeText}
                         imageSource={props.sizedImageSource}
                         sizes={props.sizes}
-                        srcset={props.isScalableImageSource ? (props.srcset || props.calculatedSrcSet) : null}
-                        alt={props.alternativeText}
+                        srcset={props.isScalableImageSource ? props.finalSrcSet : null}
+                        objectFit={props.objectFit}
                     />
                 </picture>
             </Carbon.Eel:Tag>
-            <figcaption @key='figcaption' @if.set={props.content && props.figureTagName == 'figure'}>
-                {props.content}
-            </figcaption>
-        `
-    }
+            <Carbon.Image:Component.Fragment.Figcaption @key='figcaption' {...props} />
+        </Carbon.Eel:Tag>
+    `
 }
