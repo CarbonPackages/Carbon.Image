@@ -1,0 +1,36 @@
+prototype(Carbon.Image:Component.Presentation.Case) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        type = ${PropTypes.string}
+    }
+
+    @styleguide {
+        title = 'Case (Image or Picture) Presentation Component'
+        props {
+            imageSource = Carbon.Image:Helper.ImageSource {
+                outputDummy = true
+            }
+            type = 'image'
+            width = 500
+            height = 200
+            variantPreset = ''
+            thumbnailPreset = ''
+            lazy = false
+            style = ''
+            class = ''
+        }
+    }
+
+    type = null
+    type.@process.convertToLowerCase = ${Type.isString(value) ? String.toLowerCase(value) : value}
+
+    renderer = afx`
+        <Carbon.Image:Component.Presentation.Image @key='image' @if.set={props.type == 'image'} {...props} type={null} />
+        <Carbon.Image:Component.Presentation.Picture @key='picture' @if.set={props.type == 'picture'} {...props} type={null} />
+        <Carbon.Notification:Backend
+            @key='notification'
+            @if.set={props.type != 'image' && props.type != 'picture'}
+            type='alert'
+            content={Translation.translate('case.noType', 'The property <code>type</code> must be <code>image</code> or <code>picture</code>.', [], null, 'Carbon.Image')}
+        />
+    `
+}
