@@ -142,6 +142,7 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
                         sizes={props.sizes}
                         srcset={props.isScalableImageSource ? props.finalSrcSet : null}
                         objectFit={props.objectFit}
+                        aspectratio={true}
                     />
                 </picture>
             </Carbon.Eel:Tag>
