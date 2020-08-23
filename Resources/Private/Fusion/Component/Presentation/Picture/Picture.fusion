@@ -16,12 +16,21 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
                 outputDummy = true
             }
             width = 500
-            height = 200
-            variantPreset = ''
-            thumbnailPreset = ''
             lazy = false
-            style = ''
-            class = ''
+            title = ''
+            alternativeText = ''
+            content = ''
+        }
+        propSets {
+            options {
+                variantPreset = ''
+                thumbnailPreset = ''
+                srcset = ''
+                sizes = ''
+                id = ''
+                class = ''
+                style = ''
+            }
         }
     }
 
