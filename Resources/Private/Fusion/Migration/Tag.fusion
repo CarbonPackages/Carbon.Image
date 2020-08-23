@@ -1,0 +1,19 @@
+// This prototype is only for an easier migration from older versions,
+// use Carbon.Image:Component.Image or Carbon.Image:Component.Picture if possible
+
+prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Component) {
+    asset = null
+    assetLightbox = ${this.asset}
+    caption = null
+    renderInBackend = ${node.context.inBackend}
+    maximumWidth = null
+
+
+    image = ${this.asset}
+    lightboxImage = ${this.assetLightbox}
+    lightboxCaption = ${this.caption}
+    outputDummy = ${this.renderInBackend}
+    width = ${Math.round(this.maximumWidth)}
+
+    renderer = afx`<Carbon.Image:Component.Image {...props} />`
+}
