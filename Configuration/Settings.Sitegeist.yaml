@@ -3,7 +3,7 @@ Sitegeist:
     ui:
       structure:
         Carbon:
-          position: end
+          position: 9000
           match: Carbon.
           label: Carbon
           icon: icon-code
