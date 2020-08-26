@@ -8,40 +8,17 @@
   visibility: hidden;
 }
 
-.carbon-image--cover.lazyload,
-.carbon-image--cover.lazyloaded,
-.carbon-image--cover.lazyloading {
+.carbon-image--cover {
   object-fit: cover;
   height: 100%;
-  font-family: "object-fit: cover";
 }
 
-.carbon-image--cover.lazyloaded {
-  height: 100% !important;
-}
-
-@supports (object-fit: cover) {
-  .carbon-image--cover {
-    object-fit: cover;
-    height: 100%;
-  }
-}
-
-.carbon-image--contain.lazyload,
-.carbon-image--contain.lazyloaded,
-.carbon-image--contain.lazyloading {
+.carbon-image--contain {
   object-fit: contain;
   height: 100%;
-  font-family: "object-fit: contain";
 }
 
+.carbon-image--cover.lazyloaded,
 .carbon-image--contain.lazyloaded {
   height: 100% !important;
-}
-
-@supports (object-fit: contain) {
-  .carbon-image--contain {
-    object-fit: contain;
-    height: 100%;
-  }
 }

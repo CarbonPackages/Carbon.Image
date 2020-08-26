@@ -9,39 +9,18 @@
 }
 
 .carbon-image--cover {
-  &.lazyloaded,
-  &.lazyloading,
-  &.lazyload {
-    object-fit: cover;
-    height: 100%;
-    font-family: "object-fit: cover";
-  }
-
-  &.lazyloaded {
-    height: 100% !important;
-  }
-
-  @supports (object-fit: cover) {
-    object-fit: cover;
-    height: 100%;
-  }
+  object-fit: cover;
 }
 
 .carbon-image--contain {
-  &.lazyloaded,
-  &.lazyloading,
-  &.lazyload {
-    object-fit: contain;
-    height: 100%;
-    font-family: "object-fit: contain";
-  }
+  object-fit: contain;
+}
+
+.carbon-image--cover,
+.carbon-image--contain {
+  height: 100%;
 
   &.lazyloaded {
     height: 100% !important;
-  }
-
-  @supports (object-fit: contain) {
-    object-fit: contain;
-    height: 100%;
   }
 }
