@@ -1,10 +1,8 @@
 .carbon-image {
-  width: 100%;
-  height: auto;
-  max-width: none;
+  @apply w-full h-auto max-w-none;
 
   &:not([src]) {
-    visibility: hidden;
+    @apply invisible;
   }
 }
 
@@ -12,8 +10,7 @@
   &.lazyloaded,
   &.lazyloading,
   &.lazyload {
-    object-fit: cover;
-    height: 100%;
+    @apply object-cover h-full;
     font-family: "object-fit: cover";
   }
 
@@ -27,8 +24,7 @@
   &.lazyloaded,
   &.lazyloading,
   &.lazyload {
-    object-fit: contain;
-    height: 100%;
+    @apply object-contain h-full;
     font-family: "object-fit: contain";
   }
 
@@ -41,6 +37,6 @@
 .carbon-image--cover,
 .carbon-image--contain {
   &.lazyloaded {
-    height: 100% !important;
+    @apply h-full !important;
   }
 }
