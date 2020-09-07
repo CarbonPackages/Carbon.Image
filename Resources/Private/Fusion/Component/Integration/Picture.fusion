@@ -16,6 +16,7 @@ prototype(Carbon.Image:Component.Picture) < prototype(Neos.Fusion:Component) {
     // IMPORTANT!
     // You can pass any value from Carbon.Image:Component.Presentation.Picture
     // To keep it a bit shorter these are not listed
+
     outputDummy = ${node.context.inBackend}
 
     image = null
