@@ -45,6 +45,7 @@ prototype(Carbon.Image:Component.Image) < prototype(Neos.Fusion:Component) {
     // If you set linkAttributes, this will override lightbox and link
     // linkAttributes = null
 
+    figureAttributes = Neos.Fusion:Attributes
 
     renderer = Neos.Fusion:Component {
         @apply.props = ${props}
