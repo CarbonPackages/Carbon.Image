@@ -4,6 +4,7 @@ prototype(Carbon.Image:Component.Presentation.Image) < prototype(Neos.Fusion:Com
         lazyClass = ${PropTypes.string}
         lazyWidth = ${PropTypes.integer}
         objectFit = ${PropTypes.oneOf(['cover', 'contain'])}
+        loading = ${PropTypes.oneOf(['auto', 'lazy', 'eager'])}
         thumbnailPreset = ${PropTypes.string}
         variantPreset = ${PropTypes.arrayOf(PropTypes.string)}
         width = ${PropTypes.integer}
@@ -19,6 +20,7 @@ prototype(Carbon.Image:Component.Presentation.Image) < prototype(Neos.Fusion:Com
             title = ''
             alternativeText = ''
             content = ''
+            loading = 'eager'
         }
         propSets {
             options {
@@ -54,6 +56,7 @@ prototype(Carbon.Image:Component.Presentation.Image) < prototype(Neos.Fusion:Com
     id = null
     class = null
     style = null
+    loading = null
 
     figureTagName = 'figure'
     figureAttributes = Neos.Fusion:Attributes
@@ -94,6 +97,7 @@ prototype(Carbon.Image:Component.Presentation.Image) < prototype(Neos.Fusion:Com
                     class={[props.class, props.imageClass, props.lazy ? props.lazyClass : null]}
                     style={props.style}
                     title={props.title}
+                    loading={props.loading}
                     alt={props.alternativeText}
                     imageSource={props.sizedImageSource}
                     sizes={props.sizes}

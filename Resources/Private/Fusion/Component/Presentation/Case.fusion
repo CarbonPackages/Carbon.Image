@@ -15,6 +15,7 @@ prototype(Carbon.Image:Component.Presentation.Case) < prototype(Neos.Fusion:Comp
             title = ''
             alternativeText = ''
             content = ''
+            loading = 'eager'
         }
         propSets {
             options {
