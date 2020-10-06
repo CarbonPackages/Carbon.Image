@@ -2,17 +2,23 @@
 
 # Carbon.Image Package for Neos CMS
 
-This package provides some fusion helper for images based on [Sitegeist.Kaleidoscope]; you have to create the node type for yourself. Here you see an example of an implementation: [Jonnitto.ImagesInARow]
+This package provides some fusion helper for images based on [Sitegeist.Kaleidoscope]; you have
+to create the node type for yourself. Here you see an example of an implementation: [Jonnitto.ImagesInARow]
 
 ## Installation
 
-Most of the time you have to make small adjustments to a package (e.g. [configuration] in `Settings.yaml`). Because of that, it is important to add the corresponding package to the composer from your theme package. Mostly this is the site packages located under `Packages/Sites/`. To install it correctly go to your theme package (e.g.`Packages/Sites/Foo.Bar`) and run following command:
+Most of the time you have to make small adjustments to a package (e.g. [configuration] in `Settings.yaml`).
+Because of that, it is important to add the corresponding package to the composer from your theme package.
+Mostly this is the site packages located under `Packages/Sites/`.
+To install it correctly go to your theme package (e.g.`Packages/Sites/Foo.Bar`) and run following command:
 
 ```bash
 composer require carbon/image --no-update
 ```
 
-The `--no-update` command prevent the automatic update of the dependencies. After the package was added to your theme `composer.json`, go back to the root of the Neos installation and run `composer update`. Et voilà! Your desired package is now installed correctly.
+The `--no-update` command prevent the automatic update of the dependencies. After the package was added
+to your theme `composer.json`, go back to the root of the Neos installation and run `composer update`.
+Et voilà! Your desired package is now installed correctly.
 
 ## Abstract node types
 
@@ -35,7 +41,8 @@ Below a list of which abstract node types (a.k.a. mixins) you can use in your pr
 
 #### [`Carbon.Image:Component.Presentation.Case`]
 
-You can set `type` to `picture` or `image`. Based on that value, either an [image][`carbon.image:component.presentation.image`] or an [picture][`carbon.image:component.presentation.picture`] will be rendered.
+You can set `type` to `picture` or `image`. Based on that value, either an [image][`carbon.image:component.presentation.image`]
+or an [picture][`carbon.image:component.presentation.picture`] will be rendered.
 
 #### [`Carbon.Image:Component.Presentation.Image`] and [`Carbon.Image:Component.Presentation.Picture`]
 
@@ -71,11 +78,13 @@ Outputs an image.
 
 #### [`Carbon.Image:Component.Case`]
 
-You can set `type` to `picture` or `image`. Based on that value, either an [image][`carbon.image:component.image`] or an [picture][`carbon.image:component.picture`] will be rendered.
+You can set `type` to `picture` or `image`. Based on that value, either an [image][`carbon.image:component.image`]
+or an [picture][`carbon.image:component.picture`] will be rendered.
 
 #### [`Carbon.Image:Component.Image`] and [`Carbon.Image:Component.Picture`]
 
-You can pass any value from `Carbon.Image:Component.Presentation.Image` / `Carbon.Image:Component.Presentation.Picture`. To keep it a bit shorter those are not listed.
+You can pass any value from `Carbon.Image:Component.Presentation.Image` / `Carbon.Image:Component.Presentation.Picture`.
+To keep it a bit shorter those are not listed.
 
 | Property                  | Description                                                                                                             | Type                                                     | Default value                      |
 | ------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ---------------------------------- |
