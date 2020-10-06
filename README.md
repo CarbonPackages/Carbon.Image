@@ -24,16 +24,16 @@ Et voilà! Your desired package is now installed correctly.
 
 Below a list of which abstract node types (a.k.a. mixins) you can use in your projects:
 
-| Name                             | super types            | Description                                                                                               |
-| -------------------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------- |
-| [`Carbon.Image:Image`]           | [`Carbon.Image:Group`] | Creates the property `image`, the label and the icon                                                      |
-| [`Carbon.Image:AlternativeText`] | [`Carbon.Image:Group`] | Creates an input field in the inspector for the property `alternativeText`                                |
-| [`Carbon.Image:BackendLabel`]    |                        | Create the label in the backend based on the properties `title`, `alternativeText`, `caption` and `text`  |
-| [`Carbon.Image:Caption`]         | [`Carbon.Image:Group`] | Creates an input field in the inspector for the property `caption`. This is used togehter with `lightbox` |
-| [`Carbon.Image:Lightbox`]        | [`Carbon.Image:Group`] | Creates a checkbox in the inspector for the property `lightbox`                                           |
-| [`Carbon.Image:Link`]            | [`Carbon.Image:Group`] | Creates a link editor in the inspector for the property `link`                                            |
-| [`Carbon.Image:Title`]           | [`Carbon.Image:Group`] | Creates an input field in the inspector for the property `title`                                          |
-| [`Carbon.Image:Group`]           |                        | This is a mixins to create the group `image` in the inspector                                             |
+| Name                             | Description                                                                                                                         |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| [`Carbon.Image:Image`]           | Creates the property `image`, the label and the icon                                                                                |
+| [`Carbon.Image:AlternativeText`] | Creates an input field in the inspector for the property `alternativeText`                                                          |
+| [`Carbon.Image:BackendLabel`]    | Create the label in the backend based on the properties `title`, `alternativeText`, `caption` and `text`                            |
+| [`Carbon.Image:Caption`]         | Creates an input field in the inspector for the property `caption`. This is used togehter with `lightbox`                           |
+| [`Carbon.Image:Lightbox`]        | Creates a checkbox in the inspector for the property `lightbox`                                                                     |
+| [`Carbon.Image:Link`]            | Creates a link editor in the inspector for the property `link`                                                                      |
+| [`Carbon.Image:Title`]           | Creates an input field in the inspector for the property `title`                                                                    |
+| [`Carbon.Image:Group`]           | This is a mixins to create the group `image` in the inspector. This is used by all mixons, except by [`Carbon.Image:BackendLabel`]. |
 
 ## Fusion
 
