@@ -7,8 +7,9 @@ Carbon:
     alternativeText:
       # You can set the language mapping like that:
       # languageMapping:
-      #   de: 0
-      #   en: 1
+      #   en: 0
+      #   de: 1
+      #   fr: 2
       languageMapping: null
       splitCharacter: '||'
       property: caption

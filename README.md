@@ -114,6 +114,82 @@ This prototype is used by the integrational components [`Carbon.Image:Component.
 and [`Carbon.Image:Component.Picture`]. You can set options related to
 `Neos.Neos:ConvertUris` and `Neos.Neos:NodeUri`.
 
+#### [`Carbon.Image:Helper.AlternativeText`]
+
+This prototype is used by the integrational components [`Carbon.Image:Component.Image`]
+and [`Carbon.Image:Component.Picture`]. The idea behind this prototype is to return an
+alternative text based on the media fields.
+
+<details>
+    <summary>How to implement</summary>
+
+If `alternativeText` is passed (e.g. from an property) this value is returned. Otherwise, if
+`property` (`title`, `caption` or `copyrightNotice`) is set, it read the field of the asset.
+Per default, the property is set to `caption` (based on the setting `Carbon.Image.alternativeText.property`),
+but you can it override with your own `Settings.yaml` or via Fusion:
+
+```elm
+prototype(Carbon.Image:Helper.AlternativeText) {
+    property = 'title'
+}
+```
+
+But this is kind of critcal if you multiple languages on a website. This is where the option
+`languageMapping` comes in. With this you can split (based on the setting
+`Carbon.Image.alternativeText.splitCharacter`, defaults to `||`) a string into the needed language.
+The easiest way to enable this, is to set the configuration `Carbon.Image.alternativeText.languageMapping`
+in your `Settings.yaml` like this:
+
+```yaml
+Carbon:
+    Image:
+        alternativeText:
+            languageMapping:
+                en: 0
+                de: 1
+                fr: 2
+```
+
+but of course you can set this also via Fusion:
+
+```elm
+prototype(Carbon.Image:Helper.AlternativeText) {
+    languageMapping = Neos.Fusion:DataStructure {
+        en = 0
+        de = 1
+        fr = 2
+    }
+}
+```
+
+With this kind of setting, you can write the alternative text in the media field like this:
+`A cat || Eine Katze || Un chat`
+
+To override the label in the media field you can a file called `MediaBrowser.xlf`
+in you translation folder:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file original="Main" product-name="Neos.Media.Browser" source-language="en" datatype="plaintext" target-language="de">
+        <body>
+            <trans-unit id="field.caption" xml:space="preserve" approved="yes">
+                <source>Caption ( English || German || French)</source>
+                <target state="final">Beschriftung (Englisch || Deutsch || Französisch)</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
+```
+
+You can override the current language by set the property `language`.
+Otherwise the current dimension `language` is used.
+
+</details>
+
+The string is always trimmed and all tags are stripped out.
+It no alternative text can be extraced, the Fusion will return `false`.
+
 ## The lightbox
 
 The markup is optimized to use this togehter with [Jonnitto.PhotoSwipe], but you can use any lightbox you want.
@@ -152,3 +228,4 @@ The markup is optimized to use this togehter with [Jonnitto.PhotoSwipe], but you
 [lightbox settings]: Configuration/Settings.Carbon.yaml#L18-L25
 [`carbon.image:helper.link.attributes`]: Resources/Private/Fusion/Helper/Link/Attributes.fusion
 [`carbon.image:helper.link.options`]: Resources/Private/Fusion/Helper/Link/Options.fusion
+[`carbon.image:helper.alternativetext`]: Resources/Private/Fusion/Helper/AlternativeText.fusion
