@@ -200,6 +200,13 @@ If `image` is a string and starts with `resource` or `package` is set, you will 
 If `image` is a string and starts with `http` is set, you will get a `Sitegeist.Kaleidoscope:UriImageSource`.  
 Otherwise, if `outputDummy` is set (defaults to `node.context.inBackend`), you will get `Sitegeist.Kaleidoscope:DummyImageSource`.
 
+#### [`Carbon.Image:Helper.LightboxImageSource`]
+
+This prototype inherits from [`Carbon.Image:Helper.ImageSource`] and it is used by the integrational
+components [`Carbon.Image:Component.Image`] and [`Carbon.Image:Component.Picture`]. It reads the
+configuration from `Carbon.Image.lightbox` but can be overriden via Fusion, if needed. In the
+integrational components the image is passed to this prototype.
+
 ## The lightbox
 
 The markup is optimized to use this togehter with [Jonnitto.PhotoSwipe], but you can use any lightbox you want.
@@ -240,3 +247,4 @@ The markup is optimized to use this togehter with [Jonnitto.PhotoSwipe], but you
 [`carbon.image:helper.link.options`]: Resources/Private/Fusion/Helper/Link/Options.fusion
 [`carbon.image:helper.alternativetext`]: Resources/Private/Fusion/Helper/AlternativeText.fusion
 [`carbon.image:helper.imagesource`]: Resources/Private/Fusion/Helper/ImageSource.fusion
+[`carbon.image:helper.lightboximagesource`]: Resources/Private/Fusion/Helper/LightboxImageSource.fusion
