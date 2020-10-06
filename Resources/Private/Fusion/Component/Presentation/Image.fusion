@@ -49,7 +49,6 @@ prototype(Carbon.Image:Component.Presentation.Image) < prototype(Neos.Fusion:Com
 
     srcset = null
     sizes = null
-    sources = null
     alternativeText = null
     title = null
     objectFit = null
