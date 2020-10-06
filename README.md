@@ -100,6 +100,20 @@ To keep it a bit shorter those are not listed.
 | `lightboxCaption`         | The caption for the lightbox                                                                                            | `string` or `'Neos\Media\Domain\Model\ImageInterface'`   | `this.image`                       |
 | `linkAttributes`          | If set, it will override `lightbox` and `link`                                                                          | `Neos.Fusion:Attributes` or `Neos.Fusion:DataStructure`  | `null`                             |
 
+### Helper
+
+#### [`Carbon.Image:Helper.Link.Attributes`]
+
+This prototype is used by the integrational components [`Carbon.Image:Component.Image`]
+and [`Carbon.Image:Component.Picture`]. It takes properties like `link`, `lightbox` and
+their options and return the attributes. If nothing is set it will return `false`.
+
+#### [`Carbon.Image:Helper.Link.Options`]
+
+This prototype is used by the integrational components [`Carbon.Image:Component.Image`]
+and [`Carbon.Image:Component.Picture`]. You can set options related to
+`Neos.Neos:ConvertUris` and `Neos.Neos:NodeUri`.
+
 ## The lightbox
 
 The markup is optimized to use this togehter with [Jonnitto.PhotoSwipe], but you can use any lightbox you want.
@@ -136,3 +150,5 @@ The markup is optimized to use this togehter with [Jonnitto.PhotoSwipe], but you
 [sitegeist.kaleidoscope]: https://github.com/sitegeist/Sitegeist.Kaleidoscope
 [imagesource fusionobjects]: https://github.com/sitegeist/Sitegeist.Kaleidoscope#imagesource-fusionobjects
 [lightbox settings]: Configuration/Settings.Carbon.yaml#L18-L25
+[`carbon.image:helper.link.attributes`]: Resources/Private/Fusion/Helper/Link/Attributes.fusion
+[`carbon.image:helper.link.options`]: Resources/Private/Fusion/Helper/Link/Options.fusion
