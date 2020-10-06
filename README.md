@@ -212,6 +212,20 @@ Otherwise, if `outputDummy` is set (defaults to `node.context.inBackend`), you w
 It reads the configuration from `Carbon.Image.lightbox` but can be overriden via Fusion, if needed.
 In the integrational components the image is passed to this prototype.
 
+#### [`Carbon.Image:Helper.MinMaxImageSize`]
+
+> This prototype is used by the presentational components [`Carbon.Image:Component.Presentation.Image`]
+> and [`Carbon.Image:Component.Presentation.Picture`].
+
+This prototype takes a value and returns a string for the `srcset` (e.g. `150w, 300w, 450w, 600w`)
+
+| Property        | Description                                                                                                 | Type                | Default value                     |
+| --------------- | ----------------------------------------------------------------------------------------------------------- | ------------------- | --------------------------------- |
+| `size`          | The basis size (width or height)                                                                            | `integer`           | `${value}`                        |
+| `min`           | The minimal width of an image                                                                               | `integer`           | `300`                             |
+| `max`           | The maximal width of an image                                                                               | `integer`           | `3900`                            |
+| `step`          | If you set this to null, the steps generation gets deactivated, otherwise every step an image get generated | `integer`           | `150`                             |
+| `multiplicator` | Besides the steps, also these sizes get generated (`size` × `item` in `multiplicator`)                      | `array of integers` | `${[2, 1.5, 1, 0.75, 0.5, 0.25]}` |
 
 ## The lightbox
 
@@ -254,3 +268,4 @@ The markup is optimized to use this togehter with [Jonnitto.PhotoSwipe], but you
 [`carbon.image:helper.alternativetext`]: Resources/Private/Fusion/Helper/AlternativeText.fusion
 [`carbon.image:helper.imagesource`]: Resources/Private/Fusion/Helper/ImageSource.fusion
 [`carbon.image:helper.lightboximagesource`]: Resources/Private/Fusion/Helper/LightboxImageSource.fusion
+[`carbon.image:helper.minmaximagesize`]: Resources/Private/Fusion/Helper/MinMaxImageSize.fusion
