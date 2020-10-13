@@ -45,6 +45,9 @@ prototype(Carbon.Image:Component.Image) < prototype(Neos.Fusion:Component) {
     // If you set linkAttributes, this will override lightbox and link
     // linkAttributes = null
 
+    // Inline SVG file
+    inlineSVG = ${Configuration.setting('Carbon.Image.inlineSVG')}
+
     figureAttributes = Neos.Fusion:Attributes
 
     renderer = Neos.Fusion:Component {
@@ -56,15 +59,28 @@ prototype(Carbon.Image:Component.Image) < prototype(Neos.Fusion:Component) {
             asset = ${props.image}
         }
 
+        renderInlineSVG = ${props.inlineSVG && props.image.resource.mediaType == 'image/svg+xml'}
+
         @if.hasImageSource = ${this.imageSource}
 
-        renderer = Carbon.Image:Component.Presentation.Image {
-            @apply.props = ${props}
-            linkAttributes = afx`<Carbon.Image:Helper.Link.Attributes {...props} />`
-            renderer.content.wrapper.@process.convertUris = Neos.Neos:ConvertUris {
-                @if.set = ${!props.rootLinkAttributesIsSet && props.link}
-                @apply.props = ${props.linkOptions}
-            }
-        }
+
+        renderer = afx`
+            <Carbon.Image:Component.Presentation.Image @if.set={!props.renderInlineSVG} {...props}>
+                <Carbon.Image:Helper.Link.Attributes {...props} @path='linkAttributes' />
+                <Neos.Neos:ConvertUris
+                    @path='renderer.content.wrapper.@process.convertUris'
+                    @if.set={!props.rootLinkAttributesIsSet && props.link}
+                    {...props.linkOptions}
+                />
+            </Carbon.Image:Component.Presentation.Image>
+            <Carbon.Image:Component.Presentation.InlineSvg @if.set={props.renderInlineSVG} {...props}>
+                <Carbon.Image:Helper.Link.Attributes {...props} @path='linkAttributes' />
+                <Neos.Neos:ConvertUris
+                    @path='renderer.content.wrapper.@process.convertUris'
+                    @if.set={!props.rootLinkAttributesIsSet && props.link}
+                    {...props.linkOptions}
+                />
+            </Carbon.Image:Component.Presentation.InlineSvg>
+        `
     }
 }

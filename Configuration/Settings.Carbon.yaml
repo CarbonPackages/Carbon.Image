@@ -1,5 +1,6 @@
 Carbon:
   Image:
+    inlineSVG: false
     lazy:
       enabled: false
       lazyWidth: null
