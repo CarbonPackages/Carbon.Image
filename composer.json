@@ -15,7 +15,7 @@
         "neos/neos": "^4.3 || ^5.0",
         "carbon/eel": "^1.7 || dev-master",
         "carbon/notification": "^2.1",
-        "sitegeist/kaleidoscope": "^5.1.1"
+        "sitegeist/kaleidoscope": "^5.1.1 || ^6.0"
     },
     "authors": [
         {
