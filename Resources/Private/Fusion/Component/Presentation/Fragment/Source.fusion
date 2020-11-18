@@ -15,6 +15,10 @@ prototype(Carbon.Image:Component.Fragment.Source) < prototype(Neos.Fusion:Compon
     currentRatio = ${this.currentWidth && this.currentHeight ? this.currentWidth / this.currentHeight : null}
 
     @if.hasImageSource = ${this.imageSource}
+    imageSource.@process {
+        applyWidth = ${this.width ? value.setWidth(this.width) : value}
+        applyHeight = ${this.height ? value.setHeight(this.height) : value}
+    }
 
     renderer = afx`
         <source
