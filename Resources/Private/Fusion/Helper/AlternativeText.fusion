@@ -49,7 +49,7 @@ prototype(Carbon.Image:Helper.AlternativeText) < prototype(Neos.Fusion:Component
                 language = ${this.needSplit ? (props.language || documentNode.context.dimensions.language[0]) : null}
 
                 // Get the description from the asset
-                description = ${this.asset[this.property]}
+                description = ${props.asset[this.property]}
 
                 // Split the description into an array (if needed)
                 description.@process.split = ${this.needSplit ? String.split(value, this.splitCharacter) : [value]}
