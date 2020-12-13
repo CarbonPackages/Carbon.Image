@@ -55,11 +55,14 @@ prototype(Carbon.Image:Component.Picture) < prototype(Neos.Fusion:Component) {
         rootLinkAttributesIsSet = ${!!props.linkAttributes}
         imageSource = afx`<Carbon.Image:Helper.ImageSource image={props.image} outputDummy={props.outputDummy} {...props.imageSourceSettings} />`
         lightboxImageSource = afx`<Carbon.Image:Helper.LightboxImageSource image={props.lightboxImage} configuration={props.lightboxConfiguration} />`
+        renderInlineSVG = ${props.inlineSVG && props.image.resource.mediaType == 'image/svg+xml'}
         alternativeText = Carbon.Image:Helper.AlternativeText {
             asset = ${props.image}
         }
 
-        renderInlineSVG = ${props.inlineSVG && props.image.resource.mediaType == 'image/svg+xml'}
+        prototype(Carbon.Image:Helper.MinMaxImageSize) {
+            asset = ${props.image}
+        }
 
         @if.hasImageSource = ${this.imageSource}
 

@@ -8,16 +8,18 @@ prototype(Carbon.Image:Helper.MinMaxImageSize) < prototype(Neos.Fusion:Component
     }
 
     size = ${value}
+    asset = null
 
     min = 300
     max = 3900
+    maxAssetSize = ${Type.instance(this.asset, 'Neos\Media\Domain\Model\ImageInterface') ? this.asset.width : this.max}
 
     // If you set this to null, the steps generation gets deactivated
     step = 150
     multiplicator = ${[2, 1.5, 1, 0.75, 0.5, 0.25]}
 
     minimalSize = ${this.size ? Math.min(this.min, this.size) : this.min}
-    maximalSize = ${this.size ? Math.max(this.max, this.size) : this.max}
+    maximalSize = ${this.size ? Math.max(this.maxAssetSize, this.size) : this.maxAssetSize}
     @if.set = ${this.step || (this.size && this.multiplicator)}
     
     renderer = Neos.Fusion:Value {
