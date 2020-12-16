@@ -26,7 +26,7 @@ prototype(Carbon.Image:Component.Fragment.Image) < prototype(Neos.Fusion:Compone
             style={props.style || null}
             title={props.title || null}
             loading={props.loading || null}
-            alt={props.alt || null}
+            alt={props.alt || ''}
             width={props.imageSource.currentWidth}
             height={props.imageSource.currentHeight}
             sizes={props.sizes || null}
