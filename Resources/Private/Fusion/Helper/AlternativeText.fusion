@@ -44,7 +44,7 @@ prototype(Carbon.Image:Helper.AlternativeText) < prototype(Neos.Fusion:Component
                 languageMapping = ${props.languageMapping || Configuration.Setting('Carbon.Image.alternativeText.languageMapping')}
                 splitCharacter = ${props.splitCharacter || Configuration.Setting('Carbon.Image.alternativeText.splitCharacter')}
                 needSplit = ${this.languageMapping && this.splitCharacter && this.languageDimensionExists}
-                
+
                 // If a split is needed, get language from props or from the current document node context
                 language = ${this.needSplit ? (props.language || documentNode.context.dimensions.language[0]) : null}
 
