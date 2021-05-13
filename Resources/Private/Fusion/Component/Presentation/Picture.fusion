@@ -66,6 +66,8 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
     // If set and figureTagName is 'figure', a figcaption is rendered
     content = null
 
+    pictureAttributes = Neos.Fusion:DataStructure
+
     // Internal
     width.@process {
         thumbnailPreset = ${this.thumbnailPreset ? Configuration.setting('Neos.Media.thumbnailPresets.' + this.thumbnailPreset + '.width') : (String.toInteger(value) || null)}
@@ -94,7 +96,7 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
     renderer = afx`
         <Carbon.Eel:Tag tagName={props.figureTagName} attributes={props.figureAttributes}>
             <Carbon.Eel:Tag @key='wrapper' tagName={props.linkAttributes ? 'a' : null} attributes={props.linkAttributes}>
-                <picture>
+                <picture {...props.pictureAttributes}>
                     <Neos.Fusion:Loop @key='additionalFormats' items={props.additionalFormats} @if.set={props.additionalFormats && props.isAssetImageSource} itemName='format'>
                         <Carbon.Image:Component.Fragment.Source
                             @key='noSources'
