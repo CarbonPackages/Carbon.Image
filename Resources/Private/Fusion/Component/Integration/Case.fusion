@@ -13,7 +13,7 @@ prototype(Carbon.Image:Component.Case) < prototype(Neos.Fusion:Component) {
             @key='notification'
             @if.set={props.type != 'image' && props.type != 'picture'}
             type='alert'
-            content={Translation.translate('case.noType', 'The property <code>type</code> must be <code>image</code> or <code>picture</code>.', [], null, 'Carbon.Image')}
+            content={Translation.translate('case.noType', 'The property <code>type</code> must be <code>image</code> or <code>picture</code>.', [], 'Main', 'Carbon.Image')}
         />
     `
 }
