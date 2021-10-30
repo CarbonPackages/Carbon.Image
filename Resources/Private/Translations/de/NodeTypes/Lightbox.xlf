@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff version="1.2" 
+<xliff version="1.2"
     xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file original="" product-name="Carbon.Image" source-language="de" datatype="plaintext">
+    <file original="" product-name="Carbon.Image" source-language="en" target-language="de" datatype="plaintext">
         <body>
             <trans-unit id="properties.lightbox" xml:space="preserve">
-                <source>Bild auf Klick vergrößern</source>
+                <source>Enlarge picture with a click</source>
+                <target>Bild auf Klick vergrößern</target>
             </trans-unit>
         </body>
     </file>

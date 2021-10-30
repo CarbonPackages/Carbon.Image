@@ -1,0 +1,69 @@
+prototype(Carbon.Image:Helper.AlternativeText) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        alternativeText = ${PropTypes.string}
+        asset = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\Media\Domain\Model\ImageInterface'), PropTypes.string)}
+        property = ${PropTypes.oneOf(['title', 'caption', 'copyrightNotice'])}
+        language = ${PropTypes.string}
+        languageMapping = ${PropTypes.arrayOf(PropTypes.integer)}
+        splitCharacter = ${PropTypes.string}
+    }
+
+    alternativeText = null
+    asset = null
+    property = null
+    language = null
+    languageMapping = null
+
+    /* 
+    A language mapping has to look like this
+    
+    languageKey = Index in description field
+
+    example:
+
+    languageMapping = Neos.Fusion:DataStructure {
+        en = 0
+        de = 1
+        fr = 2
+    }
+
+    */
+
+    splitCharacter = null
+
+    renderer = Neos.Fusion:Case {
+        hasAlternativeText {
+            condition = ${props.alternativeText}
+            renderer = ${String.trim(String.stripTags(props.alternativeText))}
+        }
+        readFromMediaFields {
+            condition = ${props.asset && Type.instance(props.asset, 'Neos\Media\Domain\Model\ImageInterface')}
+            renderer = Neos.Fusion:Value {
+                languageDimensionExists = ${Configuration.setting('Neos.ContentRepository.contentDimensions.language') != null}
+                property = ${props.property || Configuration.Setting('Carbon.Image.alternativeText.property')}
+                languageMapping = ${props.languageMapping || Configuration.Setting('Carbon.Image.alternativeText.languageMapping')}
+                splitCharacter = ${props.splitCharacter || Configuration.Setting('Carbon.Image.alternativeText.splitCharacter')}
+                needSplit = ${this.languageMapping && this.splitCharacter && this.languageDimensionExists}
+
+                // If a split is needed, get language from props or from the current document node context
+                language = ${this.needSplit ? (props.language || documentNode.context.dimensions.language[0]) : null}
+
+                // Get the description from the asset
+                description = ${props.asset[this.property]}
+
+                // Split the description into an array (if needed)
+                description.@process.split = ${this.needSplit ? String.split(value, this.splitCharacter) : [value]}
+                
+                // If the description has multiple entries select the entry from the language mapping
+                selector = ${Array.length(this.description) > 1 ? this.languageMapping[this.language] : 0}
+
+                // Return the string
+                value = ${String.trim(String.stripTags(this.description[this.selector]))} 
+            }
+        }
+        default {
+            condition = true
+            renderer = false
+        }
+    }
+}

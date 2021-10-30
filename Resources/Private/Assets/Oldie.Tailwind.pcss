@@ -1,0 +1,42 @@
+.carbon-image {
+  @apply w-full h-auto max-w-none;
+
+  &:not([src]) {
+    @apply invisible;
+  }
+}
+
+.carbon-image--cover {
+  &.lazyloaded,
+  &.lazyloading,
+  &.lazyload {
+    @apply object-cover h-full;
+    font-family: "object-fit: cover";
+  }
+
+  @supports (object-fit: cover) {
+    object-fit: cover;
+    height: 100%;
+  }
+}
+
+.carbon-image--contain {
+  &.lazyloaded,
+  &.lazyloading,
+  &.lazyload {
+    @apply object-contain h-full;
+    font-family: "object-fit: contain";
+  }
+
+  @supports (object-fit: contain) {
+    object-fit: contain;
+    height: 100%;
+  }
+}
+
+.carbon-image--cover,
+.carbon-image--contain {
+  &.lazyloaded {
+    @apply h-full !important;
+  }
+}

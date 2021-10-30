@@ -1,5 +1,0 @@
-prototype(Carbon.Image:Internal.GeneralizeClass) < prototype(Neos.Fusion:Value) {
-    class = ${value}
-    process = ${Type.isArray(this.class) ? Carbon.Array.join(Carbon.Array.unique(this.class, true), ' ') : this.class}
-    value = ${Type.isString(this.process) ? String.trim(this.process) : this.process}
-}

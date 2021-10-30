@@ -1,0 +1,29 @@
+prototype(Carbon.Image:Component.SrcSet) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        outputDummy = ${PropTypes.boolean}
+        image = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\Media\Domain\Model\ImageInterface'), PropTypes.string)}
+        imageSourceSettings = ${PropTypes.arrayOf(PropTypes.any)}
+    }
+
+    // IMPORTANT!
+    // You can pass any value from Carbon.Image:Component.Presentation.SrcSet
+    // To keep it a bit shorter these are not listed
+
+    outputDummy = ${node.context.inBackend}
+
+    image = null
+    // You can pass all properties from Carbon.Image:Helper.ImageSource
+    imageSourceSettings = Neos.Fusion:DataStructure
+
+    renderer = Neos.Fusion:Component {
+        @apply.props = ${props}
+        imageSource = afx`<Carbon.Image:Helper.ImageSource image={props.image} outputDummy={props.outputDummy} {...props.imageSourceSettings} />`
+        prototype(Carbon.Image:Helper.MinMaxImageSize) {
+            asset = ${props.image}
+        }
+        @if.hasImageSource = ${this.imageSource}
+        renderer = Carbon.Image:Component.Presentation.SrcSet {
+            @apply.props = ${props}
+        }
+    }
+}

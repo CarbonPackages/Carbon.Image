@@ -1,0 +1,19 @@
+prototype(Carbon.Image:Helper.Link.Options) < prototype(Neos.Fusion:DataStructure) {
+    // Related to ConvertUris and NodeUri
+    // absolute = false
+
+    // Related to ConvertUris
+    // node = ${node}
+    // externalLinkTarget = '_blank'
+    // resourceLinkTarget = '_blank'
+    // forceConversion = false
+    // setNoOpener = true
+
+    // Related to NodeUri
+    // format = null
+    // section = null
+    // additionalParams = null
+    // argumentsToBeExcludedFromQueryString = null
+    // addQueryString = false
+    // baseNodeName = ${documentNode}
+}

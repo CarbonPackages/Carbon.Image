@@ -1,0 +1,67 @@
+prototype(Carbon.Image:Component.Presentation.InlineSvg) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        id = ${PropTypes.string}
+        class = ${PropTypes.anyOf(PropTypes.string, PropTypes.arrayOf(PropTypes.string))}
+        style = ${PropTypes.string}
+        content = ${PropTypes.string}
+        viewBox = ${PropTypes.string}
+        width = ${PropTypes.anyOf(PropTypes.string, PropTypes.integer)}
+        height = ${PropTypes.anyOf(PropTypes.string, PropTypes.integer)}
+    }
+    @styleguide {
+        props {
+            imageSource = Carbon.Image:Helper.ImageSource {
+                image = 'resource://Carbon.Image/Public/Assets/InlineSvg.svg'
+            }
+            content = ''
+            style = 'color: #8ACB00'
+        }
+        propSets {
+            options {
+                id = ''
+                class = ''
+                style = ''
+                width = 100
+                height = 100
+                viewBox = '0 0 418 483'
+            }
+        }
+    }
+
+
+    imageSource = null
+
+    id = null
+    class = null
+    style = null
+    viewBox = null
+    width = null
+    height = null
+
+    figureTagName = 'figure'
+    figureAttributes = Neos.Fusion:Attributes
+    // If set and figureTagName is 'figure', a figcaption is rendered
+    content = null
+
+    // Internal
+    class.@process.convertToString = ${Type.isArray(value) ? Array.join(Carbon.Array.filter(value), ' ') : value}
+
+    @if.hasImageSource = ${this.imageSource}
+
+    renderer = afx`
+        <Carbon.Eel:Tag tagName={props.figureTagName} attributes={props.figureAttributes}>
+            <Carbon.Eel:Tag @key='wrapper' tagName={props.linkAttributes ? 'a' : null} attributes={props.linkAttributes}>
+                <Neos.Fusion:Augmenter
+                    id={props.id}
+                    class={props.class}
+                    style={props.style}
+                    width={props.width}
+                    height={props.height}
+                    viewBox={props.viewBox}
+                    content={File.readFile(props.imageSource)}
+                />
+            </Carbon.Eel:Tag>
+            <Carbon.Image:Component.Fragment.Figcaption @key='figcaption' {...props} />
+        </Carbon.Eel:Tag>
+    `
+}

@@ -1,0 +1,26 @@
+.carbon-image {
+  width: 100%;
+  height: auto;
+  max-width: none;
+
+  &:not([src]) {
+    visibility: hidden;
+  }
+}
+
+.carbon-image--cover {
+  object-fit: cover;
+}
+
+.carbon-image--contain {
+  object-fit: contain;
+}
+
+.carbon-image--cover,
+.carbon-image--contain {
+  height: 100%;
+
+  &.lazyloaded {
+    height: 100% !important;
+  }
+}

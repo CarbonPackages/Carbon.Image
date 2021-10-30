@@ -1,0 +1,110 @@
+prototype(Carbon.Image:Component.Presentation.Image) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        lazy = ${PropTypes.boolean}
+        lazyClass = ${PropTypes.string}
+        lazyWidth = ${PropTypes.integer}
+        objectFit = ${PropTypes.oneOf(['cover', 'contain'])}
+        loading = ${PropTypes.oneOf(['auto', 'lazy', 'eager'])}
+        thumbnailPreset = ${PropTypes.string}
+        variantPreset = ${PropTypes.arrayOf(PropTypes.string)}
+        width = ${PropTypes.integer}
+        height = ${PropTypes.integer}
+    }
+    @styleguide {
+        props {
+            imageSource = Carbon.Image:Helper.ImageSource {
+                outputDummy = true
+            }
+            width = 500
+            lazy = false
+            title = ''
+            alternativeText = ''
+            content = ''
+            loading = 'eager'
+        }
+        propSets {
+            options {
+                variantPreset = ''
+                thumbnailPreset = ''
+                srcset = ''
+                sizes = ''
+                id = ''
+                class = ''
+                style = ''
+            }
+        }
+    }
+
+    lazy = ${Configuration.Setting('Carbon.Image.lazy.enabled')}
+    lazy.@process.disableInBackend = ${node.context.inBackend ? false : value}
+    lazyClass = ${Configuration.Setting('Carbon.Image.lazy.class')}
+    lazyWidth = ${Configuration.Setting('Carbon.Image.lazy.lazyWidth')}
+
+    imageSource = null
+    thumbnailPreset = null
+    variantPreset = null
+    variantPreset.@process.split = ${value && Type.isString(value) ? String.split(value, '::') : (value || null)}
+    width = null
+    height = null
+
+    srcset = null
+    sizes = null
+    alternativeText = null
+    title = null
+    objectFit = null
+    id = null
+    class = null
+    style = null
+    loading = null
+
+    figureTagName = 'figure'
+    figureAttributes = Neos.Fusion:Attributes
+    // If set and figureTagName is 'figure', a figcaption is rendered
+    content = null
+
+    // Internal
+    width.@process {
+        thumbnailPreset = ${this.thumbnailPreset ? Configuration.setting('Neos.Media.thumbnailPresets.' + this.thumbnailPreset + '.width') : (String.toInteger(value) || null)}
+    }
+    height.@process {
+        thumbnailPreset = ${this.thumbnailPreset ? Configuration.setting('Neos.Media.thumbnailPresets.' + this.thumbnailPreset + '.height') : (String.toInteger(value) || null)}
+    }
+    isScalableImageSource = ${Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\EelHelpers\AssetImageSourceHelper') || Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\EelHelpers\DummyImageSourceHelper')}
+
+    sizedImageSource = ${this.imageSource}
+    sizedImageSource.@process {
+        setWidth = ${this.isScalableImageSource && this.width ? value.setWidth(this.width) : value}
+        setHeight = ${this.isScalableImageSource && this.height ? value.setHeight(this.height) : value}
+        variantPreset = ${this.isScalableImageSource && this.variantPreset ? value.useVariantPreset(this.variantPreset[0], this.variantPreset[1]) : value}
+    }
+
+    imageClass = ${BEM.modifier('carbon-image', [this.objectFit, 'image'])}
+    calculatedSrcSet = ${this.srcset ? null : (this.width || this.height)}
+    calculatedSrcSet.@process.calc = Carbon.Image:Helper.MinMaxImageSize
+    finalSrcSet = ${this.srcset || this.calculatedSrcSet}
+    class.@process.convertToString = ${Type.isArray(value) ? Array.join(Carbon.Array.filter(value), ' ') : value}
+
+    @if.hasImageSource = ${this.imageSource}
+
+    renderer = afx`
+        <Carbon.Eel:Tag tagName={props.figureTagName} attributes={props.figureAttributes}>
+            <Carbon.Eel:Tag @key='wrapper' tagName={props.linkAttributes ? 'a' : null} attributes={props.linkAttributes}>
+                <Carbon.Image:Component.Fragment.Image
+                    lazy={props.lazy}
+                    lazyWidth={props.lazyWidth}
+                    id={props.id}
+                    class={[props.class, props.imageClass, props.lazy ? props.lazyClass : null]}
+                    style={props.style}
+                    title={props.title}
+                    loading={props.loading}
+                    alt={props.alternativeText}
+                    imageSource={props.sizedImageSource}
+                    sizes={props.sizes}
+                    srcset={props.isScalableImageSource ? props.finalSrcSet : null}
+                    objectFit={props.objectFit}
+                />
+            </Carbon.Eel:Tag>
+            <Carbon.Image:Component.Fragment.Figcaption @key='figcaption' {...props} />
+        </Carbon.Eel:Tag>
+    `
+}

@@ -1,0 +1,44 @@
+.carbon-image {
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+
+.carbon-image:not([src]) {
+  visibility: hidden;
+}
+
+.carbon-image--cover.lazyload,
+.carbon-image--cover.lazyloaded,
+.carbon-image--cover.lazyloading {
+  object-fit: cover;
+  height: 100%;
+  font-family: "object-fit: cover";
+}
+
+.carbon-image--contain.lazyload,
+.carbon-image--contain.lazyloaded,
+.carbon-image--contain.lazyloading {
+  object-fit: contain;
+  height: 100%;
+  font-family: "object-fit: contain";
+}
+
+@supports (object-fit: cover) {
+  .carbon-image--cover {
+    object-fit: cover;
+    height: 100%;
+  }
+}
+
+@supports (object-fit: contain) {
+  .carbon-image--contain {
+    object-fit: contain;
+    height: 100%;
+  }
+}
+
+.carbon-image--contain.lazyloaded,
+.carbon-image--cover.lazyloaded {
+  height: 100% !important;
+}

@@ -1,0 +1,40 @@
+prototype(Carbon.Image:Component.Presentation.SrcSet) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        thumbnailPreset = ${PropTypes.string}
+        variantPreset = ${PropTypes.arrayOf(PropTypes.string)}
+        width = ${PropTypes.integer}
+        height = ${PropTypes.integer}
+    }
+
+    imageSource = null
+    thumbnailPreset = null
+    variantPreset = null
+    variantPreset.@process.split = ${value && Type.isString(value) ? String.split(value, '::') : (value || null)}
+    width = null
+    height = null
+    srcset = null
+
+    // Internal
+    width.@process {
+        thumbnailPreset = ${this.thumbnailPreset ? Configuration.setting('Neos.Media.thumbnailPresets.' + this.thumbnailPreset + '.width') : (String.toInteger(value) || null)}
+    }
+    height.@process {
+        thumbnailPreset = ${this.thumbnailPreset ? Configuration.setting('Neos.Media.thumbnailPresets.' + this.thumbnailPreset + '.height') : (String.toInteger(value) || null)}
+    }
+    isAssetImageSource = ${Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\EelHelpers\AssetImageSourceHelper')}
+    isScalableImageSource = ${this.isAssetImageSource || Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\EelHelpers\DummyImageSourceHelper')}
+    
+    sizedImageSource = ${this.imageSource}
+    sizedImageSource.@process {
+        setWidth = ${this.isScalableImageSource && this.width ? value.setWidth(this.width) : value}
+        setHeight = ${this.isScalableImageSource && this.height ? value.setHeight(this.height) : value}
+        variantPreset = ${this.isScalableImageSource && this.variantPreset ? value.useVariantPreset(this.variantPreset[0], this.variantPreset[1]) : value}
+    }
+    calculatedSrcSet = ${this.srcset ? null : (this.width || this.height)}
+    calculatedSrcSet.@process.calc = Carbon.Image:Helper.MinMaxImageSize
+    finalSrcSet = ${this.srcset || this.calculatedSrcSet}
+
+    @if.hasImageSourceAndSrcSet = ${this.imageSource && this.finalSrcSet}
+
+    renderer = ${props.imageSource.srcset(props.finalSrcSet)}
+}

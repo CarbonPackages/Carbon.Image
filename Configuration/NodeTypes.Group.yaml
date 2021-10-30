@@ -1,0 +1,9 @@
+'Carbon.Image:Group':
+  abstract: true
+  ui:
+    inspector:
+      groups:
+        image:
+          label: i18n
+          icon: 'fas fa-image'
+          position: 100

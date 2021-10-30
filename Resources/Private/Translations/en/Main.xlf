@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2"
+    xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file original="" product-name="Carbon.Image" source-language="en" target-language="en" datatype="plaintext">
+        <body>
+            <trans-unit id="case.noType" xml:space="preserve">
+                <source><![CDATA[The property<code>type</code> must be <code>image</code> or <code>picture</code>.]]></source>
+                <target><![CDATA[The property<code>type</code> must be <code>image</code> or <code>picture</code>.]]></target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

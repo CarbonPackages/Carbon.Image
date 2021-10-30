@@ -1,0 +1,10 @@
+Sitegeist:
+  Monocle:
+    ui:
+      structure:
+        Carbon:
+          position: 9000
+          match: Carbon.
+          label: Carbon
+          icon: icon-code
+          color: '#8ac91d'

@@ -1,0 +1,14 @@
+'Carbon.Image:Caption':
+  abstract: true
+  superTypes:
+    'Carbon.Image:Group': true
+  properties:
+    caption:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: false
+        inspector:
+          group: image
+          hidden: 'ClientEval:node.properties.image && node.properties.lightbox && !node.properties.link ? false : true'
+          position: 400

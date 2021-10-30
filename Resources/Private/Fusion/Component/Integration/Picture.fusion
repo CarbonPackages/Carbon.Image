@@ -1,0 +1,93 @@
+prototype(Carbon.Image:Component.Picture) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        outputDummy = ${PropTypes.boolean}
+        image = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\Media\Domain\Model\ImageInterface'), PropTypes.string)}
+        imageSourceSettings = ${PropTypes.arrayOf(PropTypes.any)}
+        link = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\ContentRepository\Domain\Model\Node'), PropTypes.string)}
+        linkOptions = ${PropTypes.arrayOf(PropTypes.any)}
+        linkAdditonalAttributes = ${PropTypes.arrayOf(PropTypes.any)}
+        lightbox = ${PropTypes.boolean}
+        lightboxImage = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\Media\Domain\Model\ImageInterface'), PropTypes.string)}
+        lightboxConfiguration = ${PropTypes.arrayOf(PropTypes.any)}
+        lightboxCaption = ${PropTypes.string}
+        linkAttributes = ${PropTypes.any}
+    }
+
+    // IMPORTANT!
+    // You can pass any value from Carbon.Image:Component.Presentation.Picture
+    // To keep it a bit shorter these are not listed
+
+    outputDummy = ${node.context.inBackend}
+
+    image = null
+    // You can pass all properties from Carbon.Image:Helper.ImageSource
+    imageSourceSettings = Neos.Fusion:DataStructure
+
+
+    // Pass a node or a string. The link gets processed with ConvertUris.
+    // It will have no effect if linkAttributes is set.
+    link = null
+    // Pass any option from ConvertUris or NodeUri
+    linkOptions = Carbon.Image:Helper.Link.Options
+    // Pass any additional attributes to the link
+    // You can even override href
+    linkAdditonalAttributes = Neos.Fusion:DataStructure
+
+
+    // If set, the link for the lightbox gets generated.
+    // It will have no effect if link or linkAttributes is set.
+    lightbox = null
+    lightboxConfiguration = ${Configuration.setting('Carbon.Image.lightbox')}
+    // Override the lightbox image
+    lightboxImage = ${this.image}
+    lightboxCaption = null
+
+    // If you set linkAttributes, this will override lightbox and link
+    // linkAttributes = null
+
+    // Inline SVG file
+    inlineSVG = ${Configuration.setting('Carbon.Image.inlineSVG')}
+
+    figureAttributes = Neos.Fusion:Attributes
+
+    renderer = Neos.Fusion:Component {
+        @apply {
+            props = ${props}
+            data = Neos.Fusion:DataStructure {
+                alternativeText = Carbon.Image:Helper.AlternativeText {
+                    alternativeText = ${props.alternativeText}
+                    asset = ${props.image}
+                }
+            }
+        }
+        rootLinkAttributesIsSet = ${!!props.linkAttributes}
+        imageSource = afx`<Carbon.Image:Helper.ImageSource image={props.image} outputDummy={props.outputDummy} {...props.imageSourceSettings} />`
+        lightboxImageSource = afx`<Carbon.Image:Helper.LightboxImageSource image={props.lightboxImage} configuration={props.lightboxConfiguration} />`
+        renderInlineSVG = ${props.inlineSVG && props.image.resource.mediaType == 'image/svg+xml'}
+
+        prototype(Carbon.Image:Helper.MinMaxImageSize) {
+            asset = ${props.image}
+        }
+
+        @if.hasImageSource = ${this.imageSource}
+
+        renderer = afx`
+            <Carbon.Image:Component.Presentation.Picture @if.set={!props.renderInlineSVG} {...props}>
+                <Carbon.Image:Helper.Link.Attributes {...props} @path='linkAttributes' />
+                <Neos.Neos:ConvertUris
+                    @path='renderer.content.wrapper.@process.convertUris'
+                    @if.set={!props.rootLinkAttributesIsSet && props.link}
+                    {...props.linkOptions}
+                />
+            </Carbon.Image:Component.Presentation.Picture>
+            <Carbon.Image:Component.Presentation.InlineSvg @if.set={props.renderInlineSVG} {...props}>
+                <Carbon.Image:Helper.Link.Attributes {...props} @path='linkAttributes' />
+                <Neos.Neos:ConvertUris
+                    @path='renderer.content.wrapper.@process.convertUris'
+                    @if.set={!props.rootLinkAttributesIsSet && props.link}
+                    {...props.linkOptions}
+                />
+            </Carbon.Image:Component.Presentation.InlineSvg>
+        `
+    }
+}

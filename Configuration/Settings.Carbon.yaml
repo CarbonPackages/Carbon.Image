@@ -1,0 +1,27 @@
+Carbon:
+  Image:
+    inlineSVG: false
+    lazy:
+      enabled: false
+      lazyWidth: null
+      class: lazyload
+    alternativeText:
+      # You can set the language mapping like that:
+      # languageMapping:
+      #   en: 0
+      #   de: 1
+      #   fr: 2
+      languageMapping: null
+      splitCharacter: '||'
+      property: caption
+    dummy:
+      forgroundColor: fff
+      backgroundColor: 999
+    lightbox:
+      rel: noopener
+      class: 'lightbox'
+      target: _blank
+      width: 2560
+      height: null
+      thumbnailPreset: null
+      variantPreset: null

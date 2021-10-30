@@ -1,0 +1,22 @@
+.carbon-image {
+  @apply w-full h-auto max-w-none;
+
+  &:not([src]) {
+    @apply invisible;
+  }
+}
+
+.carbon-image--cover {
+  @apply object-cover h-full;
+}
+
+.carbon-image--contain {
+  @apply object-contain h-full;
+}
+
+.carbon-image--cover,
+.carbon-image--contain {
+  &.lazyloaded {
+    @apply h-full !important;
+  }
+}

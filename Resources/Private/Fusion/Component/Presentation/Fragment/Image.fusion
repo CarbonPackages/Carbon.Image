@@ -1,0 +1,43 @@
+prototype(Carbon.Image:Component.Fragment.Image) < prototype(Neos.Fusion:Component) {
+    lazy = null
+    lazyWidth = null
+
+    id = null
+    class = null
+    style = null
+    title = null
+    alt = null
+    loading = null
+
+    imageSource = null
+    sizes = null
+    srcset = null
+    objectFit = null
+    aspectratio = ${this.imageSource.currentWidth / this.imageSource.currentHeight}
+
+    placeholder = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
+
+    @if.hasImageSource = ${this.imageSource}
+
+    renderer = afx`
+        <img
+            id={props.id || null}
+            class={props.class || null}
+            style={props.style || null}
+            title={props.title || null}
+            loading={props.loading || null}
+            alt={props.alt || ''}
+            width={props.imageSource.currentWidth}
+            height={props.imageSource.currentHeight}
+            sizes={props.sizes || null}
+            sizes.@process.join={Type.isArray(value) ? Array.join(value, ', ') : value}
+            src={props.lazy ? (props.lazyWidth ? props.imageSource.setWidth(props.lazyWidth, true) : props.placeholder) : props.imageSource}
+            srcset={!props.lazy && props.srcset ? props.imageSource.srcset(props.srcset) : null}
+            data-src={props.lazy ? props.imageSource : null}
+            data-srcset={props.lazy && props.srcset ? props.imageSource.srcset(props.srcset) : null}
+            data-sizes={props.lazy && !props.sizes ? 'auto' : null}
+            data-aspectratio={props.lazy ? props.aspectratio : null}
+            data-parent-fit={props.lazy && props.objectFit}
+        />
+    `
+}

@@ -1,0 +1,69 @@
+prototype(Carbon.Image:Helper.ImageSource) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        image = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\Media\Domain\Model\ImageInterface'), PropTypes.string)}
+        package = ${PropTypes.string}
+        dummyText = ${PropTypes.string}
+        thumbnailPreset = ${PropTypes.string}
+        variantPreset = ${PropTypes.string}
+        format = ${PropTypes.string}
+        width = ${PropTypes.integer}
+        height = ${PropTypes.integer}
+        outputDummy = ${PropTypes.boolean}
+        dummyForgroundColor = ${PropTypes.string}
+        dummyBackgroundColor = ${PropTypes.string}
+        dummyBaseWidth = ${PropTypes.integer}
+        dummyBaseHeight = ${PropTypes.integer}
+    }
+
+    outputDummy = ${node.context.inBackend}
+    dummyForgroundColor = ${Configuration.Setting('Carbon.Image.dummy.forgroundColor')}
+    dummyForgroundColor.@process.toString = ${String.toString(value)}
+    dummyBackgroundColor = ${Configuration.Setting('Carbon.Image.dummy.backgroundColor')}
+    dummyBackgroundColor.@process.toString = ${String.toString(value)}
+    dummyBaseWidth = 600
+    dummyBaseHeight = 400
+
+    @if.hasImageOrOutputDummy = ${this.image || this.outputDummy}
+
+    renderer = Neos.Fusion:Case {
+        isAsset {
+            condition = ${props.image && Type.instance(props.image, 'Neos\Media\Domain\Model\ImageInterface')}
+            renderer = Sitegeist.Kaleidoscope:AssetImageSource {
+                asset = ${props.image}
+                thumbnailPreset = ${props.thumbnailPreset}
+                variantPreset = ${props.variantPreset}
+                format = ${props.format}
+                width = ${props.width}
+                height = ${props.height}
+            }
+        }
+        isResource {
+            condition = ${Type.isString(props.image) && (String.startsWith(props.image, 'resource') || props.package)}
+            renderer = Sitegeist.Kaleidoscope:ResourceImageSource {
+                package = ${props.package}
+                path = ${props.image}
+            }
+        }
+        isLink {
+            condition = ${Type.isString(props.image) && String.startsWith(props.image, 'http')}
+            renderer = Sitegeist.Kaleidoscope:UriImageSource {
+                uri = ${props.image}
+            }
+        }
+        needDummyImage {
+            condition = ${props.outputDummy}
+            renderer = Sitegeist.Kaleidoscope:DummyImageSource {
+                text = ${props.dummyText}
+                foregroundColor = ${props.dummyForgroundColor || 'fff'}
+                backgroundColor = ${props.dummyBackgroundColor || '999'}
+                thumbnailPreset = ${props.thumbnailPreset}
+                variantPreset = ${props.variantPreset}
+                format = ${props.format}
+                baseWidth = ${props.dummyBaseWidth}
+                baseHeight = ${props.dummyBaseHeight}
+                width = ${props.width}
+                height = ${props.height}
+            }
+        }
+    }
+}

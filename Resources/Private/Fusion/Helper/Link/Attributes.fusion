@@ -1,0 +1,43 @@
+prototype(Carbon.Image:Helper.Link.Attributes) < prototype(Neos.Fusion:Component) {
+    link = null
+    linkAdditonalAttributes = null
+    linkOptions = null
+
+    lightbox = null
+    lightboxImageSource = null
+    lightboxCaption = null
+    lightboxConfiguration = ${Configuration.setting('Carbon.Image.lightbox')}
+    lightboxClass = ${this.lightboxConfiguration.class}
+    lightboxRel = ${this.lightboxConfiguration.rel}
+    lightboxTarget = ${this.lightboxConfiguration.target}
+
+    renderer = Neos.Fusion:Case {
+        hasLinkedNode {
+            condition = ${props.link && Type.instance(props.link, 'Neos\ContentRepository\Domain\Model\Node')}
+            renderer = Neos.Fusion:Attributes {
+                @apply.props = ${props.linkAdditonalAttributes}
+                href = afx`<Neos.Neos:NodeUri {...props.linkOptions} node={props.link} />`
+            }
+        }
+        hasLinkAsStringOrInLinkAdditonalAttributes {
+            condition = ${(props.link && Type.isString(props.link)) || Type.isString(props.linkAdditonalAttributes.href)}
+            renderer = afx`<Neos.Fusion:Attributes href={props.link} {...props.linkAdditonalAttributes} />`
+        }
+        hasLightbox {
+            condition = ${props.lightbox && props.lightboxImageSource}
+            renderer = Neos.Fusion:Attributes {
+                href = ${node.context.inBackend ? null : props.lightboxImageSource.src()}
+                class = ${props.lightboxClass}
+                rel = ${props.lightboxRel}
+                target = ${props.lightboxTarget}
+                data-title = ${props.lightboxCaption}
+                data-href-webp = ${props.lightboxImageSource.setFormat('webp')}
+                data-size = ${props.lightboxImageSource.currentWidth + 'x' + props.lightboxImageSource.currentHeight}
+            }
+        }
+        default {
+            condition = true
+            renderer = false
+        }
+    }
+}

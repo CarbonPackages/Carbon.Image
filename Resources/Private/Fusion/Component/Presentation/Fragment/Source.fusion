@@ -1,0 +1,37 @@
+prototype(Carbon.Image:Component.Fragment.Source) < prototype(Neos.Fusion:Component) {
+    lazy = null
+
+    imageSource = null
+    type = null
+    media = null
+    srcset = null
+    sizes = null
+    width = null
+    height = null
+
+    // Internal
+    currentWidth = ${this.imageSource.currentWidth || this.width}
+    currentHeight = ${this.imageSource.currentHeight || this.height}
+    currentRatio = ${this.currentWidth && this.currentHeight ? this.currentWidth / this.currentHeight : null}
+
+    @if.hasImageSource = ${this.imageSource}
+    imageSource.@process {
+        applyWidth = ${this.width ? value.setWidth(this.width) : value}
+        applyHeight = ${this.height ? value.setHeight(this.height) : value}
+    }
+
+    renderer = afx`
+        <source
+            media={props.media}
+            type={props.type}
+            sizes={props.sizes}
+            sizes.@process.join={Type.isArray(value) ? Array.join(value, ', ') : value}
+            srcset={props.srcset ? props.imageSource.srcset(props.srcset) : props.imageSource}
+            srcset.@if.set={!props.lazy}
+            data-srcset={props.srcset ? props.imageSource.srcset(props.srcset) : props.imageSource}
+            data-srcset.@if.set={props.lazy}
+            data-sizes={props.lazy && !props.sizes ? 'auto' : null}
+            data-aspectratio={props.lazy ? props.currentRatio : null}
+        />
+    `
+}

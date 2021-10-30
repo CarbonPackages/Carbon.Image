@@ -1,0 +1,9 @@
+prototype(Carbon.Image:Helper.LightboxImageSource) < prototype(Carbon.Image:Helper.ImageSource) {
+    configuration = ${Configuration.setting('Carbon.Image.lightbox')}
+
+    image = null
+    thumbnailPreset = ${this.configuration.thumbnailPreset || null}
+    variantPreset = ${this.configuration.variantPreset || null}
+    width = ${this.configuration.width}
+    height = ${this.configuration.height}
+}
