@@ -229,7 +229,7 @@ This prototype takes a value and returns a string for the `srcset` (e.g. `150w, 
 
 ## The lightbox
 
-The markup is optimized to use this togehter with [Jonnitto.PhotoSwipe], but you can use any lightbox you want.
+The markup is optimized to use this together with [Jonnitto.PhotoSwipe], but you can use any lightbox you want.
 
 [packagist]: https://packagist.org/packages/carbon/image
 [latest stable version]: https://poser.pugx.org/carbon/image/v/stable
