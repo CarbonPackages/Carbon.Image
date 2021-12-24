@@ -16,8 +16,12 @@ prototype(Carbon.Image:Component.SrcSet) < prototype(Neos.Fusion:Component) {
     imageSourceSettings = Neos.Fusion:DataStructure
 
     renderer = Neos.Fusion:Component {
-        @apply.props = ${props}
-        imageSource = afx`<Carbon.Image:Helper.ImageSource image={props.image} outputDummy={props.outputDummy} {...props.imageSourceSettings} />`
+        @apply {
+            props = ${props}
+            data = Neos.Fusion:DataStructure {
+                imageSource = afx`<Carbon.Image:Helper.ImageSource image={props.image} outputDummy={props.outputDummy} {...props.imageSourceSettings} />`
+            }
+        }
         prototype(Carbon.Image:Helper.MinMaxImageSize) {
             asset = ${props.image}
         }

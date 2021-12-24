@@ -54,6 +54,7 @@ prototype(Carbon.Image:Component.Picture) < prototype(Neos.Fusion:Component) {
         @apply {
             props = ${props}
             data = Neos.Fusion:DataStructure {
+                imageSource = afx`<Carbon.Image:Helper.ImageSource image={props.image} outputDummy={props.outputDummy} {...props.imageSourceSettings} />`
                 alternativeText = Carbon.Image:Helper.AlternativeText {
                     alternativeText = ${props.alternativeText}
                     asset = ${props.image}
@@ -61,7 +62,6 @@ prototype(Carbon.Image:Component.Picture) < prototype(Neos.Fusion:Component) {
             }
         }
         rootLinkAttributesIsSet = ${!!props.linkAttributes}
-        imageSource = afx`<Carbon.Image:Helper.ImageSource image={props.image} outputDummy={props.outputDummy} {...props.imageSourceSettings} />`
         lightboxImageSource = afx`<Carbon.Image:Helper.LightboxImageSource image={props.lightboxImage} configuration={props.lightboxConfiguration} />`
         renderInlineSVG = ${props.inlineSVG && props.image.resource.mediaType == 'image/svg+xml'}
 
