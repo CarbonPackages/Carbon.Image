@@ -89,7 +89,7 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
     calculatedSrcSet = ${this.srcset ? null : (this.width || this.height)}
     calculatedSrcSet.@process.calc = Carbon.Image:Helper.MinMaxImageSize
     finalSrcSet = ${this.srcset || this.calculatedSrcSet}
-    class.@process.convertToString = ${Type.isArray(value) ? Array.join(Carbon.Array.filter(value), ' ') : value}
+    class.@process.convertToString = ${Type.isArray(value) ? Array.join(Array.filter(value), ' ') : value}
 
     @if.hasImageSource = ${this.imageSource}
 

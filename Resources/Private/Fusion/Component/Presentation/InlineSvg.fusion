@@ -44,7 +44,7 @@ prototype(Carbon.Image:Component.Presentation.InlineSvg) < prototype(Neos.Fusion
     content = null
 
     // Internal
-    class.@process.convertToString = ${Type.isArray(value) ? Array.join(Carbon.Array.filter(value), ' ') : value}
+    class.@process.convertToString = ${Type.isArray(value) ? Array.join(Array.filter(value), ' ') : value}
 
     @if.hasImageSource = ${this.imageSource}
 
