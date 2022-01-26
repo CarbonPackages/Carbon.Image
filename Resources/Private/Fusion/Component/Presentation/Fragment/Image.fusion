@@ -13,7 +13,7 @@ prototype(Carbon.Image:Component.Fragment.Image) < prototype(Neos.Fusion:Compone
     sizes = null
     srcset = null
     objectFit = null
-    aspectratio = ${this.imageSource.currentWidth / this.imageSource.currentHeight}
+    aspectratio = ${this.lazy && this.imageSource.currentWidth && this.imageSource.currentHeight ? this.imageSource.currentWidth / this.imageSource.currentHeight : null}
 
     placeholder = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
 
@@ -36,7 +36,7 @@ prototype(Carbon.Image:Component.Fragment.Image) < prototype(Neos.Fusion:Compone
             data-src={props.lazy ? props.imageSource : null}
             data-srcset={props.lazy && props.srcset ? props.imageSource.srcset(props.srcset) : null}
             data-sizes={props.lazy && !props.sizes ? 'auto' : null}
-            data-aspectratio={props.lazy ? props.aspectratio : null}
+            data-aspectratio={props.aspectratio}
             data-parent-fit={props.lazy && props.objectFit}
         />
     `
