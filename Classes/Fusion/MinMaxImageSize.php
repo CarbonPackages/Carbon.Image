@@ -8,37 +8,37 @@ use Neos\Media\Domain\Model\ImageInterface;
 
 class MinMaxImageSize extends AbstractFusionObject
 {
-    public function getSize()
+    public function getSize(): ?int
     {
         return $this->fusionValue('size');
     }
 
-    public function getAsset()
+    public function getAsset(): ?ImageInterface
     {
         return $this->fusionValue('asset');
     }
 
-    public function getMin()
+    public function getMin(): ?int
     {
         return $this->fusionValue('min');
     }
 
-    public function getMax()
+    public function getMax(): ?int
     {
         return $this->fusionValue('max');
     }
 
-    public function getStep()
+    public function getStep(): ?int
     {
         return $this->fusionValue('step');
     }
 
-    public function getMultiplicator()
+    public function getMultiplicator(): ?array
     {
         return $this->fusionValue('multiplicator');
     }
 
-    public function evaluate()
+    public function evaluate(): string
     {
         $size = $this->getSize();
         $asset = $this->getAsset();
