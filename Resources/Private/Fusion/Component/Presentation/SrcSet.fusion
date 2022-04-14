@@ -26,9 +26,9 @@ prototype(Carbon.Image:Component.Presentation.SrcSet) < prototype(Neos.Fusion:Co
     
     sizedImageSource = ${this.imageSource}
     sizedImageSource.@process {
-        setWidth = ${this.isScalableImageSource && this.width ? value.setWidth(this.width) : value}
-        setHeight = ${this.isScalableImageSource && this.height ? value.setHeight(this.height) : value}
-        variantPreset = ${this.isScalableImageSource && this.variantPreset ? value.useVariantPreset(this.variantPreset[0], this.variantPreset[1]) : value}
+        width = ${this.isScalableImageSource && this.width ? value.withWidth(this.width) : value}
+        height = ${this.isScalableImageSource && this.height ? value.withHeight(this.height) : value}
+        variantPreset = ${this.isScalableImageSource && this.variantPreset ? value.withVariantPreset(this.variantPreset[0], this.variantPreset[1]) : value}
     }
     calculatedSrcSet = ${this.srcset ? null : (this.width || this.height)}
     calculatedSrcSet.@process.calc = Carbon.Image:Helper.MinMaxImageSize

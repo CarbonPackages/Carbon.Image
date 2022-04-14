@@ -80,9 +80,9 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
 
     sizedImageSource = ${this.imageSource}
     sizedImageSource.@process {
-        setWidth = ${this.isScalableImageSource && this.width ? value.setWidth(this.width) : value}
-        setHeight = ${this.isScalableImageSource && this.height ? value.setHeight(this.height) : value}
-        variantPreset = ${this.isScalableImageSource && this.variantPreset ? value.useVariantPreset(this.variantPreset[0], this.variantPreset[1]) : value}
+        width = ${this.isScalableImageSource && this.width ? value.withWidth(this.width) : value}
+        height = ${this.isScalableImageSource && this.height ? value.withHeight(this.height) : value}
+        variantPreset = ${this.isScalableImageSource && this.variantPreset ? value.withVariantPreset(this.variantPreset[0], this.variantPreset[1]) : value}
     }
 
     imageClass = ${BEM.modifier('carbon-image', [this.objectFit, 'picture'])}
@@ -102,7 +102,7 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
                             @key='noSources'
                             @if.set={!props.sources}
                             lazy={props.lazy}
-                            imageSource={props.sizedImageSource.setFormat(format)}
+                            imageSource={props.sizedImageSource.withFormat(format)}
                             type={'image/' + format}
                             srcset={props.finalSrcSet}
                             sizes={props.sizes}
@@ -112,7 +112,7 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
                         <Neos.Fusion:Loop @key='sources' items={props.sources} itemName='source' @if.set={props.sources}>
                             <Carbon.Image:Component.Fragment.Source
                                 lazy={props.lazy}
-                                imageSource={source.imageSource ? source.imageSource.setFormat(format) : props.sizedImageSource.setFormat(format)}
+                                imageSource={source.imageSource ? source.imageSource.withFormat(format) : props.sizedImageSource.withFormat(format)}
                                 type={'image/' + format}
                                 media={source.media || props.media}
                                 srcset={source.srcset || props.finalSrcSet}

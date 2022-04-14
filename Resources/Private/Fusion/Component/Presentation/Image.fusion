@@ -69,13 +69,13 @@ prototype(Carbon.Image:Component.Presentation.Image) < prototype(Neos.Fusion:Com
     height.@process {
         thumbnailPreset = ${this.thumbnailPreset ? Configuration.setting('Neos.Media.thumbnailPresets.' + this.thumbnailPreset + '.height') : (String.toInteger(value) || null)}
     }
-    isScalableImageSource = ${Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\EelHelpers\AssetImageSourceHelper') || Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\EelHelpers\DummyImageSourceHelper')}
+    isScalableImageSource = ${Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\EelHelpers\ScalableImageSourceHelperInterface') || Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\EelHelpers\DummyImageSourceHelper')}
 
     sizedImageSource = ${this.imageSource}
     sizedImageSource.@process {
-        setWidth = ${this.isScalableImageSource && this.width ? value.setWidth(this.width) : value}
-        setHeight = ${this.isScalableImageSource && this.height ? value.setHeight(this.height) : value}
-        variantPreset = ${this.isScalableImageSource && this.variantPreset ? value.useVariantPreset(this.variantPreset[0], this.variantPreset[1]) : value}
+        width = ${this.isScalableImageSource && this.width ? value.withWidth(this.width) : value}
+        height = ${this.isScalableImageSource && this.height ? value.withHeight(this.height) : value}
+        variantPreset = ${this.isScalableImageSource && this.variantPreset ? value.withVariantPreset(this.variantPreset[0], this.variantPreset[1]) : value}
     }
 
     imageClass = ${BEM.modifier('carbon-image', [this.objectFit, 'image'])}

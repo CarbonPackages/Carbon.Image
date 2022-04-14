@@ -31,7 +31,7 @@ prototype(Carbon.Image:Helper.Link.Attributes) < prototype(Neos.Fusion:Component
                 rel = ${props.lightboxRel}
                 target = ${props.lightboxTarget}
                 data-title = ${props.lightboxCaption}
-                data-href-webp = ${props.lightboxImageSource.setFormat('webp')}
+                data-href-webp = ${props.lightboxImageSource.withFormat('webp')}
                 data-size = ${props.lightboxImageSource.currentWidth + 'x' + props.lightboxImageSource.currentHeight}
             }
         }

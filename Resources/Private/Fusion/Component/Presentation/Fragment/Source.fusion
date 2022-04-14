@@ -16,8 +16,8 @@ prototype(Carbon.Image:Component.Fragment.Source) < prototype(Neos.Fusion:Compon
 
     @if.hasImageSource = ${this.imageSource}
     imageSource.@process {
-        applyWidth = ${this.width ? value.setWidth(this.width) : value}
-        applyHeight = ${this.height ? value.setHeight(this.height) : value}
+        width = ${this.width ? value.withWidth(this.width) : value}
+        height = ${this.height ? value.withHeight(this.height) : value}
     }
 
     renderer = afx`
