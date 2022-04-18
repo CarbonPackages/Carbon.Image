@@ -75,8 +75,8 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
     height.@process {
         thumbnailPreset = ${this.thumbnailPreset ? Configuration.setting('Neos.Media.thumbnailPresets.' + this.thumbnailPreset + '.height') : (String.toInteger(value) || null)}
     }
-    isAssetImageSource = ${Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\EelHelpers\AssetImageSourceHelper')}
-    isScalableImageSource = ${this.isAssetImageSource || Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\EelHelpers\DummyImageSourceHelper')}
+    isAssetImageSource = ${Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\Domain\AssetImageSource')}
+    isScalableImageSource = ${this.isAssetImageSource || Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\Domain\DummyImageSource')}
 
     sizedImageSource = ${this.imageSource}
     sizedImageSource.@process {
