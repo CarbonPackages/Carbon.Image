@@ -10,9 +10,9 @@ prototype(Carbon.Image:Component.Fragment.Source) < prototype(Neos.Fusion:Compon
     height = null
 
     // Internal
-    currentWidth = ${this.imageSource.currentWidth || this.width}
-    currentHeight = ${this.imageSource.currentHeight || this.height}
-    currentRatio = ${this.currentWidth && this.currentHeight ? this.currentWidth / this.currentHeight : null}
+    _width = ${this.imageSource.width() || this.width}
+    _height = ${this.imageSource.height() || this.height}
+    _ratio = ${this._width && this._height ? this._width / this._height : null}
 
     @if.hasImageSource = ${this.imageSource}
     imageSource.@process {
@@ -31,7 +31,7 @@ prototype(Carbon.Image:Component.Fragment.Source) < prototype(Neos.Fusion:Compon
             data-srcset={props.srcset ? props.imageSource.srcset(props.srcset) : props.imageSource}
             data-srcset.@if.set={props.lazy}
             data-sizes={props.lazy && !props.sizes ? 'auto' : null}
-            data-aspectratio={props.lazy ? props.currentRatio : null}
+            data-aspectratio={props.lazy ? props._ratio : null}
         />
     `
 }
