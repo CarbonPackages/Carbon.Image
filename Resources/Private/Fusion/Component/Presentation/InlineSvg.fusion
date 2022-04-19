@@ -43,9 +43,6 @@ prototype(Carbon.Image:Component.Presentation.InlineSvg) < prototype(Neos.Fusion
     // If set and figureTagName is 'figure', a figcaption is rendered
     content = null
 
-    // Internal
-    class.@process.convertToString = ${Type.isArray(value) ? Array.join(Array.filter(value), ' ') : value}
-
     @if.hasImageSource = ${this.imageSource}
 
     renderer = afx`
@@ -53,7 +50,7 @@ prototype(Carbon.Image:Component.Presentation.InlineSvg) < prototype(Neos.Fusion
             <Carbon.Eel:Tag @key='wrapper' tagName={props.linkAttributes ? 'a' : null} attributes={props.linkAttributes}>
                 <Neos.Fusion:Augmenter
                     id={props.id}
-                    class={props.class}
+                    class={Carbon.String.merge(props.class)}
                     style={props.style}
                     width={props.width}
                     height={props.height}

@@ -89,7 +89,6 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
     calculatedSrcSet = ${this.srcset ? null : (this.width || this.height)}
     calculatedSrcSet.@process.calc = Carbon.Image:Helper.MinMaxImageSize
     finalSrcSet = ${this.srcset || this.calculatedSrcSet}
-    class.@process.convertToString = ${Type.isArray(value) ? Array.join(Array.filter(value), ' ') : value}
 
     @if.hasImageSource = ${this.imageSource}
 
@@ -139,7 +138,7 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
                         lazy={props.lazy}
                         lazyWidth={props.lazyWidth}
                         id={props.id}
-                        class={[props.class, props.imageClass, props.lazy ? props.lazyClass : null]}
+                        class={Carbon.String.merge(props.class, props.imageClass, props.lazy ? props.lazyClass : null)}
                         style={props.style}
                         title={props.title}
                         loading={props.loading}
