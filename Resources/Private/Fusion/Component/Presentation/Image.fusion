@@ -69,20 +69,19 @@ prototype(Carbon.Image:Component.Presentation.Image) < prototype(Neos.Fusion:Com
     height.@process {
         thumbnailPreset = ${this.thumbnailPreset ? Configuration.setting('Neos.Media.thumbnailPresets.' + this.thumbnailPreset + '.height') : (String.toInteger(value) || null)}
     }
-    isScalableImageSource = ${Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\EelHelpers\ScalableImageSourceHelperInterface') || Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\Domain\DummyImageSource')}
+    _isScalableImageSource = ${Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\EelHelpers\ScalableImageSourceHelperInterface') || Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\Domain\DummyImageSource')}
 
-    sizedImageSource = ${this.imageSource}
-    sizedImageSource.@process {
-        width = ${this.isScalableImageSource && this.width ? value.withWidth(this.width) : value}
-        height = ${this.isScalableImageSource && this.height ? value.withHeight(this.height) : value}
-        variantPreset = ${this.isScalableImageSource && this.variantPreset ? value.withVariantPreset(this.variantPreset[0], this.variantPreset[1]) : value}
+    _sizedImageSource = ${this.imageSource}
+    _sizedImageSource.@process {
+        width = ${this._isScalableImageSource && this.width ? value.withWidth(this.width) : value}
+        height = ${this._isScalableImageSource && this.height ? value.withHeight(this.height) : value}
+        variantPreset = ${this._isScalableImageSource && this.variantPreset ? value.withVariantPreset(this.variantPreset[0], this.variantPreset[1]) : value}
     }
 
-    imageClass = ${BEM.modifier('carbon-image', [this.objectFit, 'image'])}
-    calculatedSrcSet = ${this.srcset ? null : (this.width || this.height)}
-    calculatedSrcSet.@process.calc = Carbon.Image:Helper.MinMaxImageSize
-    finalSrcSet = ${this.srcset || this.calculatedSrcSet}
-    class.@process.convertToString = ${Type.isArray(value) ? Array.join(Array.filter(value), ' ') : value}
+    _imageClass = ${BEM.modifier('carbon-image', [this.objectFit, 'image'])}
+    _calculatedSrcSet = ${this.srcset ? null : (this.width || this.height)}
+    _calculatedSrcSet.@process.calc = Carbon.Image:Helper.MinMaxImageSize
+    _finalSrcSet = ${this.srcset || this._calculatedSrcSet}
 
     @if.hasImageSource = ${this.imageSource}
 
@@ -93,14 +92,14 @@ prototype(Carbon.Image:Component.Presentation.Image) < prototype(Neos.Fusion:Com
                     lazy={props.lazy}
                     lazyWidth={props.lazyWidth}
                     id={props.id}
-                    class={[props.class, props.imageClass, props.lazy ? props.lazyClass : null]}
+                    class={Carbon.String.merge(props.class, props._imageClass, props.lazy ? props.lazyClass : null)]}
                     style={props.style}
                     title={props.title}
                     loading={props.loading}
                     alt={props.alternativeText}
-                    imageSource={props.sizedImageSource}
+                    imageSource={props._sizedImageSource}
                     sizes={props.sizes}
-                    srcset={props.isScalableImageSource ? props.finalSrcSet : null}
+                    srcset={props._isScalableImageSource ? props._finalSrcSet : null}
                     objectFit={props.objectFit}
                 />
             </Carbon.Eel:Tag>

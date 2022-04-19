@@ -13,11 +13,13 @@ prototype(Carbon.Image:Component.Fragment.Image) < prototype(Neos.Fusion:Compone
     sizes = null
     srcset = null
     objectFit = null
+
+    aspectratio = ${this.lazy && this._width && this._height ? this._width / this._height : null}
+    placeholder = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
+
+    // Internal
     _width = ${this.imageSource.width()}
     _height = ${this.imageSource.height()}
-    aspectratio = ${this.lazy && this._width && this._height ? this._width / this._height : null}
-
-    placeholder = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
 
     @if.hasImageSource = ${this.imageSource}
 

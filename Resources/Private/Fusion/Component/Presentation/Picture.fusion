@@ -75,20 +75,20 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
     height.@process {
         thumbnailPreset = ${this.thumbnailPreset ? Configuration.setting('Neos.Media.thumbnailPresets.' + this.thumbnailPreset + '.height') : (String.toInteger(value) || null)}
     }
-    isAssetImageSource = ${Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\Domain\AssetImageSource')}
-    isScalableImageSource = ${this.isAssetImageSource || Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\Domain\DummyImageSource')}
+    _isAssetImageSource = ${Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\Domain\AssetImageSource')}
+    _isScalableImageSource = ${this._isAssetImageSource || Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\Domain\DummyImageSource')}
 
-    sizedImageSource = ${this.imageSource}
-    sizedImageSource.@process {
-        width = ${this.isScalableImageSource && this.width ? value.withWidth(this.width) : value}
-        height = ${this.isScalableImageSource && this.height ? value.withHeight(this.height) : value}
-        variantPreset = ${this.isScalableImageSource && this.variantPreset ? value.withVariantPreset(this.variantPreset[0], this.variantPreset[1]) : value}
+    _sizedImageSource = ${this.imageSource}
+    _sizedImageSource.@process {
+        width = ${this._isScalableImageSource && this.width ? value.withWidth(this.width) : value}
+        height = ${this._isScalableImageSource && this.height ? value.withHeight(this.height) : value}
+        variantPreset = ${this._isScalableImageSource && this.variantPreset ? value.withVariantPreset(this.variantPreset[0], this.variantPreset[1]) : value}
     }
 
-    imageClass = ${BEM.modifier('carbon-image', [this.objectFit, 'picture'])}
-    calculatedSrcSet = ${this.srcset ? null : (this.width || this.height)}
-    calculatedSrcSet.@process.calc = Carbon.Image:Helper.MinMaxImageSize
-    finalSrcSet = ${this.srcset || this.calculatedSrcSet}
+    _imageClass = ${BEM.modifier('carbon-image', [this.objectFit, 'picture'])}
+    _calculatedSrcSet = ${this.srcset ? null : (this.width || this.height)}
+    _calculatedSrcSet.@process.calc = Carbon.Image:Helper.MinMaxImageSize
+    _finalSrcSet = ${this.srcset || this._calculatedSrcSet}
 
     @if.hasImageSource = ${this.imageSource}
 
@@ -96,14 +96,14 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
         <Carbon.Eel:Tag tagName={props.figureTagName} attributes={props.figureAttributes}>
             <Carbon.Eel:Tag @key='wrapper' tagName={props.linkAttributes ? 'a' : null} attributes={props.linkAttributes}>
                 <picture {...props.pictureAttributes}>
-                    <Neos.Fusion:Loop @key='additionalFormats' items={props.additionalFormats} @if.set={props.additionalFormats && props.isAssetImageSource} itemName='format'>
+                    <Neos.Fusion:Loop @key='additionalFormats' items={props.additionalFormats} @if.set={props.additionalFormats && props._isAssetImageSource} itemName='format'>
                         <Carbon.Image:Component.Fragment.Source
                             @key='noSources'
                             @if.set={!props.sources}
                             lazy={props.lazy}
-                            imageSource={props.sizedImageSource.withFormat(format)}
+                            imageSource={props._sizedImageSource.withFormat(format)}
                             type={'image/' + format}
-                            srcset={props.finalSrcSet}
+                            srcset={props._finalSrcSet}
                             sizes={props.sizes}
                             width={props.width}
                             height={props.height}
@@ -111,10 +111,10 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
                         <Neos.Fusion:Loop @key='sources' items={props.sources} itemName='source' @if.set={props.sources}>
                             <Carbon.Image:Component.Fragment.Source
                                 lazy={props.lazy}
-                                imageSource={source.imageSource ? source.imageSource.withFormat(format) : props.sizedImageSource.withFormat(format)}
+                                imageSource={source.imageSource ? source.imageSource.withFormat(format) : props._sizedImageSource.withFormat(format)}
                                 type={'image/' + format}
                                 media={source.media || props.media}
-                                srcset={source.srcset || props.finalSrcSet}
+                                srcset={source.srcset || props._finalSrcSet}
                                 sizes={source.sizes || props.sizes}
                                 width={source.width || props.width}
                                 height={source.height || props.height}
@@ -124,10 +124,10 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
                     <Neos.Fusion:Loop @key='sources' items={props.sources} itemName='source' @if.set={props.sources}>
                         <Carbon.Image:Component.Fragment.Source
                             lazy={props.lazy}
-                            imageSource={source.imageSource || props.sizedImageSource}
+                            imageSource={source.imageSource || props._sizedImageSource}
                             type={source.type}
                             media={source.media}
-                            srcset={source.srcset || props.finalSrcSet}
+                            srcset={source.srcset || props._finalSrcSet}
                             sizes={source.sizes || props.sizes}
                             width={source.width || props.width}
                             height={source.height || props.height}
@@ -138,14 +138,14 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Neos.Fusion:C
                         lazy={props.lazy}
                         lazyWidth={props.lazyWidth}
                         id={props.id}
-                        class={Carbon.String.merge(props.class, props.imageClass, props.lazy ? props.lazyClass : null)}
+                        class={Carbon.String.merge(props.class, props._imageClass, props.lazy ? props.lazyClass : null)}
                         style={props.style}
                         title={props.title}
                         loading={props.loading}
                         alt={props.alternativeText}
-                        imageSource={props.sizedImageSource}
+                        imageSource={props._sizedImageSource}
                         sizes={props.sizes}
-                        srcset={props.isScalableImageSource ? props.finalSrcSet : null}
+                        srcset={props._isScalableImageSource ? props._finalSrcSet : null}
                         objectFit={props.objectFit}
                     />
                 </picture>
