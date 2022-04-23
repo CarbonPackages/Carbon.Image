@@ -92,7 +92,7 @@ prototype(Carbon.Image:Component.Presentation.Image) < prototype(Neos.Fusion:Com
                     lazy={props.lazy}
                     lazyWidth={props.lazyWidth}
                     id={props.id}
-                    class={Carbon.String.merge(props.class, props._imageClass, props.lazy ? props.lazyClass : null)]}
+                    class={Carbon.String.merge(props.class, props._imageClass, props.lazy ? props.lazyClass : null)}
                     style={props.style}
                     title={props.title}
                     loading={props.loading}
