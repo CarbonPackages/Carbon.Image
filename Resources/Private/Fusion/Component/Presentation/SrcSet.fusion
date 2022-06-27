@@ -34,7 +34,7 @@ prototype(Carbon.Image:Component.Presentation.SrcSet) < prototype(Neos.Fusion:Co
     _calculatedSrcSet.@process.calc = Carbon.Image:Helper.MinMaxImageSize
     _finalSrcSet = ${this.srcset || this._calculatedSrcSet}
 
-    @if.hasImageSourceAndSrcSet = ${this.imageSource && this._finalSrcSet}
+    @if.hasImageSourceAndSrcSet = ${this._sizedImageSource && this._finalSrcSet}
 
-    renderer = ${props.imageSource.srcset(props._finalSrcSet)}
+    renderer = ${props._sizedImageSource.srcset(props._finalSrcSet)}
 }
