@@ -13,6 +13,7 @@ prototype(Carbon.Image:Component.Presentation.SrcSet) < prototype(Neos.Fusion:Co
     width = null
     height = null
     srcset = null
+    format = null
 
     // Internal
     width.@process {
@@ -23,12 +24,13 @@ prototype(Carbon.Image:Component.Presentation.SrcSet) < prototype(Neos.Fusion:Co
     }
     _isAssetImageSource = ${Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\Domain\AssetImageSource')}
     _isScalableImageSource = ${this._isAssetImageSource || Type.instance(this.imageSource, 'Sitegeist\Kaleidoscope\Domain\DummyImageSource')}
-    
+
     _sizedImageSource = ${this.imageSource}
     _sizedImageSource.@process {
         width = ${this._isScalableImageSource && this.width ? value.withWidth(this.width) : value}
         height = ${this._isScalableImageSource && this.height ? value.withHeight(this.height) : value}
         variantPreset = ${this._isScalableImageSource && this.variantPreset ? value.withVariantPreset(this.variantPreset[0], this.variantPreset[1]) : value}
+        format = ${this._isScalableImageSource && this.format ? value.withFormat(this.format) : value}
     }
     _calculatedSrcSet = ${this.srcset ? null : (this.width || this.height)}
     _calculatedSrcSet.@process.calc = Carbon.Image:Helper.MinMaxImageSize
