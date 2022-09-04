@@ -52,13 +52,13 @@ prototype(Carbon.Image:Helper.AlternativeText) < prototype(Neos.Fusion:Component
                 description = ${props.asset[this.property]}
 
                 // Split the description into an array (if needed)
-                description.@process.split = ${this.needSplit ? String.split(value, this.splitCharacter) : [value]}
+                descriptionSplit = ${this.needSplit ? String.split(this.description, this.splitCharacter) : [this.description]}
 
                 // If the description has multiple entries select the entry from the language mapping
-                selector = ${Array.length(this.description) > 1 ? this.languageMapping[this.language] : 0}
+                selector = ${Array.length(this.descriptionSplit) > 1 ? this.languageMapping[this.language] : 0}
 
                 // Return the string
-                value = ${String.trim(String.stripTags(this.description[this.selector]))}
+                value = ${String.trim(String.stripTags(this.descriptionSplit[this.selector]))}
             }
         }
         default {
