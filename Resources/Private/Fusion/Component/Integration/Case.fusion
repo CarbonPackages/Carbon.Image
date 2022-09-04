@@ -3,7 +3,7 @@ prototype(Carbon.Image:Component.Case) < prototype(Neos.Fusion:Component) {
         type = ${PropTypes.string}
     }
 
-    type = null
+    type = ${null}
     type.@process.convertToLowerCase = ${Type.isString(value) ? String.toLowerCase(value) : value}
 
     renderer = afx`

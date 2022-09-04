@@ -1,7 +1,7 @@
 prototype(Carbon.Image:Component.Fragment.Figcaption) < prototype(Neos.Fusion:Component) {
     figureTagName = 'figure'
-    content = null
-    figcaptionClass = null
+    content = ${null}
+    figcaptionClass = ${null}
 
     @if.hasContentAndFigureAsParent = ${this.content && this.figureTagName == 'figure'}
 

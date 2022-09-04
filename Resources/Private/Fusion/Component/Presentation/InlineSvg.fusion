@@ -29,19 +29,19 @@ prototype(Carbon.Image:Component.Presentation.InlineSvg) < prototype(Neos.Fusion
     }
 
 
-    imageSource = null
+    imageSource = ${null}
 
-    id = null
-    class = null
-    style = null
-    viewBox = null
-    width = null
-    height = null
+    id = ${null}
+    class = ${null}
+    style = ${null}
+    viewBox = ${null}
+    width = ${null}
+    height = ${null}
 
     figureTagName = 'figure'
     figureAttributes = Neos.Fusion:Attributes
     // If set and figureTagName is 'figure', a figcaption is rendered
-    content = null
+    content = ${null}
 
     @if.hasImageSource = ${this.imageSource}
 

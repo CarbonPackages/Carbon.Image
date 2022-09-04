@@ -10,7 +10,7 @@ prototype(Carbon.Image:Helper.MinMaxImageSize) {
     }
 
     size = ${value}
-    asset = null
+    asset = ${null}
 
     min = 300
     max = 3900

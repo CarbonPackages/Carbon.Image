@@ -2,11 +2,11 @@
 // use Carbon.Image:Component.Image or Carbon.Image:Component.Picture if possible
 
 prototype(Carbon.Image:Tag) < prototype(Neos.Fusion:Component) {
-    asset = null
+    asset = ${null}
     assetLightbox = ${this.asset}
-    caption = null
+    caption = ${null}
     renderInBackend = ${node.context.inBackend}
-    maximumWidth = null
+    maximumWidth = ${null}
 
 
     image = ${this.asset}

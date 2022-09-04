@@ -1,13 +1,13 @@
 prototype(Carbon.Image:Component.Fragment.Source) < prototype(Neos.Fusion:Component) {
-    lazy = null
+    lazy = ${null}
 
-    imageSource = null
-    type = null
-    media = null
-    srcset = null
-    sizes = null
-    width = null
-    height = null
+    imageSource = ${null}
+    type = ${null}
+    media = ${null}
+    srcset = ${null}
+    sizes = ${null}
+    width = ${null}
+    height = ${null}
 
     // Internal
     _width = ${this.imageSource.width() || this.width}

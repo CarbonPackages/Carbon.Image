@@ -6,14 +6,14 @@ prototype(Carbon.Image:Component.Presentation.SrcSet) < prototype(Neos.Fusion:Co
         height = ${PropTypes.integer}
     }
 
-    imageSource = null
-    thumbnailPreset = null
-    variantPreset = null
+    imageSource = ${null}
+    thumbnailPreset = ${null}
+    variantPreset = ${null}
     variantPreset.@process.split = ${value && Type.isString(value) ? String.split(value, '::') : (value || null)}
-    width = null
-    height = null
-    srcset = null
-    format = null
+    width = ${null}
+    height = ${null}
+    srcset = ${null}
+    format = ${null}
 
     // Internal
     width.@process {

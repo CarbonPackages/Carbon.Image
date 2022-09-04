@@ -30,7 +30,7 @@ prototype(Carbon.Image:Component.Presentation.Case) < prototype(Neos.Fusion:Comp
         }
     }
 
-    type = null
+    type = ${null}
     type.@process.convertToLowerCase = ${Type.isString(value) ? String.toLowerCase(value) : value}
 
     renderer = afx`

@@ -1,18 +1,18 @@
 prototype(Carbon.Image:Component.Fragment.Image) < prototype(Neos.Fusion:Component) {
-    lazy = null
-    lazyWidth = null
+    lazy = ${null}
+    lazyWidth = ${null}
 
-    id = null
-    class = null
-    style = null
-    title = null
-    alt = null
-    loading = null
+    id = ${null}
+    class = ${null}
+    style = ${null}
+    title = ${null}
+    alt = ${null}
+    loading = ${null}
 
-    imageSource = null
-    sizes = null
-    srcset = null
-    objectFit = null
+    imageSource = ${null}
+    sizes = ${null}
+    srcset = ${null}
+    objectFit = ${null}
 
     aspectratio = ${this.lazy && this._width && this._height ? this._width / this._height : null}
     placeholder = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='

@@ -11,7 +11,7 @@ prototype(Carbon.Image:Component.SrcSet) < prototype(Neos.Fusion:Component) {
 
     outputDummy = ${node.context.inBackend}
 
-    image = null
+    image = ${null}
     // You can pass all properties from Carbon.Image:Helper.ImageSource
     imageSourceSettings = Neos.Fusion:DataStructure
 

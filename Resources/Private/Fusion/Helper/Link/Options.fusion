@@ -10,10 +10,10 @@ prototype(Carbon.Image:Helper.Link.Options) < prototype(Neos.Fusion:DataStructur
     // setNoOpener = true
 
     // Related to NodeUri
-    // format = null
-    // section = null
-    // additionalParams = null
-    // argumentsToBeExcludedFromQueryString = null
+    // format = ${null}
+    // section = ${null}
+    // additionalParams = ${null}
+    // argumentsToBeExcludedFromQueryString = ${null}
     // addQueryString = false
     // baseNodeName = ${documentNode}
 }

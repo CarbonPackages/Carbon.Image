@@ -40,27 +40,27 @@ prototype(Carbon.Image:Component.Presentation.Image) < prototype(Neos.Fusion:Com
     lazyClass = ${Configuration.Setting('Carbon.Image.lazy.class')}
     lazyWidth = ${Configuration.Setting('Carbon.Image.lazy.lazyWidth')}
 
-    imageSource = null
-    thumbnailPreset = null
-    variantPreset = null
+    imageSource = ${null}
+    thumbnailPreset = ${null}
+    variantPreset = ${null}
     variantPreset.@process.split = ${value && Type.isString(value) ? String.split(value, '::') : (value || null)}
-    width = null
-    height = null
+    width = ${null}
+    height = ${null}
 
-    srcset = null
-    sizes = null
-    alternativeText = null
-    title = null
-    objectFit = null
-    id = null
-    class = null
-    style = null
-    loading = null
+    srcset = ${null}
+    sizes = ${null}
+    alternativeText = ${null}
+    title = ${null}
+    objectFit = ${null}
+    id = ${null}
+    class = ${null}
+    style = ${null}
+    loading = ${null}
 
     figureTagName = 'figure'
     figureAttributes = Neos.Fusion:Attributes
     // If set and figureTagName is 'figure', a figcaption is rendered
-    content = null
+    content = ${null}
 
     // Internal
     width.@process {

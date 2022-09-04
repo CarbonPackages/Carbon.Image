@@ -1,11 +1,11 @@
 prototype(Carbon.Image:Helper.Link.Attributes) < prototype(Neos.Fusion:Component) {
-    link = null
-    linkAdditonalAttributes = null
-    linkOptions = null
+    link = ${null}
+    linkAdditonalAttributes = ${null}
+    linkOptions = ${null}
 
-    lightbox = null
-    lightboxImageSource = null
-    lightboxCaption = null
+    lightbox = ${null}
+    lightboxImageSource = ${null}
+    lightboxCaption = ${null}
     lightboxConfiguration = ${Configuration.setting('Carbon.Image.lightbox')}
     lightboxClass = ${this.lightboxConfiguration.class}
     lightboxRel = ${this.lightboxConfiguration.rel}

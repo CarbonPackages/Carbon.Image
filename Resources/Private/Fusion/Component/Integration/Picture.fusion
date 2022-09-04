@@ -19,14 +19,14 @@ prototype(Carbon.Image:Component.Picture) < prototype(Neos.Fusion:Component) {
 
     outputDummy = ${node.context.inBackend}
 
-    image = null
+    image = ${null}
     // You can pass all properties from Carbon.Image:Helper.ImageSource
     imageSourceSettings = Neos.Fusion:DataStructure
 
 
     // Pass a node or a string. The link gets processed with ConvertUris.
     // It will have no effect if linkAttributes is set.
-    link = null
+    link = ${null}
     // Pass any option from ConvertUris or NodeUri
     linkOptions = Carbon.Image:Helper.Link.Options
     // Pass any additional attributes to the link
@@ -36,14 +36,14 @@ prototype(Carbon.Image:Component.Picture) < prototype(Neos.Fusion:Component) {
 
     // If set, the link for the lightbox gets generated.
     // It will have no effect if link or linkAttributes is set.
-    lightbox = null
+    lightbox = ${null}
     lightboxConfiguration = ${Configuration.setting('Carbon.Image.lightbox')}
     // Override the lightbox image
     lightboxImage = ${this.image}
-    lightboxCaption = null
+    lightboxCaption = ${null}
 
     // If you set linkAttributes, this will override lightbox and link
-    // linkAttributes = null
+    // linkAttributes = ${null}
 
     // Inline SVG file
     inlineSVG = ${Configuration.setting('Carbon.Image.inlineSVG')}
