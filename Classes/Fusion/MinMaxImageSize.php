@@ -13,7 +13,7 @@ class MinMaxImageSize extends AbstractFusionObject
         return $this->fusionValue('size');
     }
 
-    public function getAsset(): ?ImageInterface
+    public function getAsset()
     {
         return $this->fusionValue('asset');
     }
