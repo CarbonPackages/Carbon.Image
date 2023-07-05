@@ -9,6 +9,7 @@ prototype(Carbon.Image:Helper.ImageSource) < prototype(Neos.Fusion:Component) {
         width = ${PropTypes.integer}
         height = ${PropTypes.integer}
         outputDummy = ${PropTypes.boolean}
+        forceDummy = ${PropTypes.boolean}
         dummyForgroundColor = ${PropTypes.string}
         dummyBackgroundColor = ${PropTypes.string}
         dummyBaseWidth = ${PropTypes.integer}
@@ -16,6 +17,7 @@ prototype(Carbon.Image:Helper.ImageSource) < prototype(Neos.Fusion:Component) {
     }
 
     outputDummy = ${node.context.inBackend}
+    forceDummy = ${Configuration.Setting('Carbon.Image.dummy.force')}
     dummyForgroundColor = ${Configuration.Setting('Carbon.Image.dummy.forgroundColor')}
     dummyForgroundColor.@process.toString = ${String.toString(value)}
     dummyBackgroundColor = ${Configuration.Setting('Carbon.Image.dummy.backgroundColor')}
@@ -23,9 +25,24 @@ prototype(Carbon.Image:Helper.ImageSource) < prototype(Neos.Fusion:Component) {
     dummyBaseWidth = 600
     dummyBaseHeight = 400
 
-    @if.hasImageOrOutputDummy = ${this.image || this.outputDummy}
+    @if.hasImageOrOutputDummy = ${this.image || this.outputDummy || this.forceDummy}
 
     renderer = Neos.Fusion:Case {
+        forceDummy {
+            condition = ${props.forceDummy}
+            renderer = Sitegeist.Kaleidoscope:DummyImageSource {
+                text = ${props.dummyText}
+                foregroundColor = ${props.dummyForgroundColor || 'fff'}
+                backgroundColor = ${props.dummyBackgroundColor || '999'}
+                thumbnailPreset = ${props.thumbnailPreset}
+                variantPreset = ${props.variantPreset}
+                format = ${props.format}
+                baseWidth = ${props.dummyBaseWidth}
+                baseHeight = ${props.dummyBaseHeight}
+                width = ${props.width}
+                height = ${props.height}
+            }
+        }
         isAsset {
             condition = ${props.image && Type.instance(props.image, 'Neos\Media\Domain\Model\ImageInterface')}
             renderer = Sitegeist.Kaleidoscope:AssetImageSource {

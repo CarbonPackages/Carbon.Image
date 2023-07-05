@@ -199,9 +199,10 @@ It no alternative text can be extraced, the Fusion will return `false`.
 With this helper you can pass any value (with the propery `image`) and you will
 get the corresponding image source from Kaleidoscope.
 
-If `image` is an instance of an `Neos\Media\Domain\Model\ImageInterface` you will get a `Sitegeist.Kaleidoscope:AssetImageSource`.  
-If `image` is a string and starts with `resource` or `package` is set, you will get a `Sitegeist.Kaleidoscope:ResourceImageSource`.  
-If `image` is a string and starts with `http` is set, you will get a `Sitegeist.Kaleidoscope:UriImageSource`.  
+If `forceDummy` is set (defaults to `Configuration.Setting('Carbon.Image.dummy.force')`), you will get a `Sitegeist.Kaleidoscope:DummyImageSource`.
+If `image` is an instance of an `Neos\Media\Domain\Model\ImageInterface` you will get a `Sitegeist.Kaleidoscope:AssetImageSource`.
+If `image` is a string and starts with `resource` or `package`, you will get a `Sitegeist.Kaleidoscope:ResourceImageSource`.
+If `image` is a string and starts with `http`, you will get a `Sitegeist.Kaleidoscope:UriImageSource`.
 Otherwise, if `outputDummy` is set (defaults to `node.context.inBackend`), you will get `Sitegeist.Kaleidoscope:DummyImageSource`.
 
 #### [`Carbon.Image:Helper.LightboxImageSource`]
@@ -261,11 +262,9 @@ The markup is optimized to use this together with [Jonnitto.PhotoSwipe], but you
 [`carbon.image:component.picture`]: Resources/Private/Fusion/Component/Integration/Picture.fusion
 [lazysizes]: https://github.com/aFarkas/lazysizes
 [sitegeist.kaleidoscope]: https://github.com/sitegeist/Sitegeist.Kaleidoscope
-[imagesource fusionobjects]: https://github.com/sitegeist/Sitegeist.Kaleidoscope#imagesource-fusionobjects
 [lightbox settings]: Configuration/Settings.Carbon.yaml#L18-L25
 [`carbon.image:helper.link.attributes`]: Resources/Private/Fusion/Helper/Link/Attributes.fusion
 [`carbon.image:helper.link.options`]: Resources/Private/Fusion/Helper/Link/Options.fusion
 [`carbon.image:helper.alternativetext`]: Resources/Private/Fusion/Helper/AlternativeText.fusion
-[`carbon.image:helper.imagesource`]: Resources/Private/Fusion/Helper/ImageSource.fusion
 [`carbon.image:helper.lightboximagesource`]: Resources/Private/Fusion/Helper/LightboxImageSource.fusion
 [`carbon.image:helper.minmaximagesize`]: Resources/Private/Fusion/Helper/MinMaxImageSize.fusion

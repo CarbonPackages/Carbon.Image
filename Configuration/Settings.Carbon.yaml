@@ -17,6 +17,7 @@ Carbon:
     dummy:
       forgroundColor: fff
       backgroundColor: 999
+      force: false
     lightbox:
       rel: noopener
       class: 'lightbox'
