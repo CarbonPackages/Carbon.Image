@@ -75,10 +75,10 @@ prototype(Carbon.Image:Helper.BasisPresentation) < prototype(Neos.Fusion:Compone
                 renderer = ${props.srcset}
             }
             automaticSrcset {
-                condition = ${props.width || props.height}
+                condition = true
                 renderer = Carbon.Image:Helper.MinMaxImageSize {
                     @apply.minMaxImageSize = ${props.minMaxImageSize}
-                    size = ${props.width || props.height}
+                    size = ${props.width}
                 }
             }
         }
