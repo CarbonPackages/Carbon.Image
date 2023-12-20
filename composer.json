@@ -12,8 +12,8 @@
         "carbon"
     ],
     "require": {
-        "neos/neos": "^5.3 || ^7.0 || ^8.0",
-        "carbon/eel": "^1.12 || ^2.0 || dev-master",
+        "neos/neos": "^8.3",
+        "carbon/eel": "^2.0 || dev-master",
         "carbon/notification": "^2.1",
         "sitegeist/kaleidoscope": "^6.4"
     },
