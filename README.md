@@ -104,7 +104,7 @@ To keep it a bit shorter those are not listed.
 
 #### [`Carbon.Image:Helper.Link.Attributes`]
 
-> This prototype is used by the integrational components  
+> This prototype is used by the integrational components
 > [`Carbon.Image:Component.Image`] and [`Carbon.Image:Component.Picture`].
 
 It takes properties like `link`, `lightbox` and their options and return the attributes.
@@ -112,14 +112,14 @@ If nothing is set it will return `false`.
 
 #### [`Carbon.Image:Helper.Link.Options`]
 
-> This prototype is used by the integrational components  
+> This prototype is used by the integrational components
 > [`Carbon.Image:Component.Image`] and [`Carbon.Image:Component.Picture`].
 
 You can set options related to `Neos.Neos:ConvertUris` and `Neos.Neos:NodeUri`.
 
 #### [`Carbon.Image:Helper.AlternativeText`]
 
-> This prototype is used by the integrational components  
+> This prototype is used by the integrational components
 > [`Carbon.Image:Component.Image`] and [`Carbon.Image:Component.Picture`].
 
 The idea behind this prototype is to return an alternative text based on the media fields.
@@ -207,7 +207,7 @@ Otherwise, if `outputDummy` is set (defaults to `node.context.inBackend`), you w
 
 #### [`Carbon.Image:Helper.LightboxImageSource`]
 
-> This prototype inherits from [`Carbon.Image:Helper.ImageSource`] and it is used by the  
+> This prototype inherits from [`Carbon.Image:Helper.ImageSource`] and it is used by the
 > integrational components [`Carbon.Image:Component.Image`] and [`Carbon.Image:Component.Picture`].
 
 It reads the configuration from `Carbon.Image.lightbox` but can be overriden via Fusion, if needed.
