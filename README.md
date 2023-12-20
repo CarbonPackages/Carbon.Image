@@ -39,11 +39,6 @@ Below a list of which abstract node types (a.k.a. mixins) you can use in your pr
 
 ### Presentational components
 
-#### [`Carbon.Image:Component.Presentation.Case`]
-
-You can set `type` to `picture` or `image`. Based on that value, either an [image][`carbon.image:component.presentation.image`]
-or an [picture][`carbon.image:component.presentation.picture`] will be rendered.
-
 #### [`Carbon.Image:Component.Presentation.Image`] and [`Carbon.Image:Component.Presentation.Picture`]
 
 Outputs an image.
@@ -75,11 +70,6 @@ Outputs an image.
 | `linkAttributes`    |   ✓   |    ✓    | If set, the `<img>` is wrapped with an link with this attributes                                                                | `Neos.Fusion:Attributes` or `Neos.Fusion:DataStructure` | `null`                   |                               |
 
 ### Integrational components
-
-#### [`Carbon.Image:Component.Case`]
-
-You can set `type` to `picture` or `image`. Based on that value, either an [image][`carbon.image:component.image`]
-or an [picture][`carbon.image:component.picture`] will be rendered.
 
 #### [`Carbon.Image:Component.Image`] and [`Carbon.Image:Component.Picture`]
 
@@ -253,10 +243,8 @@ The markup is optimized to use this together with [Jonnitto.PhotoSwipe], but you
 [`carbon.image:link`]: NodeTypes/Link.yaml
 [`carbon.image:title`]: NodeTypes/Title.yaml
 [configuration]: Configuration
-[`carbon.image:component.presentation.case`]: Resources/Private/Fusion/Component/Presentation/Case.fusion
 [`carbon.image:component.presentation.image`]: Resources/Private/Fusion/Component/Presentation/Image.fusion
 [`carbon.image:component.presentation.picture`]: Resources/Private/Fusion/Component/Presentation/Picture.fusion
-[`carbon.image:component.case`]: Resources/Private/Fusion/Component/Integration/Case.fusion
 [`carbon.image:component.image`]: Resources/Private/Fusion/Component/Integration/Image.fusion
 [`carbon.image:helper.imagesource`]: Resources/Private/Fusion/Helper/ImageSource.fusion
 [`carbon.image:component.picture`]: Resources/Private/Fusion/Component/Integration/Picture.fusion
