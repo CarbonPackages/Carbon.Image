@@ -5,6 +5,13 @@ Carbon:
       enabled: false
       lazyWidth: null
       class: lazyload
+    minMaxImageSize:
+      min: 300
+      max: 3900
+      # If you set this to null, the steps generation gets deactivated
+      step: 150
+      multiplicator: [2, 1.5, 1, 0.75, 0.5, 0.25]
+
     alternativeText:
       # You can set the language mapping like that:
       # languageMapping:
