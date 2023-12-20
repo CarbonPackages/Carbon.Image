@@ -1,0 +1,102 @@
+prototype(Carbon.Image:Helper.BasisIntegration) < prototype(Neos.Fusion:Component) {
+    @propTypes {
+        outputDummy = ${PropTypes.boolean}
+        image = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\Media\Domain\Model\ImageInterface'), PropTypes.string)}
+        imageSourceSettings = ${PropTypes.arrayOf(PropTypes.any)}
+        link = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\ContentRepository\Domain\Model\Node'), PropTypes.string)}
+        linkOptions = ${PropTypes.arrayOf(PropTypes.any)}
+        linkAdditonalAttributes = ${PropTypes.arrayOf(PropTypes.any)}
+        lightbox = ${PropTypes.boolean}
+        lightboxImage = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\Media\Domain\Model\ImageInterface'), PropTypes.string)}
+        lightboxConfiguration = ${PropTypes.arrayOf(PropTypes.any)}
+        lightboxCaption = ${PropTypes.string}
+        alternativeText = ${PropTypes.string}
+        linkAttributes = ${PropTypes.any}
+        width = ${PropTypes.float}
+        height = ${PropTypes.float}
+    }
+
+    outputDummy = ${node.context.inBackend}
+
+    image = ${null}
+    // You can pass all properties from Carbon.Image:Helper.ImageSource
+    imageSourceSettings = Neos.Fusion:DataStructure
+
+
+    // Pass a node or a string. The link gets processed with ConvertUris.
+    // It will have no effect if linkAttributes is set.
+    link = ${null}
+    // Pass any option from ConvertUris or NodeUri
+    linkOptions = Carbon.Image:Helper.Link.Options
+    // Pass any additional attributes to the link
+    // You can even override href
+    linkAdditonalAttributes = Neos.Fusion:DataStructure
+
+
+    // If set, the link for the lightbox gets generated.
+    // It will have no effect if link or linkAttributes is set.
+    lightbox = ${null}
+    lightboxConfiguration = ${Configuration.setting('Carbon.Image.lightbox')}
+    // Override the lightbox image
+    lightboxImage = ${this.image}
+    lightboxCaption = ${null}
+
+    // If you set linkAttributes, this will override lightbox and link
+    // linkAttributes = ${null}
+
+    // Inline SVG file
+    inlineSVG = ${Configuration.setting('Carbon.Image.inlineSVG')}
+
+    figureAttributes = Neos.Fusion:Attributes
+
+    minMaxImageSize = Neos.Fusion:DataStructure {
+        min = ${Configuration.setting('Carbon.Image.minMaxImageSize.min')}
+        max = ${Configuration.setting('Carbon.Image.minMaxImageSize.max')}
+        step = ${Configuration.setting('Carbon.Image.minMaxImageSize.step')}
+        multiplicator = ${Configuration.setting('Carbon.Image.minMaxImageSize.multiplicator')}
+    }
+
+    @private {
+        imageSource = afx`<Carbon.Image:Helper.ImageSource image={props.image} outputDummy={props.outputDummy} {...props.imageSourceSettings} />`
+        alternativeText = Carbon.Image:Helper.AlternativeText {
+            alternativeText = ${props.alternativeText}
+            asset = ${props.image}
+        }
+        lightboxImageSource = afx`<Carbon.Image:Helper.LightboxImageSource image={props.lightboxImage} configuration={props.lightboxConfiguration} />`
+        renderInlineSVG = ${props.inlineSVG && props.image.resource.mediaType == 'image/svg+xml'}
+        linkAttributes = afx`
+            <Carbon.Image:Helper.Link.Attributes
+                lightboxImageSource={private.lightboxImageSource}
+                {...props}
+            />`
+        minMaxImageSize = ${Array.concat(props.minMaxImageSize, {asset: props.image, max: props.width ? props.width * 2 : props.minMaxImageSize.max})}
+    }
+
+    renderer = Neos.Fusion:Case {
+        @if.hasImageSource = ${private.imageSource}
+        default {
+            condition = ${!private.renderInlineSVG}
+            renderer.content.wrapper.@process.convertUris = Neos.Neos:ConvertUris {
+                @if.set = ${!props.linkAttributes && props.link}
+                @apply.props = ${props.linkOptions}
+            }
+        }
+        inlineSVG {
+            condition = ${private.renderInlineSVG}
+            renderer = afx`
+                <Carbon.Image:Component.Presentation.InlineSvg
+                    linkAttributes={private.linkAttributes}
+                    imageSource={private.imageSource}
+                    lightboxImageSource={private.lightboxImageSource}
+                    {...props}
+                    alternativeText={private.alternativeText}
+                    minMaxImageSize={private.minMaxImageSize}
+                />
+            `
+            renderer.content.wrapper.@process.convertUris = Neos.Neos:ConvertUris {
+                @if.set = ${!props.linkAttributes && props.link}
+                @apply.props = ${props.linkOptions}
+            }
+        }
+    }
+}

@@ -1,10 +1,21 @@
-prototype(Carbon.Image:Component.Presentation.SrcSet) < prototype(Neos.Fusion:Component) {
+prototype(Carbon.Image:Helper.BasisPresentation) < prototype(Neos.Fusion:Component) {
     @propTypes {
+        lazy = ${PropTypes.boolean}
+        lazyClass = ${PropTypes.string}
+        lazyWidth = ${PropTypes.float}
+        objectFit = ${PropTypes.oneOf(['cover', 'contain'])}
+        loading = ${PropTypes.oneOf(['auto', 'lazy', 'eager'])}
         thumbnailPreset = ${PropTypes.string}
         variantPreset = ${PropTypes.arrayOf(PropTypes.string)}
         width = ${PropTypes.float}
         height = ${PropTypes.float}
+        additionalFormats = ${PropTypes.arrayOf(PropTypes.string)}
     }
+
+    lazy = ${Configuration.Setting('Carbon.Image.lazy.enabled')}
+    lazy.@process.disableInBackend = ${node.context.inBackend ? false : value}
+    lazyClass = ${Configuration.Setting('Carbon.Image.lazy.class')}
+    lazyWidth = ${Configuration.Setting('Carbon.Image.lazy.lazyWidth')}
 
     imageSource = ${null}
     thumbnailPreset = ${null}
@@ -12,8 +23,27 @@ prototype(Carbon.Image:Component.Presentation.SrcSet) < prototype(Neos.Fusion:Co
     variantPreset.@process.split = ${value && Type.isString(value) ? String.split(value, '::') : (value || null)}
     width = ${null}
     height = ${null}
+
+    defaultFormat = ${Configuration.Setting('Carbon.Image.imageFormat.default')}
+    additionalFormats = ${Configuration.Setting('Carbon.Image.imageFormat.additional')}
+
     srcset = ${null}
-    format = ${null}
+    sizes = ${null}
+    sources = ${null}
+    alternativeText = ${null}
+    title = ${null}
+    objectFit = ${null}
+    id = ${null}
+    class = ${null}
+    style = ${null}
+    loading = ${null}
+
+    figureTagName = 'figure'
+    figureAttributes = Neos.Fusion:Attributes
+    // If set and figureTagName is 'figure', a figcaption is rendered
+    content = ${null}
+
+    pictureAttributes = Neos.Fusion:DataStructure
 
     minMaxImageSize = Neos.Fusion:DataStructure {
         min = ${Configuration.setting('Carbon.Image.minMaxImageSize.min')}
@@ -37,15 +67,22 @@ prototype(Carbon.Image:Component.Presentation.SrcSet) < prototype(Neos.Fusion:Co
             width = ${private.isScalableImageSource && props.width ? value.withWidth(props.width) : value}
             height = ${private.isScalableImageSource && props.height ? value.withHeight(props.height) : value}
             variantPreset = ${private.isScalableImageSource && props.variantPreset ? value.withVariantPreset(props.variantPreset[0], props.variantPreset[1]) : value}
-            format = ${private.isScalableImageSource && props.format ? value.withFormat(props.format) : value}
         }
-        calculatedSrcSet = ${props.srcset ? null : (props.width || props.height)}
-        calculatedSrcSet.@process.calc = Carbon.Image:Helper.MinMaxImageSize {
-            @apply.minMaxImageSize = ${props.minMaxImageSize}
+        imageClass = ${BEM.modifier('carbon-image', [props.objectFit, 'picture'])}
+        finalSrcSet = Neos.Fusion:Case {
+            hasCustomScrset {
+                condition = ${props.srcset}
+                renderer = ${props.srcset}
+            }
+            automaticSrcset {
+                condition = ${props.width || props.height}
+                renderer = Carbon.Image:Helper.MinMaxImageSize {
+                    @apply.minMaxImageSize = ${props.minMaxImageSize}
+                    size = ${props.width || props.height}
+                }
+            }
         }
-        finalSrcSet = ${props.srcset || private.calculatedSrcSet}
     }
 
-    renderer = ${private.sizedImageSource.srcset(private.finalSrcSet)}
-    renderer.@if.hasImageSourceAndSrcSet = ${private.sizedImageSource && private.finalSrcSet}
+    @if.hasImageSource = ${this.imageSource}
 }

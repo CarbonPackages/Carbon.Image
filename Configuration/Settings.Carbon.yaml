@@ -1,6 +1,9 @@
 Carbon:
   Image:
     inlineSVG: false
+    imageFormat:
+      default: webp
+      additional: []
     lazy:
       enabled: false
       lazyWidth: null

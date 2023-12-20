@@ -6,14 +6,14 @@ prototype(Carbon.Image:Helper.ImageSource) < prototype(Neos.Fusion:Component) {
         thumbnailPreset = ${PropTypes.string}
         variantPreset = ${PropTypes.string}
         format = ${PropTypes.string}
-        width = ${PropTypes.integer}
-        height = ${PropTypes.integer}
+        width = ${PropTypes.float}
+        height = ${PropTypes.float}
         outputDummy = ${PropTypes.boolean}
         forceDummy = ${PropTypes.boolean}
         dummyForgroundColor = ${PropTypes.string}
         dummyBackgroundColor = ${PropTypes.string}
-        dummyBaseWidth = ${PropTypes.integer}
-        dummyBaseHeight = ${PropTypes.integer}
+        dummyBaseWidth = ${PropTypes.float}
+        dummyBaseHeight = ${PropTypes.float}
     }
 
     outputDummy = ${node.context.inBackend}

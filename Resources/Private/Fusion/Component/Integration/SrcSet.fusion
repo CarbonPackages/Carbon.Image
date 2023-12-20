@@ -15,19 +15,10 @@ prototype(Carbon.Image:Component.SrcSet) < prototype(Neos.Fusion:Component) {
     // You can pass all properties from Carbon.Image:Helper.ImageSource
     imageSourceSettings = Neos.Fusion:DataStructure
 
-    renderer = Neos.Fusion:Component {
-        @apply {
-            props = ${props}
-            data = Neos.Fusion:DataStructure {
-                imageSource = afx`<Carbon.Image:Helper.ImageSource image={props.image} outputDummy={props.outputDummy} {...props.imageSourceSettings} />`
-            }
-        }
-        prototype(Carbon.Image:Helper.MinMaxImageSize) {
-            asset = ${props.image}
-        }
-        @if.hasImageSource = ${this.imageSource}
-        renderer = Carbon.Image:Component.Presentation.SrcSet {
-            @apply.props = ${props}
-        }
+    @private {
+        imageSource = afx`<Carbon.Image:Helper.ImageSource image={props.image} outputDummy={props.outputDummy} {...props.imageSourceSettings} />`
     }
+
+    renderer.@if.hasImageSource = ${private.imageSource}
+    renderer = afx`<Carbon.Image:Component.Presentation.SrcSet {...props} imageSource={private.imageSource} minMaxImageSize.asset={props.image} />`
 }

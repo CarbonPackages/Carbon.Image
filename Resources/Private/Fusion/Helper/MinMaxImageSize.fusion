@@ -2,22 +2,22 @@ prototype(Carbon.Image:Helper.MinMaxImageSize) {
     @class = 'Carbon\\Image\\Fusion\\MinMaxImageSize'
 
     @propTypes {
-        min = ${PropTypes.integer}
-        max = ${PropTypes.integer}
-        size = ${PropTypes.integer}
-        step = ${PropTypes.integer}
+        min = ${PropTypes.float}
+        max = ${PropTypes.float}
+        size = ${PropTypes.float}
+        step = ${PropTypes.float}
         multiplicator = ${PropTypes.arrayOf(PropTypes.float)}
     }
 
     size = ${value}
     asset = ${null}
 
-    min = 300
-    max = 3900
+    min = ${Configuration.setting('Carbon.Image.minMaxImageSize.min')}
+    max = ${Configuration.setting('Carbon.Image.minMaxImageSize.max')}
 
     // If you set this to null, the steps generation gets deactivated
-    step = 150
-    multiplicator = ${[2, 1.5, 1, 0.75, 0.5, 0.25]}
+    step = ${Configuration.setting('Carbon.Image.minMaxImageSize.step')}
+    multiplicator = ${Configuration.setting('Carbon.Image.minMaxImageSize.multiplicator')}
 
 
     @if.set = ${this.step || (this.size && this.multiplicator)}

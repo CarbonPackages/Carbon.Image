@@ -5,8 +5,8 @@ prototype(Carbon.Image:Component.Presentation.InlineSvg) < prototype(Neos.Fusion
         style = ${PropTypes.string}
         content = ${PropTypes.string}
         viewBox = ${PropTypes.string}
-        width = ${PropTypes.anyOf(PropTypes.string, PropTypes.integer)}
-        height = ${PropTypes.anyOf(PropTypes.string, PropTypes.integer)}
+        width = ${PropTypes.anyOf(PropTypes.string, PropTypes.float)}
+        height = ${PropTypes.anyOf(PropTypes.string, PropTypes.float)}
     }
     @styleguide {
         props {

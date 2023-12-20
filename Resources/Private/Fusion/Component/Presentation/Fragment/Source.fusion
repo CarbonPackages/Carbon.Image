@@ -10,9 +10,11 @@ prototype(Carbon.Image:Component.Fragment.Source) < prototype(Neos.Fusion:Compon
     height = ${null}
 
     // Internal
-    _width = ${this.imageSource.width() || this.width}
-    _height = ${this.imageSource.height() || this.height}
-    _ratio = ${this._width && this._height ? this._width / this._height : null}
+    @private {
+        width = ${props.imageSource.width() || props.width}
+        height = ${props.imageSource.height() || props.height}
+        ratio = ${private.width && private.height ? private.width / private.height : null}
+    }
 
     @if.hasImageSource = ${this.imageSource}
     imageSource.@process {
@@ -27,11 +29,11 @@ prototype(Carbon.Image:Component.Fragment.Source) < prototype(Neos.Fusion:Compon
             sizes={props.sizes}
             sizes.@process.join={Type.isArray(value) ? Array.join(value, ', ') : value}
             srcset={props.srcset ? props.imageSource.srcset(props.srcset) : props.imageSource}
-            srcset.@if.set={!props.lazy}
+            srcset.@if={!props.lazy}
             data-srcset={props.srcset ? props.imageSource.srcset(props.srcset) : props.imageSource}
-            data-srcset.@if.set={props.lazy}
+            data-srcset.@if={props.lazy}
             data-sizes={props.lazy && !props.sizes ? 'auto' : null}
-            data-aspectratio={props.lazy ? props._ratio : null}
+            data-aspectratio={props.lazy ? private.ratio : null}
         />
     `
 }
