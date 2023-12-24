@@ -5,7 +5,6 @@ prototype(Carbon.Image:Component.Picture) < prototype(Carbon.Image:Helper.BasisI
             {...props}
             imageSource={private.imageSource}
             alternativeText={private.alternativeText}
-            lightboxImageSource={private.lightboxImageSource}
             linkAttributes={private.linkAttributes}
             minMaxImageSize={private.minMaxImageSize}
         />

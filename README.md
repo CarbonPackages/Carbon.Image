@@ -29,7 +29,6 @@ Below a list of which abstract node types (a.k.a. mixins) you can use in your pr
 | [`Carbon.Image:Image`]           | Creates the property `image`, the label and the icon                                                                                |
 | [`Carbon.Image:AlternativeText`] | Creates an input field in the inspector for the property `alternativeText`                                                          |
 | [`Carbon.Image:BackendLabel`]    | Create the label in the backend based on the properties `title`, `alternativeText`, `caption` and `text`                            |
-| [`Carbon.Image:Caption`]         | Creates an input field in the inspector for the property `caption`. This is used togehter with `lightbox`                           |
 | [`Carbon.Image:Lightbox`]        | Creates a checkbox in the inspector for the property `lightbox`                                                                     |
 | [`Carbon.Image:Link`]            | Creates a link editor in the inspector for the property `link`                                                                      |
 | [`Carbon.Image:Title`]           | Creates an input field in the inspector for the property `title`                                                                    |
@@ -43,31 +42,31 @@ Below a list of which abstract node types (a.k.a. mixins) you can use in your pr
 
 Outputs an image.
 
-| Property            | Image | Picture | Description                                                                                                                     | Type                                                    | Default value            | Read setting                  |
-| ------------------- | :---: | :-----: | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- | ------------------------ | ----------------------------- |
-| `imageSource`       |   ✓   |    ✓    |                                                                                                                                 | [ImageSource FusionObject]                              | `null`                   |                               |
-| `thumbnailPreset`   |   ✓   |    ✓    | Set width and/or height via named thumbnail preset from setting `Neos.Media.thumbnailPresets`                                   | `string`                                                | `null`                   |                               |
-| `variantPreset`     |   ✓   |    ✓    | Select image variant via named variant preset, given as `IDENTIFIER::VARIANTNAME` keys from setting `Neos.Media.variantPresets` | `string` or `array`                                     | `null`                   |                               |
-| `width`             |   ✓   |    ✓    | Set the intended width                                                                                                          | `integer`                                               | `null`                   |                               |
-| `height`            |   ✓   |    ✓    | Set the intended height                                                                                                         | `integer`                                               | `null`                   |                               |
-| `srcset`            |   ✓   |    ✓    | Media descriptors like `'1.5x'` or `'600w'` of the default image                                                                | `string` or `array`                                     | `null`                   |                               |
-| `sizes`             |   ✓   |    ✓    | Sizes attribute                                                                                                                 | `string` or `array`                                     | `null`                   |                               |
-| `additionalFormats` |       |    ✓    |                                                                                                                                 | `array` of `strings`                                    | `['webp']`               |                               |
-| `sources`           |       |    ✓    | Array of source definitions that supports the following keys: `imageSource`, `srcset`, `sizes`, `media`, `type`                 | `array`                                                 | `null`                   |                               |
-| `lazy`              |   ✓   |    ✓    | Enable lazyloading in usage with [lazysizes]. This is disabled in backend                                                       | `boolean`                                               | `false`                  | `Carbon.Image.lazy.enabled`   |
-| `lazyClass`         |   ✓   |    ✓    | The CSS class to attach to the img-tags                                                                                         | `string`                                                | `'lazyload'`             | `Carbon.Image.lazy.class`     |
-| `lazyWidth`         |   ✓   |    ✓    | The width of the thumbnail-src that is loaded first                                                                             | `integer`                                               | `null`                   | `Carbon.Image.lazy.lazyWidth` |
-| `loading`           |   ✓   |    ✓    | Set the `loading` attribute. Can be `'auto'`, `'lazy'` or `'eager'`                                                             | `string`                                                | `null`                   |                               |
-| `objectFit`         |   ✓   |    ✓    | Can be `'cover'` or `'contain'`                                                                                                 | `string`                                                | `null`                   |                               |
-| `alternativeText`   |   ✓   |    ✓    | Set the `alt` attribute                                                                                                         | `string`                                                | `null`                   |                               |
-| `title`             |   ✓   |    ✓    | Set the `title` attribute                                                                                                       | `string`                                                | `null`                   |                               |
-| `class`             |   ✓   |    ✓    | Set the `class` attribute                                                                                                       | `string` or `array`                                     | `null`                   |                               |
-| `id`                |   ✓   |    ✓    | Set the `id` attribute                                                                                                          | `string`                                                | `null`                   |                               |
-| `style`             |   ✓   |    ✓    | Set the `style` attribute                                                                                                       | `string`                                                | `null`                   |                               |
-| `figureTagName`     |   ✓   |    ✓    | Set tag name of the wrapping tag. If it set to `null`, the wrapping tag will not be written.                                    | `string`                                                | `'figure'`               |                               |
-| `figureAttributes`  |   ✓   |    ✓    | Set the attributes for the `figureTagName`                                                                                      | `Neos.Fusion:Attributes` or `Neos.Fusion:DataStructure` | `Neos.Fusion:Attributes` |                               |
-| `content`           |   ✓   |    ✓    | If set and `figureTagName` is `'figure'`, a `figcaption` is rendered                                                            | `string`                                                | `null`                   |                               |
-| `linkAttributes`    |   ✓   |    ✓    | If set, the `<img>` is wrapped with an link with this attributes                                                                | `Neos.Fusion:Attributes` or `Neos.Fusion:DataStructure` | `null`                   |                               |
+| Property            | Image | Picture | Description                                                                                                                     | Type                        | Default value               | Read setting                  |
+| ------------------- | :---: | :-----: | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------- | --------------------------- | ----------------------------- |
+| `imageSource`       |   ✓   |    ✓    |                                                                                                                                 | [ImageSource FusionObject]  | `null`                      |                               |
+| `thumbnailPreset`   |   ✓   |    ✓    | Set width and/or height via named thumbnail preset from setting `Neos.Media.thumbnailPresets`                                   | `string`                    | `null`                      |                               |
+| `variantPreset`     |   ✓   |    ✓    | Select image variant via named variant preset, given as `IDENTIFIER::VARIANTNAME` keys from setting `Neos.Media.variantPresets` | `string` or `array`         | `null`                      |                               |
+| `width`             |   ✓   |    ✓    | Set the intended width                                                                                                          | `integer`                   | `null`                      |                               |
+| `height`            |   ✓   |    ✓    | Set the intended height                                                                                                         | `integer`                   | `null`                      |                               |
+| `srcset`            |   ✓   |    ✓    | Media descriptors like `'1.5x'` or `'600w'` of the default image                                                                | `string` or `array`         | `null`                      |                               |
+| `sizes`             |   ✓   |    ✓    | Sizes attribute                                                                                                                 | `string` or `array`         | `null`                      |                               |
+| `additionalFormats` |       |    ✓    |                                                                                                                                 | `array` of `strings`        | `[]`                        |                               |
+| `sources`           |       |    ✓    | Array of source definitions that supports the following keys: `imageSource`, `srcset`, `sizes`, `media`, `type`                 | `array`                     | `null`                      |                               |
+| `lazy`              |   ✓   |    ✓    | Enable lazyloading in usage with [lazysizes]. This is disabled in backend                                                       | `boolean`                   | `false`                     | `Carbon.Image.lazy.enabled`   |
+| `lazyClass`         |   ✓   |    ✓    | The CSS class to attach to the img-tags                                                                                         | `string`                    | `'lazyload'`                | `Carbon.Image.lazy.class`     |
+| `lazyWidth`         |   ✓   |    ✓    | The width of the thumbnail-src that is loaded first                                                                             | `integer`                   | `null`                      | `Carbon.Image.lazy.lazyWidth` |
+| `loading`           |   ✓   |    ✓    | Set the `loading` attribute. Can be `'auto'`, `'lazy'` or `'eager'`                                                             | `string`                    | `null`                      |                               |
+| `objectFit`         |   ✓   |    ✓    | Can be `'cover'` or `'contain'`                                                                                                 | `string`                    | `null`                      |                               |
+| `alternativeText`   |   ✓   |    ✓    | Set the `alt` attribute                                                                                                         | `string`                    | `null`                      |                               |
+| `title`             |   ✓   |    ✓    | Set the `title` attribute                                                                                                       | `string`                    | `null`                      |                               |
+| `class`             |   ✓   |    ✓    | Set the `class` attribute                                                                                                       | `string` or `array`         | `null`                      |                               |
+| `id`                |   ✓   |    ✓    | Set the `id` attribute                                                                                                          | `string`                    | `null`                      |                               |
+| `style`             |   ✓   |    ✓    | Set the `style` attribute                                                                                                       | `string`                    | `null`                      |                               |
+| `figureTagName`     |   ✓   |    ✓    | Set tag name of the wrapping tag. If it set to `null`, the wrapping tag will not be written.                                    | `string`                    | `'figure'`                  |                               |
+| `figureAttributes`  |   ✓   |    ✓    | Set the attributes for the `figureTagName`                                                                                      | `Neos.Fusion:DataStructure` | `Neos.Fusion:DataStructure` |                               |
+| `content`           |   ✓   |    ✓    | If set and `figureTagName` is `'figure'`, a `figcaption` is rendered                                                            | `string`                    | `null`                      |                               |
+| `linkAttributes`    |   ✓   |    ✓    | If set, the `<img>` is wrapped with an link with this attributes                                                                | `Neos.Fusion:DataStructure` | `null`                      |                               |
 
 ### Integrational components
 
@@ -87,8 +86,7 @@ To keep it a bit shorter those are not listed.
 | `lightbox`                | If set, the link for the lightbox gets generated. It will have no effect if `link` or `linkAttributes` is set.          | `boolean`                                                | `Neos.Fusion:DataStructure`        |
 | `lightboxConfiguration`   | The configuration array for the lightbox                                                                                | `array`                                                  | [Lightbox settings]                |
 | `lightboxImage`           | Override the lightbox image                                                                                             | `string` or `'Neos\Media\Domain\Model\ImageInterface'`   | `this.image`                       |
-| `lightboxCaption`         | The caption for the lightbox                                                                                            | `string` or `'Neos\Media\Domain\Model\ImageInterface'`   | `this.image`                       |
-| `linkAttributes`          | If set, it will override `lightbox` and `link`                                                                          | `Neos.Fusion:Attributes` or `Neos.Fusion:DataStructure`  | `null`                             |
+| `linkAttributes`          | If set, it will override `lightbox` and `link`                                                                          | `Neos.Fusion:DataStructure`                              | `null`                             |
 
 ### Helper
 
@@ -195,14 +193,6 @@ If `image` is a string and starts with `resource` or `package`, you will get a `
 If `image` is a string and starts with `http`, you will get a `Sitegeist.Kaleidoscope:UriImageSource`.
 Otherwise, if `outputDummy` is set (defaults to `node.context.inBackend`), you will get `Sitegeist.Kaleidoscope:DummyImageSource`.
 
-#### [`Carbon.Image:Helper.LightboxImageSource`]
-
-> This prototype inherits from [`Carbon.Image:Helper.ImageSource`] and it is used by the
-> integrational components [`Carbon.Image:Component.Image`] and [`Carbon.Image:Component.Picture`].
-
-It reads the configuration from `Carbon.Image.lightbox` but can be overriden via Fusion, if needed.
-In the integrational components the image is passed to this prototype.
-
 #### [`Carbon.Image:Helper.MinMaxImageSize`]
 
 > This prototype is used by the presentational components [`Carbon.Image:Component.Presentation.Image`]
@@ -236,7 +226,6 @@ The markup is optimized to use this together with [Jonnitto.PhotoSwipe], but you
 [jonnitto.photoswipe]: https://github.com/jonnitto/Jonnitto.PhotoSwipe
 [`carbon.image:alternativetext`]: NodeTypes/AlternativeText.yaml
 [`carbon.image:backendlabel`]: NodeTypes/BackendLabel.yaml
-[`carbon.image:caption`]: NodeTypes/Caption.yaml
 [`carbon.image:group`]: NodeTypes/Group.yaml
 [`carbon.image:image`]: NodeTypes/Image.yaml
 [`carbon.image:lightbox`]: NodeTypes/Lightbox.yaml
@@ -250,9 +239,8 @@ The markup is optimized to use this together with [Jonnitto.PhotoSwipe], but you
 [`carbon.image:component.picture`]: Resources/Private/Fusion/Component/Integration/Picture.fusion
 [lazysizes]: https://github.com/aFarkas/lazysizes
 [sitegeist.kaleidoscope]: https://github.com/sitegeist/Sitegeist.Kaleidoscope
-[lightbox settings]: Configuration/Settings.Carbon.yaml#L18-L25
+[lightbox settings]: Configuration/Settings.Carbon.yaml#L31-L43
 [`carbon.image:helper.link.attributes`]: Resources/Private/Fusion/Helper/Link/Attributes.fusion
 [`carbon.image:helper.link.options`]: Resources/Private/Fusion/Helper/Link/Options.fusion
 [`carbon.image:helper.alternativetext`]: Resources/Private/Fusion/Helper/AlternativeText.fusion
-[`carbon.image:helper.lightboximagesource`]: Resources/Private/Fusion/Helper/LightboxImageSource.fusion
 [`carbon.image:helper.minmaximagesize`]: Resources/Private/Fusion/Helper/MinMaxImageSize.fusion

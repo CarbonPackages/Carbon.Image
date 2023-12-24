@@ -39,7 +39,7 @@ prototype(Carbon.Image:Helper.BasisPresentation) < prototype(Neos.Fusion:Compone
     loading = ${null}
 
     figureTagName = 'figure'
-    figureAttributes = Neos.Fusion:Attributes
+    figureAttributes = Neos.Fusion:DataStructure
     // If set and figureTagName is 'figure', a figcaption is rendered
     content = ${null}
 

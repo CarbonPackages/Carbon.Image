@@ -17,6 +17,9 @@
         "carbon/notification": "^2.1",
         "sitegeist/kaleidoscope": "^6.4"
     },
+    "suggest": {
+        "jonnitto/photoswipe": "PhotoSwipe for Neos CMS"
+    },
     "authors": [
         {
             "name": "Jon Uhlmann",

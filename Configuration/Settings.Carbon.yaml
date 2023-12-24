@@ -32,7 +32,12 @@ Carbon:
       rel: noopener
       class: 'lightbox'
       target: _blank
-      width: 2560
-      height: null
+      # If set to false, the srset will be disabled, otherwise it is the maximum width
+      maxSrcSetWidth: 3900
+
+      # Settings for the image source
       thumbnailPreset: null
       variantPreset: null
+      width: null
+      height: null
+      imageFormat: webp
