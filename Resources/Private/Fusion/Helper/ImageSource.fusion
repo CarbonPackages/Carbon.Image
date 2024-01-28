@@ -8,6 +8,7 @@ prototype(Carbon.Image:Helper.ImageSource) < prototype(Neos.Fusion:Component) {
         format = ${PropTypes.string}
         width = ${PropTypes.float}
         height = ${PropTypes.float}
+        quality = ${PropTypes.float}
         outputDummy = ${PropTypes.boolean}
         forceDummy = ${PropTypes.boolean}
         dummyForgroundColor = ${PropTypes.string}
@@ -52,6 +53,7 @@ prototype(Carbon.Image:Helper.ImageSource) < prototype(Neos.Fusion:Component) {
                 format = ${props.format}
                 width = ${props.width}
                 height = ${props.height}
+                quality = ${props.quality}
             }
         }
         isImageSource {
@@ -63,6 +65,7 @@ prototype(Carbon.Image:Helper.ImageSource) < prototype(Neos.Fusion:Component) {
                 format = ${props.format ? value.withFormat(props.format) : value}
                 width = ${props.width ? value.withWidth(props.width) : value}
                 height = ${props.height ? value.withHeight(props.height) : value}
+                quality = ${props.quality ? value.withQuality(props.quality) : value}
             }
         }
         isResource {

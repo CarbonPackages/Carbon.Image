@@ -9,6 +9,7 @@ prototype(Carbon.Image:Helper.BasisPresentation) < prototype(Neos.Fusion:Compone
         variantPreset = ${PropTypes.arrayOf(PropTypes.string)}
         width = ${PropTypes.float}
         height = ${PropTypes.float}
+        quality = ${PropTypes.float}
         additionalFormats = ${PropTypes.arrayOf(PropTypes.string)}
     }
 
@@ -16,6 +17,8 @@ prototype(Carbon.Image:Helper.BasisPresentation) < prototype(Neos.Fusion:Compone
     lazy.@process.disableInBackend = ${node.context.inBackend ? false : value}
     lazyClass = ${Configuration.Setting('Carbon.Image.lazy.class')}
     lazyWidth = ${Configuration.Setting('Carbon.Image.lazy.lazyWidth')}
+
+    quality = ${Configuration.Setting('Carbon.Image.quality')}
 
     imageSource = ${null}
     thumbnailPreset = ${null}
@@ -66,6 +69,7 @@ prototype(Carbon.Image:Helper.BasisPresentation) < prototype(Neos.Fusion:Compone
         sizedImageSource.@process {
             width = ${private.isScalableImageSource && props.width ? value.withWidth(props.width) : value}
             height = ${private.isScalableImageSource && props.height ? value.withHeight(props.height) : value}
+            quality = ${private.isScalableImageSource && props.quality ? value.withQuality(props.quality) : value}
             variantPreset = ${private.isScalableImageSource && props.variantPreset ? value.withVariantPreset(props.variantPreset[0], props.variantPreset[1]) : value}
         }
         imageClass = ${BEM.modifier('carbon-image', [props.objectFit, 'picture'])}

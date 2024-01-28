@@ -4,6 +4,8 @@ Carbon:
     imageFormat:
       default: webp
       additional: []
+    # Needs https://github.com/sitegeist/Sitegeist.Kaleidoscope/pull/75 merged and released
+    quality: null
     lazy:
       enabled: false
       lazyWidth: null
@@ -41,3 +43,5 @@ Carbon:
       width: null
       height: null
       imageFormat: webp
+      # Needs https://github.com/sitegeist/Sitegeist.Kaleidoscope/pull/75 merged and released
+      quality: null

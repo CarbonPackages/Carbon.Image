@@ -30,6 +30,7 @@ prototype(Carbon.Image:Helper.Link.Attributes) < prototype(Neos.Fusion:Component
                     width = ${props.lightboxConfiguration.width || null}
                     height = ${props.lightboxConfiguration.height || null}
                     imageFormat = ${props.lightboxConfiguration.imageFormat || null}
+                    quality = ${props.lightboxConfiguration.quality || null}
                 }
 
                 srcset = Carbon.Image:Helper.MinMaxImageSize {
