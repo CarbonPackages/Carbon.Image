@@ -60,8 +60,8 @@ prototype(Carbon.Image:Helper.BasisPresentation) < prototype(Neos.Fusion:Compone
         thumbnailPreset = ${this.thumbnailPreset ? Configuration.setting('Neos.Media.thumbnailPresets.' + this.thumbnailPreset + '.height') : (String.toInteger(value) || null)}
     }
     @private {
-        isAssetImageSource = ${Type.instance(props.imageSource, 'Sitegeist\Kaleidoscope\Domain\AssetImageSource')}
-        isScalableImageSource = ${private.isAssetImageSource || Type.instance(props.imageSource, 'Sitegeist\Kaleidoscope\Domain\DummyImageSource')}
+        isAssetImageSource = ${Type.instance(props.imageSource, 'Sitegeist\\Kaleidoscope\\Domain\\AssetImageSource')}
+        isScalableImageSource = ${private.isAssetImageSource || Type.instance(props.imageSource, 'Sitegeist\\Kaleidoscope\\Domain\\DummyImageSource')}
         sizedImageSource = ${props.imageSource}
         sizedImageSource.@process {
             width = ${private.isScalableImageSource && props.width ? value.withWidth(props.width) : value}

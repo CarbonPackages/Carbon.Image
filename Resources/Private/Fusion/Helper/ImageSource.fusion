@@ -1,6 +1,6 @@
 prototype(Carbon.Image:Helper.ImageSource) < prototype(Neos.Fusion:Component) {
     @propTypes {
-        image = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\Media\Domain\Model\ImageInterface'), PropTypes.string)}
+        image = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\\Media\\Domain\\Model\\ImageInterface'), PropTypes.string)}
         package = ${PropTypes.string}
         dummyText = ${PropTypes.string}
         thumbnailPreset = ${PropTypes.string}

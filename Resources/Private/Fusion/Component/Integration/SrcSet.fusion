@@ -1,7 +1,7 @@
 prototype(Carbon.Image:Component.SrcSet) < prototype(Neos.Fusion:Component) {
     @propTypes {
         outputDummy = ${PropTypes.boolean}
-        image = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\Media\Domain\Model\ImageInterface'), PropTypes.string)}
+        image = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\\Media\\Domain\\Model\\ImageInterface'), PropTypes.string)}
         imageSourceSettings = ${PropTypes.arrayOf(PropTypes.any)}
     }
 

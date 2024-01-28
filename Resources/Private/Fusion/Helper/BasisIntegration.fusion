@@ -1,13 +1,13 @@
 prototype(Carbon.Image:Helper.BasisIntegration) < prototype(Neos.Fusion:Component) {
     @propTypes {
         outputDummy = ${PropTypes.boolean}
-        image = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\Media\Domain\Model\ImageInterface'), PropTypes.string)}
+        image = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\\Media\\Domain\\Model\\ImageInterface'), PropTypes.string)}
         imageSourceSettings = ${PropTypes.arrayOf(PropTypes.any)}
-        link = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\ContentRepository\Domain\Model\Node'), PropTypes.string)}
+        link = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\\ContentRepository\\Domain\\Model\\Node'), PropTypes.string)}
         linkOptions = ${PropTypes.arrayOf(PropTypes.any)}
         linkAdditonalAttributes = ${PropTypes.arrayOf(PropTypes.any)}
         lightbox = ${PropTypes.boolean}
-        lightboxImage = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\Media\Domain\Model\ImageInterface'), PropTypes.string)}
+        lightboxImage = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\\Media\\Domain\\Model\\ImageInterface'), PropTypes.string)}
         lightboxConfiguration = ${PropTypes.arrayOf(PropTypes.any)}
         alternativeText = ${PropTypes.string}
         linkAttributes = ${PropTypes.any}

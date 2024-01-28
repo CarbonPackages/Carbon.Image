@@ -1,7 +1,7 @@
 prototype(Carbon.Image:Helper.AlternativeText) < prototype(Neos.Fusion:Component) {
     @propTypes {
         alternativeText = ${PropTypes.string}
-        asset = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\Media\Domain\Model\ImageInterface'), PropTypes.string)}
+        asset = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\\Media\\Domain\\Model\\ImageInterface'), PropTypes.string)}
         property = ${PropTypes.oneOf(['title', 'caption', 'copyrightNotice'])}
         language = ${PropTypes.string}
         languageMapping = ${PropTypes.arrayOf(PropTypes.integer)}
@@ -37,7 +37,7 @@ prototype(Carbon.Image:Helper.AlternativeText) < prototype(Neos.Fusion:Component
             renderer = ${String.trim(String.stripTags(props.alternativeText))}
         }
         readFromMediaFields {
-            condition = ${props.asset && Type.instance(props.asset, 'Neos\Media\Domain\Model\ImageInterface')}
+            condition = ${props.asset && Type.instance(props.asset, 'Neos\\Media\\Domain\\Model\\ImageInterface')}
             renderer = Neos.Fusion:Value {
                 languageDimensionExists = ${Configuration.setting('Neos.ContentRepository.contentDimensions.language') != null}
                 property = ${props.property || Configuration.Setting('Carbon.Image.alternativeText.property')}
