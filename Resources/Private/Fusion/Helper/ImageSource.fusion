@@ -1,6 +1,6 @@
 prototype(Carbon.Image:Helper.ImageSource) < prototype(Neos.Fusion:Component) {
     @propTypes {
-        image = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\\Media\\Domain\\Model\\ImageInterface'), PropTypes.string)}
+        image = ${PropTypes.anyOf(PropTypes.instanceOf('Neos\\Media\\Domain\\Model\\ImageInterface'), PropTypes.instanceof('\\Sitegeist\\Kaleidoscope\\Domain\\ImageSourceInterface'), PropTypes.string)}
         package = ${PropTypes.string}
         dummyText = ${PropTypes.string}
         thumbnailPreset = ${PropTypes.string}
@@ -44,7 +44,7 @@ prototype(Carbon.Image:Helper.ImageSource) < prototype(Neos.Fusion:Component) {
             }
         }
         isAsset {
-            condition = ${props.image && Type.instance(props.image, 'Neos\Media\Domain\Model\ImageInterface')}
+            condition = ${props.image && Type.instance(props.image, 'Neos\\Media\\Domain\\Model\\ImageInterface')}
             renderer = Sitegeist.Kaleidoscope:AssetImageSource {
                 asset = ${props.image}
                 thumbnailPreset = ${props.thumbnailPreset}
@@ -52,6 +52,17 @@ prototype(Carbon.Image:Helper.ImageSource) < prototype(Neos.Fusion:Component) {
                 format = ${props.format}
                 width = ${props.width}
                 height = ${props.height}
+            }
+        }
+        isImageSource {
+            condition = ${props.image && Type.instance(props.image, '\\Sitegeist\\Kaleidoscope\\Domain\\ImageSourceInterface')}
+            renderer = ${props.image}
+            renderer.@process {
+                thumbnailPreset = ${props.thumbnailPreset ? value.withThumbnailPreset(props.thumbnailPreset) : value}
+                variantPreset = ${props.variantPreset ? value.withVariantPreset(props.variantPreset) : value}
+                format = ${props.format ? value.withFormat(props.format) : value}
+                width = ${props.width ? value.withWidth(props.width) : value}
+                height = ${props.height ? value.withHeight(props.height) : value}
             }
         }
         isResource {
