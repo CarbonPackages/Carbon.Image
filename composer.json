@@ -15,7 +15,7 @@
         "neos/neos": "^8.3",
         "carbon/eel": "^2.0 || dev-master",
         "carbon/notification": "^2.1",
-        "sitegeist/kaleidoscope": "^6.4"
+        "sitegeist/kaleidoscope": "^6.7"
     },
     "suggest": {
         "jonnitto/photoswipe": "PhotoSwipe for Neos CMS"
