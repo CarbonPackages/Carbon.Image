@@ -12,3 +12,31 @@
           group: image
           hidden: 'ClientEval:node.properties.image && node.properties.lightbox && !node.properties.link ? false : true'
           position: 400
+          editor: 'Neos.Neos/Inspector/Editors/RichTextEditor'
+          editorOptions:
+            autoparagraph: false
+            hyphens: true
+            nbsp: true
+            formatting:
+              code: true
+              strong: true
+              em: false
+              underline: false
+              sub: true
+              sup: true
+              strikethrough: true
+              p: false
+              h1: false
+              h2: false
+              h3: false
+              h4: false
+              h5: false
+              table: false
+              a: false
+              ul: false
+              ol: false
+              left: false
+              right: false
+              center: false
+              justify: false
+              removeFormat: true

@@ -2,8 +2,16 @@ prototype(Carbon.Image:Component.Fragment.Figcaption) < prototype(Neos.Fusion:Co
     figureTagName = 'figure'
     content = ${null}
     figcaptionClass = ${null}
+    lightboxCaption = ${null}
 
-    @if.hasContentAndFigureAsParent = ${this.content && this.figureTagName == 'figure'}
+    lightboxCaptionClass = 'pswp-caption-content'
 
-    renderer = afx`<figcaption class={props.figcaptionClass}>{props.content}</figcaption>`
+    @if.hasContentAndFigureAsParent = ${(this.content || this.lightboxCaption) && this.figureTagName == 'figure'}
+
+    renderer = afx`
+        <figcaption class={props.content ? props.figcaptionClass : props.lightboxCaptionClass}>
+            {props.content ? props.content : props.lightboxCaption}
+            <span class={props.lightboxCaptionClass} @if={props.content && props.lightboxCaption}>{props.lightboxCaption}</span>
+        </figcaption>
+    `
 }
