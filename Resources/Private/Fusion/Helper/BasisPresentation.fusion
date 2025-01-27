@@ -74,6 +74,10 @@ prototype(Carbon.Image:Helper.BasisPresentation) < prototype(Neos.Fusion:Compone
         }
         imageClass = ${BEM.modifier('carbon-image', [props.objectFit, 'picture'])}
         finalSrcSet = Neos.Fusion:Case {
+            noSourceSet {
+                condition = ${props.srcset == 'none' || props.srcset == '1x'}
+                renderer = false
+            }
             hasCustomScrset {
                 condition = ${props.srcset}
                 renderer = ${props.srcset}
