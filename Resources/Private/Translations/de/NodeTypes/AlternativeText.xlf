@@ -7,6 +7,10 @@
                 <source>Alternative text</source>
                 <target>Alternativer Text</target>
             </trans-unit>
+            <trans-unit id="properties.alternativeText.ui.help.message" xml:space="preserve">
+                <source>This attribute provides alternative information for an image if a user for some reason cannot view it (because of slow connection or if the user uses a screen reader).</source>
+                <target>Dieses Attribut liefert alternative Informationen für ein Bild, wenn ein Benutzer es aus irgendeinem Grund nicht sehen kann (wegen einer langsamen Verbindung oder wenn der Benutzer einen Bildschirmleser verwendet).</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
