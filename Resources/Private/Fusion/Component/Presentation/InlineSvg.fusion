@@ -47,7 +47,11 @@ prototype(Carbon.Image:Component.Presentation.InlineSvg) < prototype(Neos.Fusion
 
     renderer = afx`
         <Carbon.Eel:Tag tagName={props.figureTagName} attributes={props.figureAttributes}>
-            <Carbon.Eel:Tag @key='wrapper' tagName={props.linkAttributes ? 'a' : null} attributes={props.linkAttributes}>
+            <Carbon.Eel:Tag
+                @key='wrapper'
+                tagName={props.linkAttributes ? 'a' : props.wrapperAttributes ? 'span' : null}
+                attributes={props.linkAttributes || props.wrapperAttributes}
+            >
                 <Neos.Fusion:Augmenter
                     id={props.id}
                     class={Carbon.String.merge(props.class)}
