@@ -157,8 +157,7 @@ prototype(Carbon.Image:Helper.AlternativeText) {
 With this kind of setting, you can write the alternative text in the media field like this:
 `A cat || Eine Katze || Un chat`
 
-To override the label in the media field you can a file called `MediaBrowser.xlf`
-in you translation folder:
+To override the label in the media field you can a file called `MediaBrowser.xlf` in your translation folder:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
