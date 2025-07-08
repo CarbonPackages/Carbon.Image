@@ -23,6 +23,7 @@ prototype(Carbon.Image:Helper.Link.Attributes) < prototype(Neos.Fusion:Component
             condition = ${props.lightbox && props.lightboxImage}
             renderer = Neos.Fusion:Component {
                 config = ${props.lightboxConfiguration}
+                linkAdditonalAttributes = ${props.linkAdditonalAttributes}
                 imageSource = Carbon.Image:Helper.ImageSource {
                     image = ${props.lightboxImage}
                     thumbnailPreset = ${props.lightboxConfiguration.thumbnailPreset || null}
@@ -43,7 +44,7 @@ prototype(Carbon.Image:Helper.Link.Attributes) < prototype(Neos.Fusion:Component
 
                 renderer = Neos.Fusion:DataStructure {
                     href = ${node.context.inBackend ? null :  props.imageSource.src()}
-                    class = ${props.config.class}
+                    class = ${Carbon.String.classNames(props.config.class, props.linkAdditonalAttributes.class)}
                     rel = ${props.config.rel}
                     target = ${props.config.target}
                     data-pswp-srcset = ${props.srcset ? props.imageSource.srcset(props.srcset) : null}
