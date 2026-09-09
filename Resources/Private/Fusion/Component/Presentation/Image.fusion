@@ -19,6 +19,7 @@ prototype(Carbon.Image:Component.Presentation.Image) < prototype(Carbon.Image:He
                     sizes={props.sizes}
                     srcset={private.isScalableImageSource ? private.finalSrcSet : null}
                     objectFit={props.objectFit}
+                    crossorigin={props.crossorigin}
                 />
             </Carbon.Eel:Tag>
             <Carbon.Image:Component.Fragment.Figcaption @key='figcaption' {...props} />

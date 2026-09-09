@@ -63,6 +63,7 @@ prototype(Carbon.Image:Component.Presentation.Picture) < prototype(Carbon.Image:
                         sizes={props.sizes}
                         srcset={private.isScalableImageSource ? private.finalSrcSet : null}
                         objectFit={props.objectFit}
+                        crossorigin={props.crossorigin}
                     />
                 </picture>
             </Carbon.Eel:Tag>
