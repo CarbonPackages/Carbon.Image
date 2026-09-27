@@ -1,0 +1,19 @@
+{
+    "name": "carbonimage",
+    "description": "Dependencies for Carbon.Image",
+    "license": "GPL-3.0-or-later",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/CarbonPackages/Carbon.Image"
+    },
+    "devDependencies": {
+        "esbuild": "^0.28.2",
+        "lazysizes": "^5.3.2",
+        "lightningcss-cli": "^1.33.0"
+    },
+    "scripts": {
+        "js": "esbuild Resources/Private/Assets/Main.js --bundle --minify --outdir=Resources/Public/Scripts",
+        "css": "lightningcss Resources/Private/Assets/Main.pcss --minify --bundle --targets \">= 0.25%\" -o Resources/Public/Styles/Main.css",
+        "build": "pnpm js && pnpm css"
+    }
+}
