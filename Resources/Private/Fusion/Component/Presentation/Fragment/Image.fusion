@@ -16,7 +16,7 @@ prototype(Carbon.Image:Component.Fragment.Image) < prototype(Neos.Fusion:Compone
     crossorigin = ${null}
 
     aspectratio = ${this.lazy && this._width && this._height ? this._width / this._height : null}
-    placeholder = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
+    placeholder = ${Configuration.Setting('Carbon.Image.lazy.placeholder')}
 
     // Internal
     _width = ${this.imageSource.width()}

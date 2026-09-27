@@ -8,6 +8,8 @@ Carbon:
     lazy:
       enabled: false
       lazyWidth: null
+      # If lazyWith is not set this empty image will be used as a placeholder.
+      placeholder: 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
       class: lazyload
     minMaxImageSize:
       min: 300
