@@ -1,3 +1,1 @@
-/* Main.pcss from Carbon.Image */
-.carbon-image{width:100%;height:auto;max-width:none}.carbon-image:not([src]){visibility:hidden}.carbon-image--cover{-o-object-fit:cover;object-fit:cover}.carbon-image--contain{-o-object-fit:contain;object-fit:contain}.carbon-image--contain,.carbon-image--cover{height:100%}.carbon-image--contain.lazyloaded,.carbon-image--cover.lazyloaded{height:100%!important}
-/*# sourceMappingURL=Main.css.map */
+.carbon-image{width:100%;max-width:none;height:auto}.carbon-image:not([src]){visibility:hidden}.carbon-image--cover{object-fit:cover}.carbon-image--contain{object-fit:contain}.carbon-image--cover,.carbon-image--contain{height:100%}:is(.carbon-image--cover,.carbon-image--contain).lazyloaded{height:100%!important}
